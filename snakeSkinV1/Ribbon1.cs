@@ -350,7 +350,7 @@ namespace snakeSkinV1
                 }
             }
 
-            string sa = string.Join(",", a.Select(x => x.ToString()));
+            string sa = string.Join(",", a.Select(x => Convert.ToBase64String(Encoding.UTF8.GetBytes(x))));
             string sb = string.Join(",", b.Select(x => x.ToString()));
             string sc = string.Join(",", c.Select(x => x.ToString()));
             string sd = string.Join(",", d.Select(x => x.ToString()));
