@@ -320,10 +320,26 @@ namespace snakeSkinV1
             string sc = string.Join(",", c.Select(x => x.ToString()));
             string sd = string.Join(",", d.Select(x => x.ToString()));
 
+            // Get the path of the temporary directory
+            string tempPath = Path.GetTempPath();
+
+            // Generate the file name based on the current date and time
+            string fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") ;
+            string file_extension= ".txt";
+            string file_name_with_extention = fileName + file_extension;
+            // Combine the path and the file name
+            string filePath = Path.Combine(tempPath, file_name_with_extention);
+
+            // Define the content to write to the file
+            string content = $"{sa}\n{sb}\n{sc}\n{sd}\n";
+
+            // Write the content to the file
+            File.WriteAllText(filePath, content);
+
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 FileName = "Rscript",
-                Arguments = $"generate_sankey.R {sa} {sb} {sc} {sd}",
+                Arguments = $"generate_sankey_via_file.R {filePath}",
                 WorkingDirectory = @"C:\Users\ai\Documents\andy\code\snakeskin\masterR",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -342,13 +358,13 @@ namespace snakeSkinV1
                 // Display the output
                 if (!string.IsNullOrEmpty(output))
                 {
-                    Console.WriteLine("Output: " + output);
+                    File.WriteAllText(Path.Combine(tempPath, fileName+ "output" + file_extension),output);
                 }
 
                 // Display the error
                 if (!string.IsNullOrEmpty(error))
                 {
-                    Console.WriteLine("Error: " + error);
+                    File.WriteAllText(Path.Combine(tempPath, fileName + "error" + file_extension), error);
                 }
             }
 
@@ -356,12 +372,25 @@ namespace snakeSkinV1
 
         private void listTest_Click(object sender, RibbonControlEventArgs e)
         {
+            // Get the path of the temporary directory
+            string tempPath = Path.GetTempPath();
 
-            List<int> a = new List<int>();
-            a.Add(1);
-            a.Add(2);
-            a.Add(3);
-            string s = string.Join(",", a.Select(x => x.ToString()));
+            // Generate the file name based on the current date and time
+            string fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".txt";
+
+            // Combine the path and the file name
+            string filePath = Path.Combine(tempPath, fileName);
+
+            // Define the content to write to the file
+            string content = "Hello, this is a test file.";
+
+            // Write the content to the file
+            File.WriteAllText(filePath, content);
+            //List<int> a = new List<int>();
+            //a.Add(1);
+            //a.Add(2);
+            //a.Add(3);
+            //string s = string.Join(",", a.Select(x => x.ToString()));
             //List<int> b = new List<int>();
             //List<int> c = new List<int>();
             //a.Add(1);
@@ -375,7 +404,7 @@ namespace snakeSkinV1
             //    sb.Append(item.ToString());
             //    sb.Append("; ");
             //}
-            MessageBox.Show(s);
+            //MessageBox.Show(s);
             /**
              * todo:
              * 完成demo掛真實數據
@@ -389,6 +418,11 @@ namespace snakeSkinV1
                 "dc區增加'清除'按鈕\n" +
                 "修改程式非阻擋式'圖表呈現'"
                 );
+        }
+
+        private void writeMainDataDumb_Click(object sender, RibbonControlEventArgs e)
+        {
+
         }
     }
 }

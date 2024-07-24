@@ -66,6 +66,7 @@
             this.addRibbonDropdownItemB = this.Factory.CreateRibbonButton();
             this.listTest = this.Factory.CreateRibbonButton();
             this.todolist = this.Factory.CreateRibbonButton();
+            this.writeMainDataDumb = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.dpOperate.SuspendLayout();
@@ -236,6 +237,7 @@
             this.debugHide.Items.Add(this.readUserSelectB);
             this.debugHide.Items.Add(this.addRibbonDropdownItemB);
             this.debugHide.Items.Add(this.listTest);
+            this.debugHide.Items.Add(this.writeMainDataDumb);
             this.debugHide.Label = "debugHide";
             this.debugHide.Name = "debugHide";
             // 
@@ -274,6 +276,13 @@
             this.todolist.Label = "todolist";
             this.todolist.Name = "todolist";
             this.todolist.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.todolist_Click);
+            // 
+            // writeMainDataDumb
+            // 
+            this.writeMainDataDumb.Label = "writeMainDataDumb";
+            this.writeMainDataDumb.Name = "writeMainDataDumb";
+            this.writeMainDataDumb.ShowImage = true;
+            this.writeMainDataDumb.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.writeMainDataDumb_Click);
             // 
             // Ribbon1
             // 
@@ -324,6 +333,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonMenu debugHide;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton listTest;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton todolist;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton writeMainDataDumb;
     }
 
     partial class ThisRibbonCollection
