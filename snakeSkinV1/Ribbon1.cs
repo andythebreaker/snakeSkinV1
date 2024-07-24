@@ -432,18 +432,15 @@ namespace snakeSkinV1
             //    sb.Append("; ");
             //}
             //MessageBox.Show(s);
-            /**
-             * todo:
-             * 完成demo掛真實數據
-             * 上b64
-             */
         }
 
         private void todolist_Click(object sender, RibbonControlEventArgs e)
         {
             MessageBox.Show(
                 "dc區增加'清除'按鈕\n" +
-                "修改程式非阻擋式'圖表呈現'"
+                "修改程式非阻擋式'圖表呈現'的說明(只要先開瀏覽器)\n" +
+                "下一個作的:" +
+                "矩陣式輸入"
                 );
         }
 
