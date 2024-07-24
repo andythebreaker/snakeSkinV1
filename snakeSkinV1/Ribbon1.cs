@@ -171,8 +171,9 @@ namespace snakeSkinV1
                     2
                     ;
                     }
-                    else { 
-                    
+                    else
+                    {
+
                     }
                 }
             }
@@ -243,8 +244,8 @@ namespace snakeSkinV1
         private void addOne_Click(object sender, RibbonControlEventArgs e)
         {
             //!important! TODO 使用了強制轉型
-           Tuple<Excel.Range, Excel.Range > tmp = new Tuple<Excel.Range, Excel.Range>((Excel.Range)removeSelection.Items[0].Tag, (Excel.Range)removeSelection.Items[1].Tag);
-           mainData[tmp] = (Excel.Range)removeSelection.Items[2].Tag;
+            Tuple<Excel.Range, Excel.Range> tmp = new Tuple<Excel.Range, Excel.Range>((Excel.Range)removeSelection.Items[0].Tag, (Excel.Range)removeSelection.Items[1].Tag);
+            mainData[tmp] = (Excel.Range)removeSelection.Items[2].Tag;
         }
 
         private void addRibbonDropdownItemB_Click(object sender, RibbonControlEventArgs e)
@@ -286,8 +287,6 @@ namespace snakeSkinV1
 
         private void processData_Click(object sender, RibbonControlEventArgs e)
         {
-            // string list a
-            // int list b, c, d 
             List<String> a = new List<String>();
             List<String> tmp = new List<String>();
             List<int> b = new List<int>();
@@ -298,21 +297,57 @@ namespace snakeSkinV1
             {
                 var key = kvp.Key;
                 var value = kvp.Value;
-                //var keyItem1 = key.Item1.Address;
-                //var keyItem2 = key.Item2.Address;
-                //var worksheetof1 = key.Item1.Worksheet.Name;
-                //var worksheetof2 = key.Item2.Worksheet.Name;
-                //var worksheetof3 = value.Worksheet.Name;
-                //sb.AppendLine($"Key: ([{worksheetof1}] {keyItem1}, [{worksheetof2}] {keyItem2}) => Value: [{worksheetof3}] {value.Address}");
 
                 tmp.Add(key.Item1.Value2);
                 a = a.Union(tmp).ToList();
                 tmp.Add(key.Item2.Value2);
                 a = a.Union(tmp).ToList();
 
-                b.Add(a.FindIndex(var_important_coding_knowhow=> var_important_coding_knowhow==key.Item1.Value2));
+                b.Add(a.FindIndex(var_important_coding_knowhow => var_important_coding_knowhow == key.Item1.Value2));
                 c.Add(a.FindIndex(var_important_coding_knowhow => var_important_coding_knowhow == key.Item2.Value2));
-                d.Add(value.Value2);
+                try
+                {
+                    d.Add(Convert.ToDouble(value.Value2));
+                }
+                catch (InvalidCastException var_error)
+                {
+                    MessageBox.Show("[錯誤!] 這是一個錯誤，旨在表明「儲存格(" + value.Worksheet.Name + ")" + value.Address +
+                        "」並不是實數。 \n提醒:這個儲存格必須要是實數(整數或小數)!\n相關資訊:這個出錯的儲存格表述了「"
+                        + key.Item1.Value2 +
+                         "到" +
+                        key.Item2.Value2
+                         + "」的轉換關係；並且他的值是"
+                        + "「" + value.Value2 +
+                        "」。\n狀態:「出圖」動作並未完成請修改excel工作表中的值後再重新「出圖」。\n其他錯誤資訊:" +
+                        var_error.ToString());
+                    return;
+                }
+                catch (FormatException var_error)
+                {
+                    MessageBox.Show("[錯誤!] 這是一個錯誤，旨在表明「儲存格(" + value.Worksheet.Name + ")" + value.Address +
+                        "」並不是實數。 \n提醒:這個儲存格必須要是實數(整數或小數)!\n相關資訊:這個出錯的儲存格表述了「"
+                        + key.Item1.Value2 +
+                         "到" +
+                        key.Item2.Value2
+                         + "」的轉換關係；並且他的值是"
+                        + "「" + value.Value2 +
+                        "」。\n狀態:「出圖」動作並未完成請修改excel工作表中的值後再重新「出圖」。\n其他錯誤資訊:" +
+                        var_error.ToString());
+                    return;
+                }
+                catch (OverflowException var_error)
+                {
+                    MessageBox.Show("[錯誤!] 這是一個錯誤，旨在表明「儲存格(" + value.Worksheet.Name + ")" + value.Address +
+                        "」並不是實數。 \n提醒:這個儲存格必須要是實數(整數或小數)!\n相關資訊:這個出錯的儲存格表述了「"
+                        + key.Item1.Value2 +
+                         "到" +
+                        key.Item2.Value2
+                         + "」的轉換關係；並且他的值是"
+                        + "「" + value.Value2 +
+                        "」。\n狀態:「出圖」動作並未完成請修改excel工作表中的值後再重新「出圖」。\n其他錯誤資訊:" +
+                        var_error.ToString());
+                    return;
+                }
             }
 
             string sa = string.Join(",", a.Select(x => x.ToString()));
@@ -320,20 +355,12 @@ namespace snakeSkinV1
             string sc = string.Join(",", c.Select(x => x.ToString()));
             string sd = string.Join(",", d.Select(x => x.ToString()));
 
-            // Get the path of the temporary directory
             string tempPath = Path.GetTempPath();
-
-            // Generate the file name based on the current date and time
-            string fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") ;
-            string file_extension= ".txt";
+            string fileName = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+            string file_extension = ".txt";
             string file_name_with_extention = fileName + file_extension;
-            // Combine the path and the file name
             string filePath = Path.Combine(tempPath, file_name_with_extention);
-
-            // Define the content to write to the file
             string content = $"{sa}\n{sb}\n{sc}\n{sd}\n";
-
-            // Write the content to the file
             File.WriteAllText(filePath, content);
 
             ProcessStartInfo startInfo = new ProcessStartInfo
@@ -358,7 +385,7 @@ namespace snakeSkinV1
                 // Display the output
                 if (!string.IsNullOrEmpty(output))
                 {
-                    File.WriteAllText(Path.Combine(tempPath, fileName+ "output" + file_extension),output);
+                    File.WriteAllText(Path.Combine(tempPath, fileName + "output" + file_extension), output);
                 }
 
                 // Display the error

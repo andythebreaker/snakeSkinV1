@@ -227,7 +227,6 @@
             // pdOperate
             // 
             this.pdOperate.Items.Add(this.debugHide);
-            this.pdOperate.Items.Add(this.todolist);
             this.pdOperate.Label = "pdOperate";
             this.pdOperate.Name = "pdOperate";
             // 
@@ -238,6 +237,7 @@
             this.debugHide.Items.Add(this.addRibbonDropdownItemB);
             this.debugHide.Items.Add(this.listTest);
             this.debugHide.Items.Add(this.writeMainDataDumb);
+            this.debugHide.Items.Add(this.todolist);
             this.debugHide.Label = "debugHide";
             this.debugHide.Name = "debugHide";
             // 
@@ -275,6 +275,7 @@
             // 
             this.todolist.Label = "todolist";
             this.todolist.Name = "todolist";
+            this.todolist.ShowImage = true;
             this.todolist.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.todolist_Click);
             // 
             // writeMainDataDumb
