@@ -1,0 +1,336 @@
+﻿namespace snakeSkinV1
+{
+    partial class Ribbon1 : Microsoft.Office.Tools.Ribbon.RibbonBase
+    {
+        /// <summary>
+        /// 設計工具所需的變數。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        public Ribbon1()
+            : base(Globals.Factory.GetRibbonFactory())
+        {
+            InitializeComponent();
+        }
+
+        /// <summary> 
+        /// 清除任何使用中的資源。
+        /// </summary>
+        /// <param name="disposing">如果應該處置 Managed 資源則為 true，否則為 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region 元件設計工具產生的程式碼
+
+        /// <summary>
+        /// 此為設計工具支援所需的方法 - 請勿使用程式碼編輯器修改
+        /// 這個方法的內容。
+        /// </summary>
+        private void InitializeComponent()
+        {
+            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl1 = this.Factory.CreateRibbonDropDownItem();
+            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl2 = this.Factory.CreateRibbonDropDownItem();
+            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl3 = this.Factory.CreateRibbonDropDownItem();
+            this.tab1 = this.Factory.CreateRibbonTab();
+            this.dcOperate = this.Factory.CreateRibbonGroup();
+            this.capture = this.Factory.CreateRibbonButton();
+            this.addOne = this.Factory.CreateRibbonButton();
+            this.addSTVmode = this.Factory.CreateRibbonMenu();
+            this.sourceSelectMode = this.Factory.CreateRibbonCheckBox();
+            this.targetSelectMode = this.Factory.CreateRibbonCheckBox();
+            this.valueSelectMode = this.Factory.CreateRibbonCheckBox();
+            this.removeSelection = this.Factory.CreateRibbonDropDown();
+            this.doRemoveSelection = this.Factory.CreateRibbonButton();
+            this.settingDC = this.Factory.CreateRibbonMenu();
+            this.autoNextPT = this.Factory.CreateRibbonCheckBox();
+            this.autoPreView = this.Factory.CreateRibbonCheckBox();
+            this.kpOperate = this.Factory.CreateRibbonGroup();
+            this.primaryOP = this.Factory.CreateRibbonGroup();
+            this.juniorOP = this.Factory.CreateRibbonGroup();
+            this.seniorOP = this.Factory.CreateRibbonGroup();
+            this.ucOperate = this.Factory.CreateRibbonGroup();
+            this.mgOperate = this.Factory.CreateRibbonGroup();
+            this.dpOperate = this.Factory.CreateRibbonGroup();
+            this.displayData = this.Factory.CreateRibbonButton();
+            this.processData = this.Factory.CreateRibbonButton();
+            this.pdOperate = this.Factory.CreateRibbonGroup();
+            this.debugHide = this.Factory.CreateRibbonMenu();
+            this.addMainData = this.Factory.CreateRibbonButton();
+            this.readUserSelectB = this.Factory.CreateRibbonButton();
+            this.addRibbonDropdownItemB = this.Factory.CreateRibbonButton();
+            this.listTest = this.Factory.CreateRibbonButton();
+            this.todolist = this.Factory.CreateRibbonButton();
+            this.tab1.SuspendLayout();
+            this.dcOperate.SuspendLayout();
+            this.dpOperate.SuspendLayout();
+            this.pdOperate.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // tab1
+            // 
+            this.tab1.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
+            this.tab1.Groups.Add(this.dcOperate);
+            this.tab1.Groups.Add(this.kpOperate);
+            this.tab1.Groups.Add(this.primaryOP);
+            this.tab1.Groups.Add(this.juniorOP);
+            this.tab1.Groups.Add(this.seniorOP);
+            this.tab1.Groups.Add(this.ucOperate);
+            this.tab1.Groups.Add(this.mgOperate);
+            this.tab1.Groups.Add(this.dpOperate);
+            this.tab1.Groups.Add(this.pdOperate);
+            this.tab1.Label = "蛇皮圖V1";
+            this.tab1.Name = "tab1";
+            // 
+            // dcOperate
+            // 
+            this.dcOperate.Items.Add(this.capture);
+            this.dcOperate.Items.Add(this.addOne);
+            this.dcOperate.Items.Add(this.addSTVmode);
+            this.dcOperate.Items.Add(this.removeSelection);
+            this.dcOperate.Items.Add(this.doRemoveSelection);
+            this.dcOperate.Items.Add(this.settingDC);
+            this.dcOperate.Label = "dcOperate";
+            this.dcOperate.Name = "dcOperate";
+            // 
+            // capture
+            // 
+            this.capture.Label = "擷取";
+            this.capture.Name = "capture";
+            this.capture.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.capture_Click);
+            // 
+            // addOne
+            // 
+            this.addOne.Label = "確認";
+            this.addOne.Name = "addOne";
+            this.addOne.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.addOne_Click);
+            // 
+            // addSTVmode
+            // 
+            this.addSTVmode.Items.Add(this.sourceSelectMode);
+            this.addSTVmode.Items.Add(this.targetSelectMode);
+            this.addSTVmode.Items.Add(this.valueSelectMode);
+            this.addSTVmode.Label = "指標";
+            this.addSTVmode.Name = "addSTVmode";
+            // 
+            // sourceSelectMode
+            // 
+            this.sourceSelectMode.Checked = true;
+            this.sourceSelectMode.Label = "選擇「來源」";
+            this.sourceSelectMode.Name = "sourceSelectMode";
+            this.sourceSelectMode.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.sourceSelectMode_Click);
+            // 
+            // targetSelectMode
+            // 
+            this.targetSelectMode.Label = "選擇「目標」";
+            this.targetSelectMode.Name = "targetSelectMode";
+            this.targetSelectMode.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.targetSelectMode_Click);
+            // 
+            // valueSelectMode
+            // 
+            this.valueSelectMode.Label = "選擇「值」";
+            this.valueSelectMode.Name = "valueSelectMode";
+            this.valueSelectMode.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.valueSelectMode_Click);
+            // 
+            // removeSelection
+            // 
+            ribbonDropDownItemImpl1.Label = "來源(尚未選取)";
+            ribbonDropDownItemImpl2.Label = "目標(尚未選取)";
+            ribbonDropDownItemImpl3.Label = "值(尚未選取)";
+            this.removeSelection.Items.Add(ribbonDropDownItemImpl1);
+            this.removeSelection.Items.Add(ribbonDropDownItemImpl2);
+            this.removeSelection.Items.Add(ribbonDropDownItemImpl3);
+            this.removeSelection.Label = "檢視";
+            this.removeSelection.Name = "removeSelection";
+            this.removeSelection.SelectionChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.removeSelection_SelectionChanged);
+            // 
+            // doRemoveSelection
+            // 
+            this.doRemoveSelection.Label = "移除";
+            this.doRemoveSelection.Name = "doRemoveSelection";
+            this.doRemoveSelection.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.doRemoveSelection_Click);
+            // 
+            // settingDC
+            // 
+            this.settingDC.Items.Add(this.autoNextPT);
+            this.settingDC.Items.Add(this.autoPreView);
+            this.settingDC.Label = "指標自動化設定";
+            this.settingDC.Name = "settingDC";
+            // 
+            // autoNextPT
+            // 
+            this.autoNextPT.Checked = true;
+            this.autoNextPT.Label = "指標自遞增";
+            this.autoNextPT.Name = "autoNextPT";
+            // 
+            // autoPreView
+            // 
+            this.autoPreView.Checked = true;
+            this.autoPreView.Label = "自動預檢";
+            this.autoPreView.Name = "autoPreView";
+            // 
+            // kpOperate
+            // 
+            this.kpOperate.Label = "kpOperate";
+            this.kpOperate.Name = "kpOperate";
+            // 
+            // primaryOP
+            // 
+            this.primaryOP.Label = "primaryOP";
+            this.primaryOP.Name = "primaryOP";
+            // 
+            // juniorOP
+            // 
+            this.juniorOP.Label = "juniorOP";
+            this.juniorOP.Name = "juniorOP";
+            // 
+            // seniorOP
+            // 
+            this.seniorOP.Label = "seniorOP";
+            this.seniorOP.Name = "seniorOP";
+            // 
+            // ucOperate
+            // 
+            this.ucOperate.Label = "ucOperate";
+            this.ucOperate.Name = "ucOperate";
+            // 
+            // mgOperate
+            // 
+            this.mgOperate.Label = "mgOperate";
+            this.mgOperate.Name = "mgOperate";
+            // 
+            // dpOperate
+            // 
+            this.dpOperate.Items.Add(this.displayData);
+            this.dpOperate.Items.Add(this.processData);
+            this.dpOperate.Label = "dpOperate";
+            this.dpOperate.Name = "dpOperate";
+            // 
+            // displayData
+            // 
+            this.displayData.Label = "displayData";
+            this.displayData.Name = "displayData";
+            this.displayData.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.displayData_Click);
+            // 
+            // processData
+            // 
+            this.processData.Label = "processData";
+            this.processData.Name = "processData";
+            this.processData.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.processData_Click);
+            // 
+            // pdOperate
+            // 
+            this.pdOperate.Items.Add(this.debugHide);
+            this.pdOperate.Items.Add(this.todolist);
+            this.pdOperate.Label = "pdOperate";
+            this.pdOperate.Name = "pdOperate";
+            // 
+            // debugHide
+            // 
+            this.debugHide.Items.Add(this.addMainData);
+            this.debugHide.Items.Add(this.readUserSelectB);
+            this.debugHide.Items.Add(this.addRibbonDropdownItemB);
+            this.debugHide.Items.Add(this.listTest);
+            this.debugHide.Label = "debugHide";
+            this.debugHide.Name = "debugHide";
+            // 
+            // addMainData
+            // 
+            this.addMainData.Label = "addMainData";
+            this.addMainData.Name = "addMainData";
+            this.addMainData.ShowImage = true;
+            this.addMainData.SuperTip = "選3個cell，按序:輸入，輸出，值";
+            this.addMainData.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.addMainData_Click);
+            // 
+            // readUserSelectB
+            // 
+            this.readUserSelectB.Label = "readUserSelect";
+            this.readUserSelectB.Name = "readUserSelectB";
+            this.readUserSelectB.ShowImage = true;
+            this.readUserSelectB.SuperTip = "選取讀取測試";
+            this.readUserSelectB.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.readUserSelectB_Click);
+            // 
+            // addRibbonDropdownItemB
+            // 
+            this.addRibbonDropdownItemB.Label = "外部執行測試";
+            this.addRibbonDropdownItemB.Name = "addRibbonDropdownItemB";
+            this.addRibbonDropdownItemB.ShowImage = true;
+            this.addRibbonDropdownItemB.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.addRibbonDropdownItemB_Click);
+            // 
+            // listTest
+            // 
+            this.listTest.Label = "listTest";
+            this.listTest.Name = "listTest";
+            this.listTest.ShowImage = true;
+            this.listTest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.listTest_Click);
+            // 
+            // todolist
+            // 
+            this.todolist.Label = "todolist";
+            this.todolist.Name = "todolist";
+            this.todolist.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.todolist_Click);
+            // 
+            // Ribbon1
+            // 
+            this.Name = "Ribbon1";
+            this.RibbonType = "Microsoft.Excel.Workbook";
+            this.Tabs.Add(this.tab1);
+            this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.Ribbon1_Load);
+            this.tab1.ResumeLayout(false);
+            this.tab1.PerformLayout();
+            this.dcOperate.ResumeLayout(false);
+            this.dcOperate.PerformLayout();
+            this.dpOperate.ResumeLayout(false);
+            this.dpOperate.PerformLayout();
+            this.pdOperate.ResumeLayout(false);
+            this.pdOperate.PerformLayout();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        internal Microsoft.Office.Tools.Ribbon.RibbonTab tab1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup dcOperate;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup kpOperate;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup primaryOP;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup juniorOP;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup seniorOP;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup ucOperate;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup mgOperate;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup dpOperate;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup pdOperate;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton displayData;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton addMainData;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton capture;
+        internal Microsoft.Office.Tools.Ribbon.RibbonDropDown removeSelection;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton addOne;
+        internal Microsoft.Office.Tools.Ribbon.RibbonMenu addSTVmode;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox sourceSelectMode;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox targetSelectMode;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox valueSelectMode;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton doRemoveSelection;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton readUserSelectB;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton addRibbonDropdownItemB;
+        internal Microsoft.Office.Tools.Ribbon.RibbonMenu settingDC;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox autoNextPT;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox autoPreView;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton processData;
+        internal Microsoft.Office.Tools.Ribbon.RibbonMenu debugHide;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton listTest;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton todolist;
+    }
+
+    partial class ThisRibbonCollection
+    {
+        internal Ribbon1 Ribbon1
+        {
+            get { return this.GetRibbon<Ribbon1>(); }
+        }
+    }
+}
