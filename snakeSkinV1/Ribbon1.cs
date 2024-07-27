@@ -19,7 +19,14 @@ namespace snakeSkinV1
 
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
         {
-
+            //https://akb48teamtp.fandom.com/zh-tw/wiki/AKB48_Team_TP%E6%88%90%E5%93%A1%E6%87%89%E6%8F%B4%E8%89%B2%E5%8F%8ACALL%E4%B8%80%E8%A6%BD%E8%A1%A8
+            //a:source;b:target;c:value;1:background;2:text color
+            c1.Color = System.Drawing.ColorTranslator.FromHtml("#ddb98b");
+            c2.Color = System.Drawing.ColorTranslator.FromHtml("#000000");
+            b1.Color = System.Drawing.ColorTranslator.FromHtml("#ffc0cb");
+            b2.Color = System.Drawing.ColorTranslator.FromHtml("#008000");
+            a1.Color = System.Drawing.ColorTranslator.FromHtml("#c4e1ff");
+            a2.Color = System.Drawing.ColorTranslator.FromHtml("#bf4147");
         }
 
         private void displayData_Click(object sender, RibbonControlEventArgs e)
@@ -447,6 +454,136 @@ namespace snakeSkinV1
         private void writeMainDataDumb_Click(object sender, RibbonControlEventArgs e)
         {
 
+        }
+
+        private void galleryNumTest_Click(object sender, RibbonControlEventArgs e)
+        {
+            //Microsoft.Office.Interop.Excel.Range x = readUserSelectOne();
+            //MessageBox.Show($"{x.Interior.Color}\n{x.Font.Color}");
+            MessageBox.Show(clearVisual.Tag == null ? "t" : "f");
+        }
+
+        private void editData_Click(object sender, RibbonControlEventArgs e)
+        {
+            RibbonGallery gallery = (RibbonGallery)sender;
+            RibbonDropDownItem selectedItem = gallery.SelectedItem;
+
+            if (modeEdit.SelectedItem.Tag.ToString() == "view")
+            {
+                clearVisual_do();
+                System.Tuple<Microsoft.Office.Interop.Excel.Range, Microsoft.Office.Interop.Excel.Range> k = (System.Tuple<Microsoft.Office.Interop.Excel.Range, Microsoft.Office.Interop.Excel.Range>)selectedItem.Tag;
+                Microsoft.Office.Interop.Excel.Range stuffToChangeColor = mainData[k];//!important! 強轉型
+                a1.Tag = k.Item1.Interior.Color;
+                a2.Tag = k.Item1.Font.Color;
+                b1.Tag = k.Item2.Interior.Color;
+                b2.Tag = k.Item2.Font.Color;
+                c1.Tag = stuffToChangeColor.Interior.Color;
+                c2.Tag = stuffToChangeColor.Font.Color;
+                //stuffToChangeColor Style background color = #ddb98b text color = #ffc0cb
+                // Set the background color to #ddb98b
+                stuffToChangeColor.Interior.Color = System.Drawing.ColorTranslator.ToOle(c1.Color);
+                // Set the text color to #ffc0cb
+                stuffToChangeColor.Font.Color = System.Drawing.ColorTranslator.ToOle(c2.Color);
+                k.Item1.Interior.Color = System.Drawing.ColorTranslator.ToOle(a1.Color);
+                k.Item1.Font.Color = System.Drawing.ColorTranslator.ToOle(a2.Color);
+                k.Item2.Interior.Color = System.Drawing.ColorTranslator.ToOle(b1.Color);
+                k.Item2.Font.Color = System.Drawing.ColorTranslator.ToOle(b2.Color);
+                clearVisual.Tag = k;
+            }
+            else if (modeEdit.SelectedItem.Tag.ToString() == "del")
+            {
+                mainData.Remove((System.Tuple<Microsoft.Office.Interop.Excel.Range, Microsoft.Office.Interop.Excel.Range>)selectedItem.Tag);//!important! 強轉型
+            }
+            else
+            {
+                MessageBox.Show("[Error] Warning: The program has reached an unexpected logic section. This action was not properly executed. Please contact the developer for further assistance.\r\n ");
+            }
+        }
+
+        private void editDataLoad(object sender, RibbonControlEventArgs e)
+        {
+            editData.Items.Clear();
+            foreach (var d in mainData)
+            {
+                RibbonDropDownItem editData_tmp = this.Factory.CreateRibbonDropDownItem();
+                editData_tmp.Label = $"來源:{d.Key.Item1.Value2};目標:{d.Key.Item2.Value2};值:{d.Value.Value2};";
+                editData_tmp.Tag = d.Key;
+                editData_tmp.ScreenTip = $"來源:[{d.Key.Item1.Worksheet.Name}]{d.Key.Item1.Address};目標:[{d.Key.Item2.Worksheet.Name}]{d.Key.Item2.Address};值:[{d.Value.Worksheet.Name}]{d.Value.Address};";
+                editData.Items.Add(editData_tmp);
+            }
+        }
+
+        private void modeEdit_SelectionChanged(object sender, RibbonControlEventArgs e)
+        {
+
+        }
+
+        private void a1show_Click(object sender, RibbonControlEventArgs e)
+        {
+            a1.ShowDialog();
+        }
+
+        private void a2show_Click(object sender, RibbonControlEventArgs e)
+        {
+            a2.ShowDialog();
+        }
+
+        private void b1show_Click(object sender, RibbonControlEventArgs e)
+        {
+            b1.ShowDialog();
+        }
+
+        private void b2show_Click(object sender, RibbonControlEventArgs e)
+        {
+            b2.ShowDialog();
+        }
+
+        private void c1show_Click(object sender, RibbonControlEventArgs e)
+        {
+            c1.ShowDialog();
+        }
+
+        private void c2show_Click(object sender, RibbonControlEventArgs e)
+        {
+            c2.ShowDialog();
+        }
+
+        private void setCellsColor(
+            System.Tuple<Microsoft.Office.Interop.Excel.Range, Microsoft.Office.Interop.Excel.Range> k,
+            double color_a1,
+            double color_a2,
+            double color_b1,
+            double color_b2,
+            double color_c1,
+            double color_c2
+            )
+        {
+            k.Item1.Interior.Color = color_a1;
+            k.Item1.Font.Color = color_a2;
+            k.Item2.Interior.Color = color_b1;
+            k.Item2.Font.Color = color_b2;
+            mainData[k].Interior.Color = color_c1;
+            mainData[k].Font.Color = color_c2;
+        }
+
+        private void clearVisual_do()
+        {
+            if (clearVisual.Tag != null)
+            {
+                setCellsColor((System.Tuple<Microsoft.Office.Interop.Excel.Range, Microsoft.Office.Interop.Excel.Range>)clearVisual.Tag,
+                    (double)a1.Tag,
+                    (double)a2.Tag,
+                    (double)b1.Tag,
+                    (double)b2.Tag,
+                    (double)c1.Tag,
+                    (double)c2.Tag);
+
+            }
+        }
+
+        private void clearVisual_Click(object sender, RibbonControlEventArgs e)
+        {
+            clearVisual_do();
         }
     }
 }
