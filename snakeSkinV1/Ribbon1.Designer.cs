@@ -37,9 +37,9 @@
             Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl1 = this.Factory.CreateRibbonDropDownItem();
             Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl2 = this.Factory.CreateRibbonDropDownItem();
             Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl3 = this.Factory.CreateRibbonDropDownItem();
-            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl6 = this.Factory.CreateRibbonDropDownItem();
             Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl4 = this.Factory.CreateRibbonDropDownItem();
             Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl5 = this.Factory.CreateRibbonDropDownItem();
+            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl6 = this.Factory.CreateRibbonDropDownItem();
             this.tab1 = this.Factory.CreateRibbonTab();
             this.dcOperate = this.Factory.CreateRibbonGroup();
             this.capture = this.Factory.CreateRibbonButton();
@@ -59,6 +59,16 @@
             this.seniorOP = this.Factory.CreateRibbonGroup();
             this.ucOperate = this.Factory.CreateRibbonGroup();
             this.mgOperate = this.Factory.CreateRibbonGroup();
+            this.modeEdit = this.Factory.CreateRibbonDropDown();
+            this.editData = this.Factory.CreateRibbonGallery();
+            this.clearVisual = this.Factory.CreateRibbonButton();
+            this.menu1 = this.Factory.CreateRibbonMenu();
+            this.a1show = this.Factory.CreateRibbonButton();
+            this.a2show = this.Factory.CreateRibbonButton();
+            this.b1show = this.Factory.CreateRibbonButton();
+            this.b2show = this.Factory.CreateRibbonButton();
+            this.c1show = this.Factory.CreateRibbonButton();
+            this.c2show = this.Factory.CreateRibbonButton();
             this.dpOperate = this.Factory.CreateRibbonGroup();
             this.displayData = this.Factory.CreateRibbonButton();
             this.processData = this.Factory.CreateRibbonButton();
@@ -69,24 +79,14 @@
             this.addRibbonDropdownItemB = this.Factory.CreateRibbonButton();
             this.listTest = this.Factory.CreateRibbonButton();
             this.writeMainDataDumb = this.Factory.CreateRibbonButton();
-            this.todolist = this.Factory.CreateRibbonButton();
-            this.editData = this.Factory.CreateRibbonGallery();
             this.galleryNumTest = this.Factory.CreateRibbonButton();
-            this.modeEdit = this.Factory.CreateRibbonDropDown();
-            this.clearVisual = this.Factory.CreateRibbonButton();
+            this.todolist = this.Factory.CreateRibbonButton();
             this.a1 = new System.Windows.Forms.ColorDialog();
             this.a2 = new System.Windows.Forms.ColorDialog();
             this.b1 = new System.Windows.Forms.ColorDialog();
             this.b2 = new System.Windows.Forms.ColorDialog();
             this.c1 = new System.Windows.Forms.ColorDialog();
             this.c2 = new System.Windows.Forms.ColorDialog();
-            this.menu1 = this.Factory.CreateRibbonMenu();
-            this.a1show = this.Factory.CreateRibbonButton();
-            this.a2show = this.Factory.CreateRibbonButton();
-            this.b1show = this.Factory.CreateRibbonButton();
-            this.b2show = this.Factory.CreateRibbonButton();
-            this.c1show = this.Factory.CreateRibbonButton();
-            this.c2show = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.mgOperate.SuspendLayout();
@@ -230,6 +230,87 @@
             this.mgOperate.Label = "mgOperate";
             this.mgOperate.Name = "mgOperate";
             // 
+            // modeEdit
+            // 
+            ribbonDropDownItemImpl4.Label = "檢視";
+            ribbonDropDownItemImpl4.Tag = "view";
+            ribbonDropDownItemImpl5.Label = "移除";
+            ribbonDropDownItemImpl5.Tag = "del";
+            this.modeEdit.Items.Add(ribbonDropDownItemImpl4);
+            this.modeEdit.Items.Add(ribbonDropDownItemImpl5);
+            this.modeEdit.Label = "modeEdit";
+            this.modeEdit.Name = "modeEdit";
+            this.modeEdit.SelectionChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.modeEdit_SelectionChanged);
+            // 
+            // editData
+            // 
+            ribbonDropDownItemImpl6.Label = "Item0";
+            this.editData.Items.Add(ribbonDropDownItemImpl6);
+            this.editData.Label = "編輯資料";
+            this.editData.Name = "editData";
+            this.editData.ScreenTip = "滑鼠懸停在項目上方可以檢視其儲存格的位置";
+            this.editData.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.editData_Click);
+            this.editData.ItemsLoading += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.editDataLoad);
+            // 
+            // clearVisual
+            // 
+            this.clearVisual.Label = "clearVisual";
+            this.clearVisual.Name = "clearVisual";
+            this.clearVisual.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.clearVisual_Click);
+            // 
+            // menu1
+            // 
+            this.menu1.Items.Add(this.a1show);
+            this.menu1.Items.Add(this.a2show);
+            this.menu1.Items.Add(this.b1show);
+            this.menu1.Items.Add(this.b2show);
+            this.menu1.Items.Add(this.c1show);
+            this.menu1.Items.Add(this.c2show);
+            this.menu1.Label = "menu1";
+            this.menu1.Name = "menu1";
+            // 
+            // a1show
+            // 
+            this.a1show.Label = "來源-背景";
+            this.a1show.Name = "a1show";
+            this.a1show.ShowImage = true;
+            this.a1show.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.a1show_Click);
+            // 
+            // a2show
+            // 
+            this.a2show.Label = "來源-文字";
+            this.a2show.Name = "a2show";
+            this.a2show.ShowImage = true;
+            this.a2show.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.a2show_Click);
+            // 
+            // b1show
+            // 
+            this.b1show.Label = "目標-背景";
+            this.b1show.Name = "b1show";
+            this.b1show.ShowImage = true;
+            this.b1show.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.b1show_Click);
+            // 
+            // b2show
+            // 
+            this.b2show.Label = "目標-文字";
+            this.b2show.Name = "b2show";
+            this.b2show.ShowImage = true;
+            this.b2show.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.b2show_Click);
+            // 
+            // c1show
+            // 
+            this.c1show.Label = "值-背景";
+            this.c1show.Name = "c1show";
+            this.c1show.ShowImage = true;
+            this.c1show.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.c1show_Click);
+            // 
+            // c2show
+            // 
+            this.c2show.Label = "值-文字";
+            this.c2show.Name = "c2show";
+            this.c2show.ShowImage = true;
+            this.c2show.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.c2show_Click);
+            // 
             // dpOperate
             // 
             this.dpOperate.Items.Add(this.displayData);
@@ -304,23 +385,6 @@
             this.writeMainDataDumb.ShowImage = true;
             this.writeMainDataDumb.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.writeMainDataDumb_Click);
             // 
-            // todolist
-            // 
-            this.todolist.Label = "todolist";
-            this.todolist.Name = "todolist";
-            this.todolist.ShowImage = true;
-            this.todolist.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.todolist_Click);
-            // 
-            // editData
-            // 
-            ribbonDropDownItemImpl6.Label = "Item0";
-            this.editData.Items.Add(ribbonDropDownItemImpl6);
-            this.editData.Label = "編輯資料";
-            this.editData.Name = "editData";
-            this.editData.ScreenTip = "滑鼠懸停在項目上方可以檢視其儲存格的位置";
-            this.editData.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.editData_Click);
-            this.editData.ItemsLoading += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.editDataLoad);
-            // 
             // galleryNumTest
             // 
             this.galleryNumTest.Label = "galleryNumTest";
@@ -328,80 +392,16 @@
             this.galleryNumTest.ShowImage = true;
             this.galleryNumTest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.galleryNumTest_Click);
             // 
-            // modeEdit
+            // todolist
             // 
-            ribbonDropDownItemImpl4.Label = "檢視";
-            ribbonDropDownItemImpl4.Tag = "view";
-            ribbonDropDownItemImpl5.Label = "移除";
-            ribbonDropDownItemImpl5.Tag = "del";
-            this.modeEdit.Items.Add(ribbonDropDownItemImpl4);
-            this.modeEdit.Items.Add(ribbonDropDownItemImpl5);
-            this.modeEdit.Label = "modeEdit";
-            this.modeEdit.Name = "modeEdit";
-            this.modeEdit.SelectionChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.modeEdit_SelectionChanged);
-            // 
-            // clearVisual
-            // 
-            this.clearVisual.Label = "clearVisual";
-            this.clearVisual.Name = "clearVisual";
-            this.clearVisual.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.clearVisual_Click);
+            this.todolist.Label = "todolist";
+            this.todolist.Name = "todolist";
+            this.todolist.ShowImage = true;
+            this.todolist.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.todolist_Click);
             // 
             // a1
             // 
             this.a1.Color = System.Drawing.SystemColors.Window;
-            // 
-            // menu1
-            // 
-            this.menu1.Items.Add(this.a1show);
-            this.menu1.Items.Add(this.a2show);
-            this.menu1.Items.Add(this.b1show);
-            this.menu1.Items.Add(this.b2show);
-            this.menu1.Items.Add(this.c1show);
-            this.menu1.Items.Add(this.c2show);
-            this.menu1.Label = "menu1";
-            this.menu1.Name = "menu1";
-            // 
-            // a1show
-            // 
-            this.a1show.Label = "來源-背景";
-            this.a1show.Name = "a1show";
-            this.a1show.ShowImage = true;
-            this.a1show.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.a1show_Click);
-            // 
-            // a2show
-            // 
-            this.a2show.Label = "來源-文字";
-            this.a2show.Name = "a2show";
-            this.a2show.ShowImage = true;
-            this.a2show.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.a2show_Click);
-            // 
-            // b1show
-            // 
-            this.b1show.Label = "目標-背景";
-            this.b1show.Name = "b1show";
-            this.b1show.ShowImage = true;
-            this.b1show.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.b1show_Click);
-            // 
-            // b2show
-            // 
-            this.b2show.Label = "目標-文字";
-            this.b2show.Name = "b2show";
-            this.b2show.ShowImage = true;
-            this.b2show.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.b2show_Click);
-            // 
-            // c1show
-            // 
-            this.c1show.Label = "值-背景";
-            this.c1show.Name = "c1show";
-            this.c1show.ShowImage = true;
-            this.c1show.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.c1show_Click);
-            // 
-            // c2show
-            // 
-            this.c2show.Label = "值-文字";
-            this.c2show.Name = "c2show";
-            this.c2show.ShowImage = true;
-            this.c2show.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.c2show_Click);
             // 
             // Ribbon1
             // 
