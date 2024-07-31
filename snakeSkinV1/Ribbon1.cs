@@ -317,9 +317,20 @@ namespace snakeSkinV1
 
         private void addOne_Click(object sender, RibbonControlEventArgs e)
         {
+            if (safe3.Checked) {
+                if (removeSelection.Items[0].Tag == null || removeSelection.Items[1].Tag == null || removeSelection.Items[2].Tag == null) {
+                    MessageBox.Show("未選擇滿3個格子!");
+                }
+            }
             //!important! TODO 使用了強制轉型
             Tuple<Excel.Range, Excel.Range> tmp = new Tuple<Excel.Range, Excel.Range>((Excel.Range)removeSelection.Items[0].Tag, (Excel.Range)removeSelection.Items[1].Tag);
             mainData[tmp] = (Excel.Range)removeSelection.Items[2].Tag;
+            if (hotfixAutoReset41.Checked) {
+                removeDC(0); removeDC(1); removeDC(2);
+                sourceSelectMode.Checked = true;
+                targetSelectMode.Checked = false;
+                valueSelectMode.Checked = false;
+            }
         }
 
         private void addRibbonDropdownItemB_Click(object sender, RibbonControlEventArgs e)
@@ -683,19 +694,62 @@ namespace snakeSkinV1
         {
             clearVisual_do();
         }
-
+        enum typeSourceTargetData
+        {
+            source,target,data
+        }
+        private Tuple<List<double>, List<double>> savePrvColor(Excel.Range r,typeSourceTargetData tSTD) {
+            List<double> a = new List<double>();
+            List<double> b = new List<double>();
+            System.Drawing.Color c1,c2;
+            switch (tSTD)
+            {
+                case typeSourceTargetData.source:
+                    c1 = arrayColorSetSource1.Color;
+                    c2 = arrayColorSetSource2.Color;
+                    break;
+                case typeSourceTargetData.target:
+                    c1 = arrayColorSetTarget1.Color;
+                    c2 = arrayColorSetTarget2.Color;
+                    break;
+                case typeSourceTargetData.data:
+                    c1 = arrayColorSetData1.Color;
+                    c2 = arrayColorSetData2.Color;
+                    break;
+                default:
+                    c1= System.Drawing.ColorTranslator.FromHtml("#000000");
+                    c2 = System.Drawing.ColorTranslator.FromHtml("#000000");
+                    break;
+            }
+            foreach (Range c in r.Cells)
+            {
+                a.Add(c.Interior.Color);
+                c.Interior.Color = System.Drawing.ColorTranslator.ToOle(c1);
+                b.Add(c.Font.Color);
+                c.Font.Color = System.Drawing.ColorTranslator.ToOle(c2);
+            }
+            return Tuple.Create(a, b);
+        }
         private void arraySetSource_Click(object sender, RibbonControlEventArgs e)
         {
             arraySetSource.Tag = readUserSelectColOrRow();
             //if neq null change color
-            if (arraySetSource.Tag != null) { 
-            
+            if (arraySetSource.Tag != null&&displayColorAfterSelect.Checked) {
+                Tuple<List<double>, List<double>> savePrvColor_obj = savePrvColor((Excel.Range)arraySetSource.Tag,typeSourceTargetData.source);
+                arrayColorSetSource1.Tag= savePrvColor_obj.Item1;
+                arrayColorSetSource2.Tag= savePrvColor_obj.Item2;
             }
         }
 
         private void arraySetTarget_Click(object sender, RibbonControlEventArgs e)
-        {//!TODO if neq null change color
+        {//if neq null change color
             arraySetTarget.Tag = readUserSelectColOrRow();
+            if (arraySetTarget.Tag != null && displayColorAfterSelect.Checked)
+            {
+                Tuple<List<double>, List<double>> savePrvColor_obj = savePrvColor((Excel.Range)arraySetTarget.Tag, typeSourceTargetData.target);
+                arrayColorSetTarget1.Tag = savePrvColor_obj.Item1;
+                arrayColorSetTarget2.Tag = savePrvColor_obj.Item2;
+            }
         }
 
         private void arraySetData_Click(object sender, RibbonControlEventArgs e)

@@ -105,6 +105,8 @@
             this.picColor4 = this.Factory.CreateRibbonButton();
             this.picColor5 = this.Factory.CreateRibbonButton();
             this.picColor3 = this.Factory.CreateRibbonButton();
+            this.hotfixAutoReset41 = this.Factory.CreateRibbonCheckBox();
+            this.safe3 = this.Factory.CreateRibbonCheckBox();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
@@ -200,6 +202,8 @@
             // 
             this.settingDC.Items.Add(this.autoNextPT);
             this.settingDC.Items.Add(this.autoPreView);
+            this.settingDC.Items.Add(this.hotfixAutoReset41);
+            this.settingDC.Items.Add(this.safe3);
             this.settingDC.Label = "指標自動化設定";
             this.settingDC.Name = "settingDC";
             // 
@@ -512,6 +516,18 @@
             this.picColor3.ShowImage = true;
             this.picColor3.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor3_Click);
             // 
+            // hotfixAutoReset41
+            // 
+            this.hotfixAutoReset41.Checked = true;
+            this.hotfixAutoReset41.Label = "自動復歸";
+            this.hotfixAutoReset41.Name = "hotfixAutoReset41";
+            // 
+            // safe3
+            // 
+            this.safe3.Checked = true;
+            this.safe3.Label = "捕捉缺項錯誤";
+            this.safe3.Name = "safe3";
+            // 
             // Ribbon1
             // 
             this.Name = "Ribbon1";
@@ -601,6 +617,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton picColor4;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton picColor5;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton picColor6;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox hotfixAutoReset41;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox safe3;
     }
 
     partial class ThisRibbonCollection
