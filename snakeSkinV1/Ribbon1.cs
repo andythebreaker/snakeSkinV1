@@ -27,6 +27,13 @@ namespace snakeSkinV1
             b2.Color = System.Drawing.ColorTranslator.FromHtml("#008000");
             a1.Color = System.Drawing.ColorTranslator.FromHtml("#c4e1ff");
             a2.Color = System.Drawing.ColorTranslator.FromHtml("#bf4147");
+            arrayColorSetSource1.Color= System.Drawing.ColorTranslator.FromHtml("#33ffff");
+            arrayColorSetSource2.Color = System.Drawing.ColorTranslator.FromHtml("#ff0000");
+            arrayColorSetTarget1.Color = System.Drawing.ColorTranslator.FromHtml("#0000ff");
+            arrayColorSetTarget2.Color = System.Drawing.ColorTranslator.FromHtml("#f1dd95");
+            arrayColorSetData1.Color = System.Drawing.ColorTranslator.FromHtml("#feeeed");
+            arrayColorSetData1.Color = System.Drawing.ColorTranslator.FromHtml("#7fc3ff");
+
         }
 
         private void displayData_Click(object sender, RibbonControlEventArgs e)
@@ -190,6 +197,11 @@ namespace snakeSkinV1
             }
         }
 
+        public bool isOneColOrRow(Excel.Range r)
+        {
+            return isOneRow(r) ? true : isOneColumn(r) ? true : false;
+        }
+
         public bool isOne(Excel.Range r)
         {
             //foreach (Excel.Range cell in r.Cells)
@@ -206,7 +218,62 @@ namespace snakeSkinV1
             }
             //}
         }
+        public bool isOneColumn(Excel.Range r)
+        {
+            if (r.Columns.Count == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool isOneRow(Excel.Range r)
+        {
+            if (r.Rows.Count == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public Excel.Range readUserSelectColOrRow()
+        {
+            try
+            {
+                // Get the active Excel application
+                Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
 
+                // Get the selected range of cells
+                Excel.Range selectedRange = excelApp.Selection as Excel.Range;
+
+                if (selectedRange != null)
+                {
+                    if (isOneColOrRow(selectedRange))
+                    {
+                        return selectedRange;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Too much, select only one row or column, thank you!");
+                        return null;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No cells are selected.");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+                return null;
+            }
+        }
         public Excel.Range readUserSelectOne()
         {
             try
@@ -447,13 +514,42 @@ namespace snakeSkinV1
                 "dc區增加'清除'按鈕\n" +
                 "修改程式非阻擋式'圖表呈現'的說明(只要先開瀏覽器)\n" +
                 "下一個作的:" +
-                "矩陣式輸入"
+                "矩陣式輸入" +
+                "TODO:函式arraySetSource_Click附近"
                 );
+        }
+
+        private void addCell(string locationStr, string dataStr, double dataInt)
+        {
+            if (dataStr == null)
+            {
+                Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
+                Excel.Range firstRow = excelApp.get_Range(locationStr);
+                //firstRow.EntireRow.Insert(Excel.XlInsertShiftDirection.xlShiftDown);
+                //Excel.Range newFirstRow = excelApp.get_Range("A1");
+                firstRow.Value2 = dataInt;
+            }
+            else if (dataInt.Equals(double.NaN))
+            {
+                Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
+                Excel.Range firstRow = excelApp.get_Range(locationStr);
+                //firstRow.EntireRow.Insert(Excel.XlInsertShiftDirection.xlShiftDown);
+                //Excel.Range newFirstRow = excelApp.get_Range("A1");
+                firstRow.Value2 = dataStr;
+            }
+            else
+            {
+                MessageBox.Show("內部程式錯誤(addCell)這個函式僅適用於開發環境");
+            }
         }
 
         private void writeMainDataDumb_Click(object sender, RibbonControlEventArgs e)
         {
-
+            addCell("B1", "person1", double.NaN); addCell("C1", "person2", double.NaN); addCell("A2", "person3", double.NaN); addCell("A3", "person4", double.NaN);
+            addCell("B2", null, 5); addCell("C2", null, 6); addCell("B3", null, 2); addCell("C3", null, 3);
+            //         person1 person2 
+            //person3    5        6
+            //person4    2        3
         }
 
         private void galleryNumTest_Click(object sender, RibbonControlEventArgs e)
@@ -548,6 +644,8 @@ namespace snakeSkinV1
             c2.ShowDialog();
         }
 
+
+
         private void setCellsColor(
             System.Tuple<Microsoft.Office.Interop.Excel.Range, Microsoft.Office.Interop.Excel.Range> k,
             double color_a1,
@@ -584,6 +682,60 @@ namespace snakeSkinV1
         private void clearVisual_Click(object sender, RibbonControlEventArgs e)
         {
             clearVisual_do();
+        }
+
+        private void arraySetSource_Click(object sender, RibbonControlEventArgs e)
+        {
+            arraySetSource.Tag = readUserSelectColOrRow();
+            //if neq null change color
+            if (arraySetSource.Tag != null) { 
+            
+            }
+        }
+
+        private void arraySetTarget_Click(object sender, RibbonControlEventArgs e)
+        {//!TODO if neq null change color
+            arraySetTarget.Tag = readUserSelectColOrRow();
+        }
+
+        private void arraySetData_Click(object sender, RibbonControlEventArgs e)
+        {
+            Tuple<List<Excel.Range>, List<Excel.Range>, List<Excel.Range>> previewData = (Tuple<List<Excel.Range>, List<Excel.Range>, List<Excel.Range>>)arraySetData.Tag;
+            for (int i = 0; i < previewData.Item3.Count; i++)
+            {
+                Range c = previewData.Item3[i];
+                int a = i / previewData.Item1.Count;//source
+                int b = i % previewData.Item2.Count;//target
+                Excel.Range a_c = previewData.Item1[a];
+                Excel.Range b_c = previewData.Item2[b];
+                Tuple<Excel.Range, Excel.Range> tmp = new Tuple<Excel.Range, Excel.Range>(a_c, b_c);
+                mainData[tmp] = c;
+            }
+        }
+
+        private void previewArray_Click(object sender, RibbonControlEventArgs e)
+        { //!TODO:if count > 0 then good to go 
+            Excel.Range d = readUserSelectOne().Resize[((Excel.Range)arraySetSource.Tag).Count, ((Excel.Range)arraySetTarget.Tag).Count];
+            d.Interior.Color = System.Drawing.ColorTranslator.ToOle(a1.Color);
+            List<Excel.Range> s = new List<Excel.Range>();
+            List<Excel.Range> t = new List<Excel.Range>();
+            List<Excel.Range> d_list = new List<Excel.Range>();
+            foreach (Range c in ((Excel.Range)arraySetSource.Tag).Cells)
+            {
+                s.Add(c);
+            }
+            foreach (Range c in ((Excel.Range)arraySetTarget.Tag).Cells)
+            {
+                t.Add(c);
+            }
+            foreach (Range c in d.Cells)
+            {
+                d_list.Add(c);
+            }
+            Tuple<List<Excel.Range>, List<Excel.Range>, List<Excel.Range>> tmp = new Tuple<List<Excel.Range>, List<Excel.Range>, List<Excel.Range>>(
+            s, t, d_list
+                );
+            arraySetData.Tag = tmp;
         }
     }
 }

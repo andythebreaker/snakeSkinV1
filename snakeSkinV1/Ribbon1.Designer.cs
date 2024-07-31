@@ -87,8 +87,21 @@
             this.b2 = new System.Windows.Forms.ColorDialog();
             this.c1 = new System.Windows.Forms.ColorDialog();
             this.c2 = new System.Windows.Forms.ColorDialog();
+            this.arraySetSource = this.Factory.CreateRibbonButton();
+            this.arraySetTarget = this.Factory.CreateRibbonButton();
+            this.arraySetData = this.Factory.CreateRibbonButton();
+            this.previewArray = this.Factory.CreateRibbonButton();
+            this.arrayColorSetSource1 = new System.Windows.Forms.ColorDialog();
+            this.arrayColorSetSource2 = new System.Windows.Forms.ColorDialog();
+            this.arrayColorSetTarget1 = new System.Windows.Forms.ColorDialog();
+            this.arrayColorSetTarget2 = new System.Windows.Forms.ColorDialog();
+            this.arrayColorSetData1 = new System.Windows.Forms.ColorDialog();
+            this.arrayColorSetData2 = new System.Windows.Forms.ColorDialog();
+            this.arrayColorSetting = this.Factory.CreateRibbonMenu();
+            this.displayColorAfterSelect = this.Factory.CreateRibbonCheckBox();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
+            this.kpOperate.SuspendLayout();
             this.mgOperate.SuspendLayout();
             this.dpOperate.SuspendLayout();
             this.pdOperate.SuspendLayout();
@@ -198,6 +211,11 @@
             // 
             // kpOperate
             // 
+            this.kpOperate.Items.Add(this.arraySetSource);
+            this.kpOperate.Items.Add(this.arraySetTarget);
+            this.kpOperate.Items.Add(this.previewArray);
+            this.kpOperate.Items.Add(this.arraySetData);
+            this.kpOperate.Items.Add(this.arrayColorSetting);
             this.kpOperate.Label = "kpOperate";
             this.kpOperate.Name = "kpOperate";
             // 
@@ -403,6 +421,43 @@
             // 
             this.a1.Color = System.Drawing.SystemColors.Window;
             // 
+            // arraySetSource
+            // 
+            this.arraySetSource.Label = "arraySetSource";
+            this.arraySetSource.Name = "arraySetSource";
+            this.arraySetSource.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.arraySetSource_Click);
+            // 
+            // arraySetTarget
+            // 
+            this.arraySetTarget.Label = "arraySetTarget";
+            this.arraySetTarget.Name = "arraySetTarget";
+            this.arraySetTarget.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.arraySetTarget_Click);
+            // 
+            // arraySetData
+            // 
+            this.arraySetData.Label = "arraySetData";
+            this.arraySetData.Name = "arraySetData";
+            this.arraySetData.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.arraySetData_Click);
+            // 
+            // previewArray
+            // 
+            this.previewArray.Label = "previewArray";
+            this.previewArray.Name = "previewArray";
+            this.previewArray.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.previewArray_Click);
+            // 
+            // arrayColorSetting
+            // 
+            this.arrayColorSetting.Items.Add(this.displayColorAfterSelect);
+            this.arrayColorSetting.Label = "arrayColorSetting";
+            this.arrayColorSetting.Name = "arrayColorSetting";
+            this.arrayColorSetting.ShowImage = true;
+            // 
+            // displayColorAfterSelect
+            // 
+            this.displayColorAfterSelect.Checked = true;
+            this.displayColorAfterSelect.Label = "displayColorAfterSelect";
+            this.displayColorAfterSelect.Name = "displayColorAfterSelect";
+            // 
             // Ribbon1
             // 
             this.Name = "Ribbon1";
@@ -413,6 +468,8 @@
             this.tab1.PerformLayout();
             this.dcOperate.ResumeLayout(false);
             this.dcOperate.PerformLayout();
+            this.kpOperate.ResumeLayout(false);
+            this.kpOperate.PerformLayout();
             this.mgOperate.ResumeLayout(false);
             this.mgOperate.PerformLayout();
             this.dpOperate.ResumeLayout(false);
@@ -472,6 +529,18 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton b2show;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton c1show;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton c2show;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton arraySetSource;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton arraySetTarget;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton arraySetData;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton previewArray;
+        private System.Windows.Forms.ColorDialog arrayColorSetSource1;
+        private System.Windows.Forms.ColorDialog arrayColorSetSource2;
+        private System.Windows.Forms.ColorDialog arrayColorSetTarget1;
+        private System.Windows.Forms.ColorDialog arrayColorSetTarget2;
+        private System.Windows.Forms.ColorDialog arrayColorSetData1;
+        private System.Windows.Forms.ColorDialog arrayColorSetData2;
+        internal Microsoft.Office.Tools.Ribbon.RibbonMenu arrayColorSetting;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox displayColorAfterSelect;
     }
 
     partial class ThisRibbonCollection
