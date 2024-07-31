@@ -99,6 +99,12 @@
             this.arrayColorSetData2 = new System.Windows.Forms.ColorDialog();
             this.arrayColorSetting = this.Factory.CreateRibbonMenu();
             this.displayColorAfterSelect = this.Factory.CreateRibbonCheckBox();
+            this.picColor1 = this.Factory.CreateRibbonButton();
+            this.picColor2 = this.Factory.CreateRibbonButton();
+            this.picColor6 = this.Factory.CreateRibbonButton();
+            this.picColor4 = this.Factory.CreateRibbonButton();
+            this.picColor5 = this.Factory.CreateRibbonButton();
+            this.picColor3 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
@@ -448,6 +454,12 @@
             // arrayColorSetting
             // 
             this.arrayColorSetting.Items.Add(this.displayColorAfterSelect);
+            this.arrayColorSetting.Items.Add(this.picColor1);
+            this.arrayColorSetting.Items.Add(this.picColor2);
+            this.arrayColorSetting.Items.Add(this.picColor3);
+            this.arrayColorSetting.Items.Add(this.picColor4);
+            this.arrayColorSetting.Items.Add(this.picColor5);
+            this.arrayColorSetting.Items.Add(this.picColor6);
             this.arrayColorSetting.Label = "arrayColorSetting";
             this.arrayColorSetting.Name = "arrayColorSetting";
             this.arrayColorSetting.ShowImage = true;
@@ -457,6 +469,48 @@
             this.displayColorAfterSelect.Checked = true;
             this.displayColorAfterSelect.Label = "displayColorAfterSelect";
             this.displayColorAfterSelect.Name = "displayColorAfterSelect";
+            // 
+            // picColor1
+            // 
+            this.picColor1.Label = "picColor1";
+            this.picColor1.Name = "picColor1";
+            this.picColor1.ShowImage = true;
+            this.picColor1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor1_Click);
+            // 
+            // picColor2
+            // 
+            this.picColor2.Label = "picColor2";
+            this.picColor2.Name = "picColor2";
+            this.picColor2.ShowImage = true;
+            this.picColor2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor2_Click);
+            // 
+            // picColor6
+            // 
+            this.picColor6.Label = "picColor6";
+            this.picColor6.Name = "picColor6";
+            this.picColor6.ShowImage = true;
+            this.picColor6.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor6_Click);
+            // 
+            // picColor4
+            // 
+            this.picColor4.Label = "picColor4";
+            this.picColor4.Name = "picColor4";
+            this.picColor4.ShowImage = true;
+            this.picColor4.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor4_Click);
+            // 
+            // picColor5
+            // 
+            this.picColor5.Label = "picColor5";
+            this.picColor5.Name = "picColor5";
+            this.picColor5.ShowImage = true;
+            this.picColor5.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor5_Click);
+            // 
+            // picColor3
+            // 
+            this.picColor3.Label = "picColor3";
+            this.picColor3.Name = "picColor3";
+            this.picColor3.ShowImage = true;
+            this.picColor3.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor3_Click);
             // 
             // Ribbon1
             // 
@@ -541,6 +595,12 @@
         private System.Windows.Forms.ColorDialog arrayColorSetData2;
         internal Microsoft.Office.Tools.Ribbon.RibbonMenu arrayColorSetting;
         internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox displayColorAfterSelect;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton picColor1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton picColor2;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton picColor3;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton picColor4;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton picColor5;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton picColor6;
     }
 
     partial class ThisRibbonCollection

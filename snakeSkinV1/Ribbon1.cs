@@ -737,5 +737,35 @@ namespace snakeSkinV1
                 );
             arraySetData.Tag = tmp;
         }
+
+        private void picColor1_Click(object sender, RibbonControlEventArgs e)
+        {
+            arrayColorSetSource1.ShowDialog();
+        }
+
+        private void picColor2_Click(object sender, RibbonControlEventArgs e)
+        {
+            arrayColorSetSource2.ShowDialog();
+        }
+
+        private void picColor3_Click(object sender, RibbonControlEventArgs e)
+        {
+            arrayColorSetTarget1.ShowDialog();
+        }
+
+        private void picColor4_Click(object sender, RibbonControlEventArgs e)
+        {
+            arrayColorSetTarget2.ShowDialog();
+        }
+
+        private void picColor5_Click(object sender, RibbonControlEventArgs e)
+        {
+            arrayColorSetData1.ShowDialog();
+        }
+
+        private void picColor6_Click(object sender, RibbonControlEventArgs e)
+        {
+            arrayColorSetData2.ShowDialog();
+        }
     }
 }
