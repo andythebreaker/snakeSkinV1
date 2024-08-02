@@ -771,6 +771,40 @@ namespace snakeSkinV1
                 Excel.Range b_c = previewData.Item2[b];
                 Tuple<Excel.Range, Excel.Range> tmp = new Tuple<Excel.Range, Excel.Range>(a_c, b_c);
                 mainData[tmp] = c;
+                if (arrayColorSetData1.Tag != null) {
+                    c.Interior.Color = ((List<double>)arrayColorSetData1.Tag)[i];
+                }
+                if (arrayColorSetData2.Tag != null)
+                {
+                    c.Font.Color = ((List<double>)arrayColorSetData2.Tag)[i];
+                }
+            }
+            if (arrayColorSetSource1.Tag != null) {
+                for(int  i = 0; i < previewData.Item1.Count; i++)
+                {
+                    (previewData.Item1[i]).Interior.Color = ((List<double>)arrayColorSetSource1.Tag)[i];
+                }
+            }
+            if (arrayColorSetSource2.Tag != null)
+            {
+                for (int i = 0; i < previewData.Item1.Count; i++)
+                {
+                    (previewData.Item1[i]).Font.Color = ((List<double>)arrayColorSetSource2.Tag)[i];
+                }
+            }
+            if (arrayColorSetTarget1.Tag != null)
+            {
+                for (int i = 0; i < previewData.Item2.Count; i++)
+                {
+                    (previewData.Item2[i]).Interior.Color = ((List<double>)arrayColorSetTarget1.Tag)[i];
+                }
+            }
+            if (arrayColorSetTarget2.Tag != null)
+            {
+                for (int i = 0; i < previewData.Item2.Count; i++)
+                {
+                    (previewData.Item2[i]).Font.Color = ((List<double>)arrayColorSetTarget2.Tag)[i];
+                }
             }
             arraySetData.Tag = null;
         }
@@ -869,7 +903,7 @@ namespace snakeSkinV1
                     System.Drawing.ColorTranslator.ToOle(a1.Color)
                     , System.Drawing.ColorTranslator.ToOle(a2.Color)
                     , System.Drawing.ColorTranslator.ToOle(b1.Color)
-                    , System.Drawing.ColorTranslator.ToOle(b1.Color)
+                    , System.Drawing.ColorTranslator.ToOle(b2.Color)
                     , System.Drawing.ColorTranslator.ToOle(c1.Color)
                     , System.Drawing.ColorTranslator.ToOle(c2.Color));
                 await Task.Delay(500); // Non-blocking delay
