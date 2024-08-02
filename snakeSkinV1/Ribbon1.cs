@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Tools.Excel;
 using Microsoft.Office.Tools.Ribbon;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -824,6 +827,46 @@ namespace snakeSkinV1
         private void picColor6_Click(object sender, RibbonControlEventArgs e)
         {
             arrayColorSetData2.ShowDialog();
+        }
+
+        private void rainbowTest_Click(object sender, RibbonControlEventArgs e)
+        {
+            // Define colors
+            double white = System.Drawing.ColorTranslator.ToOle(System.Drawing.ColorTranslator.FromHtml("#ddb98b"));
+            double green = System.Drawing.ColorTranslator.ToOle(System.Drawing.ColorTranslator.FromHtml("#ffc0cb"));
+            Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
+            // Loop to change colors
+            bool toggle = true;
+            for (int i = 0; i < 10; i++) // Example loop, adjust as needed
+            {
+                excelApp.Range["A1"].Interior.Color = toggle ? green : white;
+                excelApp.Range["A2"].Interior.Color = toggle ? white : green;
+                toggle = !toggle;
+                Thread.Sleep(500); // Wait for 0.5 seconds
+            }
+
+        }
+
+        private async void rainbowMG_Click(object sender, RibbonControlEventArgs e)
+        {
+            foreach (var d in mainData)
+            {
+                double color_tmp_1 = d.Key.Item1.Interior.Color;
+                double color_tmp_2 = d.Key.Item1.Font.Color;
+                double color_tmp_3 = d.Key.Item2.Interior.Color;
+                double color_tmp_4 = d.Key.Item2.Font.Color;
+                double color_tmp_5 = d.Value.Interior.Color;
+                double color_tmp_6 = d.Value.Font.Color;
+                setCellsColor(d.Key, 
+                    System.Drawing.ColorTranslator.ToOle(a1.Color)
+                    , System.Drawing.ColorTranslator.ToOle(a2.Color)
+                    , System.Drawing.ColorTranslator.ToOle(b1.Color)
+                    , System.Drawing.ColorTranslator.ToOle(b1.Color)
+                    , System.Drawing.ColorTranslator.ToOle(c1.Color)
+                    , System.Drawing.ColorTranslator.ToOle(c2.Color));
+                await Task.Delay(500); // Non-blocking delay
+                setCellsColor(d.Key, color_tmp_1, color_tmp_2, color_tmp_3, color_tmp_4, color_tmp_5, color_tmp_6);
+            }
         }
     }
 }

@@ -76,7 +76,7 @@
             this.modeEdit = this.Factory.CreateRibbonDropDown();
             this.editData = this.Factory.CreateRibbonGallery();
             this.clearVisual = this.Factory.CreateRibbonButton();
-            this.menu1 = this.Factory.CreateRibbonMenu();
+            this.mgOperateColorSetting = this.Factory.CreateRibbonMenu();
             this.a1show = this.Factory.CreateRibbonButton();
             this.a2show = this.Factory.CreateRibbonButton();
             this.b1show = this.Factory.CreateRibbonButton();
@@ -107,6 +107,8 @@
             this.arrayColorSetTarget2 = new System.Windows.Forms.ColorDialog();
             this.arrayColorSetData1 = new System.Windows.Forms.ColorDialog();
             this.arrayColorSetData2 = new System.Windows.Forms.ColorDialog();
+            this.rainbowTest = this.Factory.CreateRibbonButton();
+            this.rainbowMG = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
@@ -351,7 +353,8 @@
             this.mgOperate.Items.Add(this.modeEdit);
             this.mgOperate.Items.Add(this.editData);
             this.mgOperate.Items.Add(this.clearVisual);
-            this.mgOperate.Items.Add(this.menu1);
+            this.mgOperate.Items.Add(this.mgOperateColorSetting);
+            this.mgOperate.Items.Add(this.rainbowMG);
             this.mgOperate.Label = "mgOperate";
             this.mgOperate.Name = "mgOperate";
             // 
@@ -383,16 +386,16 @@
             this.clearVisual.Name = "clearVisual";
             this.clearVisual.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.clearVisual_Click);
             // 
-            // menu1
+            // mgOperateColorSetting
             // 
-            this.menu1.Items.Add(this.a1show);
-            this.menu1.Items.Add(this.a2show);
-            this.menu1.Items.Add(this.b1show);
-            this.menu1.Items.Add(this.b2show);
-            this.menu1.Items.Add(this.c1show);
-            this.menu1.Items.Add(this.c2show);
-            this.menu1.Label = "menu1";
-            this.menu1.Name = "menu1";
+            this.mgOperateColorSetting.Items.Add(this.a1show);
+            this.mgOperateColorSetting.Items.Add(this.a2show);
+            this.mgOperateColorSetting.Items.Add(this.b1show);
+            this.mgOperateColorSetting.Items.Add(this.b2show);
+            this.mgOperateColorSetting.Items.Add(this.c1show);
+            this.mgOperateColorSetting.Items.Add(this.c2show);
+            this.mgOperateColorSetting.Label = "mgOperateColorSetting";
+            this.mgOperateColorSetting.Name = "mgOperateColorSetting";
             // 
             // a1show
             // 
@@ -469,6 +472,7 @@
             this.debugHide.Items.Add(this.listTest);
             this.debugHide.Items.Add(this.writeMainDataDumb);
             this.debugHide.Items.Add(this.galleryNumTest);
+            this.debugHide.Items.Add(this.rainbowTest);
             this.debugHide.Items.Add(this.todolist);
             this.debugHide.Label = "debugHide";
             this.debugHide.Name = "debugHide";
@@ -527,6 +531,19 @@
             // a1
             // 
             this.a1.Color = System.Drawing.SystemColors.Window;
+            // 
+            // rainbowTest
+            // 
+            this.rainbowTest.Label = "ranbowTest";
+            this.rainbowTest.Name = "rainbowTest";
+            this.rainbowTest.ShowImage = true;
+            this.rainbowTest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.rainbowTest_Click);
+            // 
+            // rainbowMG
+            // 
+            this.rainbowMG.Label = "資料校對動畫";
+            this.rainbowMG.Name = "rainbowMG";
+            this.rainbowMG.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.rainbowMG_Click);
             // 
             // Ribbon1
             // 
@@ -592,7 +609,7 @@
         private System.Windows.Forms.ColorDialog b2;
         private System.Windows.Forms.ColorDialog c1;
         private System.Windows.Forms.ColorDialog c2;
-        internal Microsoft.Office.Tools.Ribbon.RibbonMenu menu1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonMenu mgOperateColorSetting;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton a1show;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton a2show;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton b1show;
@@ -619,6 +636,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton picColor6;
         internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox hotfixAutoReset41;
         internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox safe3;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton rainbowTest;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton rainbowMG;
     }
 
     partial class ThisRibbonCollection
