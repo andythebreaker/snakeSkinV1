@@ -53,7 +53,21 @@
             this.settingDC = this.Factory.CreateRibbonMenu();
             this.autoNextPT = this.Factory.CreateRibbonCheckBox();
             this.autoPreView = this.Factory.CreateRibbonCheckBox();
+            this.hotfixAutoReset41 = this.Factory.CreateRibbonCheckBox();
+            this.safe3 = this.Factory.CreateRibbonCheckBox();
             this.kpOperate = this.Factory.CreateRibbonGroup();
+            this.arraySetSource = this.Factory.CreateRibbonButton();
+            this.arraySetTarget = this.Factory.CreateRibbonButton();
+            this.previewArray = this.Factory.CreateRibbonButton();
+            this.arraySetData = this.Factory.CreateRibbonButton();
+            this.arrayColorSetting = this.Factory.CreateRibbonMenu();
+            this.displayColorAfterSelect = this.Factory.CreateRibbonCheckBox();
+            this.picColor1 = this.Factory.CreateRibbonButton();
+            this.picColor2 = this.Factory.CreateRibbonButton();
+            this.picColor3 = this.Factory.CreateRibbonButton();
+            this.picColor4 = this.Factory.CreateRibbonButton();
+            this.picColor5 = this.Factory.CreateRibbonButton();
+            this.picColor6 = this.Factory.CreateRibbonButton();
             this.primaryOP = this.Factory.CreateRibbonGroup();
             this.juniorOP = this.Factory.CreateRibbonGroup();
             this.seniorOP = this.Factory.CreateRibbonGroup();
@@ -87,26 +101,12 @@
             this.b2 = new System.Windows.Forms.ColorDialog();
             this.c1 = new System.Windows.Forms.ColorDialog();
             this.c2 = new System.Windows.Forms.ColorDialog();
-            this.arraySetSource = this.Factory.CreateRibbonButton();
-            this.arraySetTarget = this.Factory.CreateRibbonButton();
-            this.arraySetData = this.Factory.CreateRibbonButton();
-            this.previewArray = this.Factory.CreateRibbonButton();
             this.arrayColorSetSource1 = new System.Windows.Forms.ColorDialog();
             this.arrayColorSetSource2 = new System.Windows.Forms.ColorDialog();
             this.arrayColorSetTarget1 = new System.Windows.Forms.ColorDialog();
             this.arrayColorSetTarget2 = new System.Windows.Forms.ColorDialog();
             this.arrayColorSetData1 = new System.Windows.Forms.ColorDialog();
             this.arrayColorSetData2 = new System.Windows.Forms.ColorDialog();
-            this.arrayColorSetting = this.Factory.CreateRibbonMenu();
-            this.displayColorAfterSelect = this.Factory.CreateRibbonCheckBox();
-            this.picColor1 = this.Factory.CreateRibbonButton();
-            this.picColor2 = this.Factory.CreateRibbonButton();
-            this.picColor6 = this.Factory.CreateRibbonButton();
-            this.picColor4 = this.Factory.CreateRibbonButton();
-            this.picColor5 = this.Factory.CreateRibbonButton();
-            this.picColor3 = this.Factory.CreateRibbonButton();
-            this.hotfixAutoReset41 = this.Factory.CreateRibbonCheckBox();
-            this.safe3 = this.Factory.CreateRibbonCheckBox();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
@@ -219,6 +219,18 @@
             this.autoPreView.Label = "自動預檢";
             this.autoPreView.Name = "autoPreView";
             // 
+            // hotfixAutoReset41
+            // 
+            this.hotfixAutoReset41.Checked = true;
+            this.hotfixAutoReset41.Label = "自動復歸";
+            this.hotfixAutoReset41.Name = "hotfixAutoReset41";
+            // 
+            // safe3
+            // 
+            this.safe3.Checked = true;
+            this.safe3.Label = "捕捉缺項錯誤";
+            this.safe3.Name = "safe3";
+            // 
             // kpOperate
             // 
             this.kpOperate.Items.Add(this.arraySetSource);
@@ -228,6 +240,91 @@
             this.kpOperate.Items.Add(this.arrayColorSetting);
             this.kpOperate.Label = "kpOperate";
             this.kpOperate.Name = "kpOperate";
+            // 
+            // arraySetSource
+            // 
+            this.arraySetSource.Label = "arraySetSource";
+            this.arraySetSource.Name = "arraySetSource";
+            this.arraySetSource.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.arraySetSource_Click);
+            // 
+            // arraySetTarget
+            // 
+            this.arraySetTarget.Label = "arraySetTarget";
+            this.arraySetTarget.Name = "arraySetTarget";
+            this.arraySetTarget.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.arraySetTarget_Click);
+            // 
+            // previewArray
+            // 
+            this.previewArray.Label = "previewArray";
+            this.previewArray.Name = "previewArray";
+            this.previewArray.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.previewArray_Click);
+            // 
+            // arraySetData
+            // 
+            this.arraySetData.Label = "arraySetData";
+            this.arraySetData.Name = "arraySetData";
+            this.arraySetData.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.arraySetData_Click);
+            // 
+            // arrayColorSetting
+            // 
+            this.arrayColorSetting.Items.Add(this.displayColorAfterSelect);
+            this.arrayColorSetting.Items.Add(this.picColor1);
+            this.arrayColorSetting.Items.Add(this.picColor2);
+            this.arrayColorSetting.Items.Add(this.picColor3);
+            this.arrayColorSetting.Items.Add(this.picColor4);
+            this.arrayColorSetting.Items.Add(this.picColor5);
+            this.arrayColorSetting.Items.Add(this.picColor6);
+            this.arrayColorSetting.Label = "arrayColorSetting";
+            this.arrayColorSetting.Name = "arrayColorSetting";
+            this.arrayColorSetting.ShowImage = true;
+            // 
+            // displayColorAfterSelect
+            // 
+            this.displayColorAfterSelect.Checked = true;
+            this.displayColorAfterSelect.Label = "displayColorAfterSelect";
+            this.displayColorAfterSelect.Name = "displayColorAfterSelect";
+            // 
+            // picColor1
+            // 
+            this.picColor1.Label = "picColor1";
+            this.picColor1.Name = "picColor1";
+            this.picColor1.ShowImage = true;
+            this.picColor1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor1_Click);
+            // 
+            // picColor2
+            // 
+            this.picColor2.Label = "picColor2";
+            this.picColor2.Name = "picColor2";
+            this.picColor2.ShowImage = true;
+            this.picColor2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor2_Click);
+            // 
+            // picColor3
+            // 
+            this.picColor3.Label = "picColor3";
+            this.picColor3.Name = "picColor3";
+            this.picColor3.ShowImage = true;
+            this.picColor3.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor3_Click);
+            // 
+            // picColor4
+            // 
+            this.picColor4.Label = "picColor4";
+            this.picColor4.Name = "picColor4";
+            this.picColor4.ShowImage = true;
+            this.picColor4.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor4_Click);
+            // 
+            // picColor5
+            // 
+            this.picColor5.Label = "picColor5";
+            this.picColor5.Name = "picColor5";
+            this.picColor5.ShowImage = true;
+            this.picColor5.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor5_Click);
+            // 
+            // picColor6
+            // 
+            this.picColor6.Label = "picColor6";
+            this.picColor6.Name = "picColor6";
+            this.picColor6.ShowImage = true;
+            this.picColor6.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor6_Click);
             // 
             // primaryOP
             // 
@@ -430,103 +527,6 @@
             // a1
             // 
             this.a1.Color = System.Drawing.SystemColors.Window;
-            // 
-            // arraySetSource
-            // 
-            this.arraySetSource.Label = "arraySetSource";
-            this.arraySetSource.Name = "arraySetSource";
-            this.arraySetSource.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.arraySetSource_Click);
-            // 
-            // arraySetTarget
-            // 
-            this.arraySetTarget.Label = "arraySetTarget";
-            this.arraySetTarget.Name = "arraySetTarget";
-            this.arraySetTarget.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.arraySetTarget_Click);
-            // 
-            // arraySetData
-            // 
-            this.arraySetData.Label = "arraySetData";
-            this.arraySetData.Name = "arraySetData";
-            this.arraySetData.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.arraySetData_Click);
-            // 
-            // previewArray
-            // 
-            this.previewArray.Label = "previewArray";
-            this.previewArray.Name = "previewArray";
-            this.previewArray.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.previewArray_Click);
-            // 
-            // arrayColorSetting
-            // 
-            this.arrayColorSetting.Items.Add(this.displayColorAfterSelect);
-            this.arrayColorSetting.Items.Add(this.picColor1);
-            this.arrayColorSetting.Items.Add(this.picColor2);
-            this.arrayColorSetting.Items.Add(this.picColor3);
-            this.arrayColorSetting.Items.Add(this.picColor4);
-            this.arrayColorSetting.Items.Add(this.picColor5);
-            this.arrayColorSetting.Items.Add(this.picColor6);
-            this.arrayColorSetting.Label = "arrayColorSetting";
-            this.arrayColorSetting.Name = "arrayColorSetting";
-            this.arrayColorSetting.ShowImage = true;
-            // 
-            // displayColorAfterSelect
-            // 
-            this.displayColorAfterSelect.Checked = true;
-            this.displayColorAfterSelect.Label = "displayColorAfterSelect";
-            this.displayColorAfterSelect.Name = "displayColorAfterSelect";
-            // 
-            // picColor1
-            // 
-            this.picColor1.Label = "picColor1";
-            this.picColor1.Name = "picColor1";
-            this.picColor1.ShowImage = true;
-            this.picColor1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor1_Click);
-            // 
-            // picColor2
-            // 
-            this.picColor2.Label = "picColor2";
-            this.picColor2.Name = "picColor2";
-            this.picColor2.ShowImage = true;
-            this.picColor2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor2_Click);
-            // 
-            // picColor6
-            // 
-            this.picColor6.Label = "picColor6";
-            this.picColor6.Name = "picColor6";
-            this.picColor6.ShowImage = true;
-            this.picColor6.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor6_Click);
-            // 
-            // picColor4
-            // 
-            this.picColor4.Label = "picColor4";
-            this.picColor4.Name = "picColor4";
-            this.picColor4.ShowImage = true;
-            this.picColor4.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor4_Click);
-            // 
-            // picColor5
-            // 
-            this.picColor5.Label = "picColor5";
-            this.picColor5.Name = "picColor5";
-            this.picColor5.ShowImage = true;
-            this.picColor5.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor5_Click);
-            // 
-            // picColor3
-            // 
-            this.picColor3.Label = "picColor3";
-            this.picColor3.Name = "picColor3";
-            this.picColor3.ShowImage = true;
-            this.picColor3.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.picColor3_Click);
-            // 
-            // hotfixAutoReset41
-            // 
-            this.hotfixAutoReset41.Checked = true;
-            this.hotfixAutoReset41.Label = "自動復歸";
-            this.hotfixAutoReset41.Name = "hotfixAutoReset41";
-            // 
-            // safe3
-            // 
-            this.safe3.Checked = true;
-            this.safe3.Label = "捕捉缺項錯誤";
-            this.safe3.Name = "safe3";
             // 
             // Ribbon1
             // 

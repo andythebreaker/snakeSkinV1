@@ -754,17 +754,21 @@ namespace snakeSkinV1
 
         private void arraySetData_Click(object sender, RibbonControlEventArgs e)
         {
+            if (arraySetData.Tag==null) {
+                MessageBox.Show("error! you did not select your data! action not finish!");
+            }
             Tuple<List<Excel.Range>, List<Excel.Range>, List<Excel.Range>> previewData = (Tuple<List<Excel.Range>, List<Excel.Range>, List<Excel.Range>>)arraySetData.Tag;
             for (int i = 0; i < previewData.Item3.Count; i++)
             {
                 Range c = previewData.Item3[i];
-                int a = i / previewData.Item1.Count;//source
+                int a = i / previewData.Item2.Count;//source
                 int b = i % previewData.Item2.Count;//target
                 Excel.Range a_c = previewData.Item1[a];
                 Excel.Range b_c = previewData.Item2[b];
                 Tuple<Excel.Range, Excel.Range> tmp = new Tuple<Excel.Range, Excel.Range>(a_c, b_c);
                 mainData[tmp] = c;
             }
+            arraySetData.Tag = null;
         }
 
         private void previewArray_Click(object sender, RibbonControlEventArgs e)
