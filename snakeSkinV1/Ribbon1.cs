@@ -782,7 +782,10 @@ namespace snakeSkinV1
                 return;
             }
             Excel.Range d = readUserSelectOne().Resize[((Excel.Range)arraySetSource.Tag).Count, ((Excel.Range)arraySetTarget.Tag).Count];
-            d.Interior.Color = System.Drawing.ColorTranslator.ToOle(a1.Color);
+            Tuple<List<double>, List<double>> savePrvColor_obj = savePrvColor(d, typeSourceTargetData.data);
+            arrayColorSetData1.Tag = savePrvColor_obj.Item1;
+            arrayColorSetData2.Tag = savePrvColor_obj.Item2;
+            //d.Interior.Color = System.Drawing.ColorTranslator.ToOle(a1.Color);
             List<Excel.Range> s = new List<Excel.Range>();
             List<Excel.Range> t = new List<Excel.Range>();
             List<Excel.Range> d_list = new List<Excel.Range>();
