@@ -759,6 +759,7 @@ namespace snakeSkinV1
         {
             if (arraySetData.Tag==null) {
                 MessageBox.Show("error! you did not select your data! action not finish!");
+                return;
             }
             Tuple<List<Excel.Range>, List<Excel.Range>, List<Excel.Range>> previewData = (Tuple<List<Excel.Range>, List<Excel.Range>, List<Excel.Range>>)arraySetData.Tag;
             for (int i = 0; i < previewData.Item3.Count; i++)
@@ -775,7 +776,11 @@ namespace snakeSkinV1
         }
 
         private void previewArray_Click(object sender, RibbonControlEventArgs e)
-        { //!TODO:if count > 0 then good to go 
+        { 
+            if (((Excel.Range)arraySetSource.Tag).Count==0|| ((Excel.Range)arraySetTarget.Tag).Count==0) {
+                MessageBox.Show("error, you did not select array source or array tatget! action not finish!");
+                return;
+            }
             Excel.Range d = readUserSelectOne().Resize[((Excel.Range)arraySetSource.Tag).Count, ((Excel.Range)arraySetTarget.Tag).Count];
             d.Interior.Color = System.Drawing.ColorTranslator.ToOle(a1.Color);
             List<Excel.Range> s = new List<Excel.Range>();
