@@ -528,8 +528,9 @@ namespace snakeSkinV1
                 "dc區增加'清除'按鈕\n" +
                 "修改程式非阻擋式'圖表呈現'的說明(只要先開瀏覽器)\n" +
                 "下一個作的:" +
-                "矩陣式輸入" +
-                "TODO:函式arraySetSource_Click附近"
+                "save, main data change to set get; set 是寫入string，get是return dictionary" +
+                "模組化"+
+                "target dont need save button"
                 );
         }
 
@@ -909,6 +910,19 @@ namespace snakeSkinV1
                 await Task.Delay(500); // Non-blocking delay
                 setCellsColor(d.Key, color_tmp_1, color_tmp_2, color_tmp_3, color_tmp_4, color_tmp_5, color_tmp_6);
             }
+        }
+
+        private void testsave_Click(object sender, RibbonControlEventArgs e)
+        {
+            Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
+            excelApp.ActiveWorkbook.CustomDocumentProperties.Add("testP1",false, Microsoft.Office.Core.MsoDocProperties.msoPropertyTypeNumber,48);
+        }
+
+        private void testloadsave_Click(object sender, RibbonControlEventArgs e)
+        {
+            Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
+            int mustbe48 = excelApp.ActiveWorkbook.CustomDocumentProperties["testP1"].Value;
+            MessageBox.Show(mustbe48.ToString());
         }
     }
 }

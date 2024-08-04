@@ -83,6 +83,7 @@
             this.b2show = this.Factory.CreateRibbonButton();
             this.c1show = this.Factory.CreateRibbonButton();
             this.c2show = this.Factory.CreateRibbonButton();
+            this.rainbowMG = this.Factory.CreateRibbonButton();
             this.dpOperate = this.Factory.CreateRibbonGroup();
             this.displayData = this.Factory.CreateRibbonButton();
             this.processData = this.Factory.CreateRibbonButton();
@@ -94,6 +95,7 @@
             this.listTest = this.Factory.CreateRibbonButton();
             this.writeMainDataDumb = this.Factory.CreateRibbonButton();
             this.galleryNumTest = this.Factory.CreateRibbonButton();
+            this.rainbowTest = this.Factory.CreateRibbonButton();
             this.todolist = this.Factory.CreateRibbonButton();
             this.a1 = new System.Windows.Forms.ColorDialog();
             this.a2 = new System.Windows.Forms.ColorDialog();
@@ -107,8 +109,8 @@
             this.arrayColorSetTarget2 = new System.Windows.Forms.ColorDialog();
             this.arrayColorSetData1 = new System.Windows.Forms.ColorDialog();
             this.arrayColorSetData2 = new System.Windows.Forms.ColorDialog();
-            this.rainbowTest = this.Factory.CreateRibbonButton();
-            this.rainbowMG = this.Factory.CreateRibbonButton();
+            this.testsave = this.Factory.CreateRibbonButton();
+            this.testloadsave = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
@@ -439,6 +441,12 @@
             this.c2show.ShowImage = true;
             this.c2show.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.c2show_Click);
             // 
+            // rainbowMG
+            // 
+            this.rainbowMG.Label = "資料校對動畫";
+            this.rainbowMG.Name = "rainbowMG";
+            this.rainbowMG.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.rainbowMG_Click);
+            // 
             // dpOperate
             // 
             this.dpOperate.Items.Add(this.displayData);
@@ -473,6 +481,8 @@
             this.debugHide.Items.Add(this.writeMainDataDumb);
             this.debugHide.Items.Add(this.galleryNumTest);
             this.debugHide.Items.Add(this.rainbowTest);
+            this.debugHide.Items.Add(this.testsave);
+            this.debugHide.Items.Add(this.testloadsave);
             this.debugHide.Items.Add(this.todolist);
             this.debugHide.Label = "debugHide";
             this.debugHide.Name = "debugHide";
@@ -521,6 +531,13 @@
             this.galleryNumTest.ShowImage = true;
             this.galleryNumTest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.galleryNumTest_Click);
             // 
+            // rainbowTest
+            // 
+            this.rainbowTest.Label = "ranbowTest";
+            this.rainbowTest.Name = "rainbowTest";
+            this.rainbowTest.ShowImage = true;
+            this.rainbowTest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.rainbowTest_Click);
+            // 
             // todolist
             // 
             this.todolist.Label = "todolist";
@@ -532,18 +549,19 @@
             // 
             this.a1.Color = System.Drawing.SystemColors.Window;
             // 
-            // rainbowTest
+            // testsave
             // 
-            this.rainbowTest.Label = "ranbowTest";
-            this.rainbowTest.Name = "rainbowTest";
-            this.rainbowTest.ShowImage = true;
-            this.rainbowTest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.rainbowTest_Click);
+            this.testsave.Label = "testsave";
+            this.testsave.Name = "testsave";
+            this.testsave.ShowImage = true;
+            this.testsave.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.testsave_Click);
             // 
-            // rainbowMG
+            // testloadsave
             // 
-            this.rainbowMG.Label = "資料校對動畫";
-            this.rainbowMG.Name = "rainbowMG";
-            this.rainbowMG.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.rainbowMG_Click);
+            this.testloadsave.Label = "testloadsave";
+            this.testloadsave.Name = "testloadsave";
+            this.testloadsave.ShowImage = true;
+            this.testloadsave.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.testloadsave_Click);
             // 
             // Ribbon1
             // 
@@ -638,6 +656,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox safe3;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton rainbowTest;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton rainbowMG;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton testsave;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton testloadsave;
     }
 
     partial class ThisRibbonCollection
