@@ -38,7 +38,8 @@ namespace snakeSkinV1
             arrayColorSetTarget2.Color = System.Drawing.ColorTranslator.FromHtml("#f1dd95");
             arrayColorSetData1.Color = System.Drawing.ColorTranslator.FromHtml("#feeeed");
             arrayColorSetData1.Color = System.Drawing.ColorTranslator.FromHtml("#7fc3ff");
-
+            saveMirrorText.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            loadMirrorText.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         }
 
         private void displayData_Click(object sender, RibbonControlEventArgs e)
@@ -985,6 +986,10 @@ namespace snakeSkinV1
 
         private void loadMap_Click(object sender, RibbonControlEventArgs e)
         {
+            if (emptyWhenLoad.Checked)
+            {
+                mainData.Clear();
+            }
             /*
 [{"source":{"worksheet":"工作表1","address":"$A$2"},"target":{"worksheet":"工作表1","address":"$B$1"},"value":{"worksheet":"工作表1","address":"$B$2"}},{"source":{"worksheet":"工作表1","address":"$A$2"},"target":{"worksheet":"工作表1","address":"$C$1"},"value":{"workshe
              */
@@ -1007,6 +1012,56 @@ namespace snakeSkinV1
                 Excel.Range range3 = worksheet3.get_Range(d.value.address);
                 var tmp = Tuple.Create(range1,range2);
                 mainData[tmp] = range3;
+            }
+        }
+
+        private void exportMap_Click(object sender, RibbonControlEventArgs e)
+        {
+            Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
+            string jsonStr = "";
+            int mainDataMirrorLength = excelApp.ActiveWorkbook.CustomDocumentProperties["mainDataMirrorLength"].Value;
+            for (int i = 0; i < mainDataMirrorLength; i++)
+            {
+                string js255 = excelApp.ActiveWorkbook.CustomDocumentProperties[$"mainDataMirror{i}"].Value;
+                jsonStr += js255;
+            }
+            if (saveMirrorText.ShowDialog() == DialogResult.OK)
+            {
+                // Get the selected file path
+                string filePath = saveMirrorText.FileName;
+
+                // Write the string to the file
+                File.WriteAllText(filePath, jsonStr);
+
+                // Optionally, you can display a message to the user
+                MessageBox.Show($"File saved successfully at: {filePath}");
+            }
+        }
+
+        private void importMap_Click(object sender, RibbonControlEventArgs e)
+        {
+            if (loadMirrorText.ShowDialog() == DialogResult.OK)
+            {
+                // Get the selected file path
+                string filePath = loadMirrorText.FileName;
+
+                // Read the content of the file
+                string jsonStr = File.ReadAllText(filePath);
+                Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
+                List<DicSave> mirror = JsonConvert.DeserializeObject<List<DicSave>>(jsonStr);//這段是從loadMap_Click複製過來的
+                foreach (DicSave d in mirror)
+                {
+                    Excel.Workbook workbook = excelApp.ActiveWorkbook;
+                    Excel.Worksheet worksheet1 = workbook.Sheets[d.source.worksheet];
+                    Excel.Range range1 = worksheet1.get_Range(d.source.address);
+                    Excel.Worksheet worksheet2 = workbook.Sheets[d.target.worksheet];
+                    Excel.Range range2 = worksheet2.get_Range(d.target.address);
+                    Excel.Worksheet worksheet3 = workbook.Sheets[d.value.worksheet];
+                    Excel.Range range3 = worksheet3.get_Range(d.value.address);
+                    var tmp = Tuple.Create(range1, range2);
+                    mainData[tmp] = range3;
+                }
+
             }
         }
     }

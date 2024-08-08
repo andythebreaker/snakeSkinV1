@@ -116,6 +116,10 @@
             this.loadMap = this.Factory.CreateRibbonButton();
             this.exportMap = this.Factory.CreateRibbonButton();
             this.importMap = this.Factory.CreateRibbonButton();
+            this.setting4save = this.Factory.CreateRibbonMenu();
+            this.emptyWhenLoad = this.Factory.CreateRibbonCheckBox();
+            this.saveMirrorText = new System.Windows.Forms.SaveFileDialog();
+            this.loadMirrorText = new System.Windows.Forms.OpenFileDialog();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
@@ -357,6 +361,7 @@
             this.ucOperate.Items.Add(this.loadMap);
             this.ucOperate.Items.Add(this.exportMap);
             this.ucOperate.Items.Add(this.importMap);
+            this.ucOperate.Items.Add(this.setting4save);
             this.ucOperate.Label = "ucOperate";
             this.ucOperate.Name = "ucOperate";
             // 
@@ -597,11 +602,41 @@
             // 
             this.exportMap.Label = "匯出";
             this.exportMap.Name = "exportMap";
+            this.exportMap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.exportMap_Click);
             // 
             // importMap
             // 
             this.importMap.Label = "匯入";
             this.importMap.Name = "importMap";
+            this.importMap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.importMap_Click);
+            // 
+            // setting4save
+            // 
+            this.setting4save.Items.Add(this.emptyWhenLoad);
+            this.setting4save.Label = "存檔設定";
+            this.setting4save.Name = "setting4save";
+            // 
+            // emptyWhenLoad
+            // 
+            this.emptyWhenLoad.Checked = true;
+            this.emptyWhenLoad.Label = "載入時清空主記憶體(未打勾時執行複寫操作)";
+            this.emptyWhenLoad.Name = "emptyWhenLoad";
+            // 
+            // saveMirrorText
+            // 
+            this.saveMirrorText.DefaultExt = "json";
+            this.saveMirrorText.FileName = "蛇圖格關聯檔";
+            this.saveMirrorText.Filter = "\"JSON files (*.json)|*.json|All files (*.*)|*.*\"";
+            this.saveMirrorText.RestoreDirectory = true;
+            this.saveMirrorText.Title = "正在匯出蛇圖格關聯檔";
+            // 
+            // loadMirrorText
+            // 
+            this.loadMirrorText.DefaultExt = "json";
+            this.loadMirrorText.FileName = "蛇圖格關聯檔";
+            this.loadMirrorText.Filter = "\"JSON files (*.json)|*.json|All files (*.*)|*.*\"";
+            this.loadMirrorText.RestoreDirectory = true;
+            this.loadMirrorText.Title = "正在匯入蛇圖格關聯檔";
             // 
             // Ribbon1
             // 
@@ -705,6 +740,10 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton loadMap;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton exportMap;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton importMap;
+        internal Microsoft.Office.Tools.Ribbon.RibbonMenu setting4save;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox emptyWhenLoad;
+        private System.Windows.Forms.SaveFileDialog saveMirrorText;
+        private System.Windows.Forms.OpenFileDialog loadMirrorText;
     }
 
     partial class ThisRibbonCollection
