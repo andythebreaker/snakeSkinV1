@@ -8,6 +8,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 //using Newtonsoft.Json;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Web;
 
 namespace snakeSkinV1
 {/*public class CustomDictionary : IEnumerable<KeyValuePair<string, int>>
@@ -48,9 +49,9 @@ namespace snakeSkinV1
     {
         return GetEnumerator();
     }*/
-    internal class DicSave : IEnumerable<KeyValuePair<Tuple<Excel.Range, Excel.Range>, Excel.Range>>
+    internal class DicSave //: IEnumerable<KeyValuePair<Tuple<Excel.Range, Excel.Range>, Excel.Range>>
     {
-        public Dictionary<Tuple<Excel.Range, Excel.Range>, Excel.Range> thisDictionary()
+        /*public Dictionary<Tuple<Excel.Range, Excel.Range>, Excel.Range> thisDictionary()
         {
             Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
             int SSkeysCount = excelApp.ActiveWorkbook.CustomDocumentProperties["SSkeysCount"].Value;
@@ -92,6 +93,40 @@ namespace snakeSkinV1
         {
             return GetEnumerator();
             //throw new NotImplementedException();
+        }*/
+        public struct worksheet_and_address
+        {
+            public string worksheet;
+            public string address;
+        }
+
+        public worksheet_and_address source { get; set; }
+        public worksheet_and_address target { get; set; }
+        public worksheet_and_address value { get; set; }
+
+        public DicSave(string source_worksheet,
+            string source_address,
+            string target_worksheet,
+            string target_address,
+            string value_worksheet,
+            string value_address) {
+            source = new worksheet_and_address
+            {
+                worksheet = source_worksheet,
+                address = source_address
+            };
+
+            target = new worksheet_and_address
+            {
+                worksheet = target_worksheet,
+                address = target_address
+            };
+
+            value = new worksheet_and_address
+            {
+                worksheet = value_worksheet,
+                address = value_address
+            };
         }
     }
 }

@@ -585,11 +585,13 @@
             // 
             this.saveMap.Label = "存檔";
             this.saveMap.Name = "saveMap";
+            this.saveMap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.saveMap_Click);
             // 
             // loadMap
             // 
             this.loadMap.Label = "載入";
             this.loadMap.Name = "loadMap";
+            this.loadMap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.loadMap_Click);
             // 
             // exportMap
             // 

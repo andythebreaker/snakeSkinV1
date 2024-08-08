@@ -13,6 +13,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
+using Newtonsoft.Json;
+using System.Reflection;
 
 namespace snakeSkinV1
 {
@@ -621,7 +623,6 @@ namespace snakeSkinV1
                 editData_tmp.Tag = d.Key;
                 editData_tmp.ScreenTip = $"來源:[{d.Key.Item1.Worksheet.Name}]{d.Key.Item1.Address};目標:[{d.Key.Item2.Worksheet.Name}]{d.Key.Item2.Address};值:[{d.Value.Worksheet.Name}]{d.Value.Address};";
                 editData.Items.Add(editData_tmp);
-                //todo!important d.Key.Item2.Worksheet.
             }
         }
 
@@ -932,6 +933,81 @@ namespace snakeSkinV1
             string y = x.Worksheet.CodeName;
             MessageBox.Show(x.Value2);
 
+        }
+
+       public List<string> SplitString(string str, int maxChunkSize)
+        {
+            List<string> result = new List<string>();
+            if (str.Length < maxChunkSize) { 
+            result.Add(str);
+            }
+            else
+            {
+                for (int i = 0; i < str.Length; i += maxChunkSize)
+                {
+                    // Ensure we do not exceed the string length
+                    if (i + maxChunkSize > str.Length)
+                    {
+                        result.Add(str.Substring(i));
+                    }
+                    else
+                    {
+                        result.Add(str.Substring(i, maxChunkSize));
+                    }
+                }
+            }
+            return result;
+        }
+
+        private void saveMap_Click(object sender, RibbonControlEventArgs e)
+        {
+            editData.Items.Clear();//!important!從edit data load 複製過來的
+            List<DicSave> mirror = new List<DicSave>();
+            foreach (var d in mainData)
+            {
+                mirror.Add(new DicSave(
+                d.Key.Item1.Worksheet.Name,d.Key.Item1.Address,d.Key.Item2.Worksheet.Name,d.Key.Item2.Address,d.Value.Worksheet.Name,d.Value.Address
+                ));
+            }
+            string jsonStr = JsonConvert.SerializeObject(mirror);
+            //MessageBox.Show(jsonStr);
+            Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
+            // excelApp.ActiveWorkbook.Variables{ "mainDataMirror" } = 
+            List<string> jsonStr255 = SplitString(jsonStr, 255);
+            foreach (var (js255, index) in jsonStr255.Select((value, i) => (value, i)))
+            {
+                // Use 'js255' and 'index' here
+            excelApp.ActiveWorkbook.CustomDocumentProperties.Add($"mainDataMirror{index}", false, Microsoft.Office.Core.MsoDocProperties.msoPropertyTypeString, js255);
+
+            }
+            excelApp.ActiveWorkbook.CustomDocumentProperties.Add("mainDataMirrorLength", false, Microsoft.Office.Core.MsoDocProperties.msoPropertyTypeNumber, jsonStr255.Count);
+        }
+
+        private void loadMap_Click(object sender, RibbonControlEventArgs e)
+        {
+            /*
+[{"source":{"worksheet":"工作表1","address":"$A$2"},"target":{"worksheet":"工作表1","address":"$B$1"},"value":{"worksheet":"工作表1","address":"$B$2"}},{"source":{"worksheet":"工作表1","address":"$A$2"},"target":{"worksheet":"工作表1","address":"$C$1"},"value":{"workshe
+             */
+            Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
+            string jsonStr = "";//excelApp.ActiveWorkbook.CustomDocumentProperties["mainDataMirror"].Value;
+            int mainDataMirrorLength = excelApp.ActiveWorkbook.CustomDocumentProperties["mainDataMirrorLength"].Value;
+            for (int i = 0; i < mainDataMirrorLength; i++) {
+                string js255 = excelApp.ActiveWorkbook.CustomDocumentProperties[$"mainDataMirror{i}"].Value;
+                jsonStr += js255;
+            }
+            List<DicSave> mirror = JsonConvert.DeserializeObject<List<DicSave>>(jsonStr);//?? new List<DicSave>();
+            foreach (DicSave d in mirror)
+            {
+                Excel.Workbook workbook = excelApp.ActiveWorkbook;
+                Excel.Worksheet worksheet1 = workbook.Sheets[d.source.worksheet];
+                Excel.Range range1 = worksheet1.get_Range(d.source.address);
+                Excel.Worksheet worksheet2 = workbook.Sheets[d.target.worksheet];
+                Excel.Range range2 = worksheet2.get_Range(d.target.address);
+                Excel.Worksheet worksheet3 = workbook.Sheets[d.value.worksheet];
+                Excel.Range range3 = worksheet3.get_Range(d.value.address);
+                var tmp = Tuple.Create(range1,range2);
+                mainData[tmp] = range3;
+            }
         }
     }
 }
