@@ -96,6 +96,8 @@
             this.writeMainDataDumb = this.Factory.CreateRibbonButton();
             this.galleryNumTest = this.Factory.CreateRibbonButton();
             this.rainbowTest = this.Factory.CreateRibbonButton();
+            this.testsave = this.Factory.CreateRibbonButton();
+            this.testloadsave = this.Factory.CreateRibbonButton();
             this.todolist = this.Factory.CreateRibbonButton();
             this.a1 = new System.Windows.Forms.ColorDialog();
             this.a2 = new System.Windows.Forms.ColorDialog();
@@ -109,11 +111,15 @@
             this.arrayColorSetTarget2 = new System.Windows.Forms.ColorDialog();
             this.arrayColorSetData1 = new System.Windows.Forms.ColorDialog();
             this.arrayColorSetData2 = new System.Windows.Forms.ColorDialog();
-            this.testsave = this.Factory.CreateRibbonButton();
-            this.testloadsave = this.Factory.CreateRibbonButton();
+            this.worksheetcodenametest = this.Factory.CreateRibbonButton();
+            this.saveMap = this.Factory.CreateRibbonButton();
+            this.loadMap = this.Factory.CreateRibbonButton();
+            this.exportMap = this.Factory.CreateRibbonButton();
+            this.importMap = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
+            this.ucOperate.SuspendLayout();
             this.mgOperate.SuspendLayout();
             this.dpOperate.SuspendLayout();
             this.pdOperate.SuspendLayout();
@@ -347,6 +353,10 @@
             // 
             // ucOperate
             // 
+            this.ucOperate.Items.Add(this.saveMap);
+            this.ucOperate.Items.Add(this.loadMap);
+            this.ucOperate.Items.Add(this.exportMap);
+            this.ucOperate.Items.Add(this.importMap);
             this.ucOperate.Label = "ucOperate";
             this.ucOperate.Name = "ucOperate";
             // 
@@ -483,6 +493,7 @@
             this.debugHide.Items.Add(this.rainbowTest);
             this.debugHide.Items.Add(this.testsave);
             this.debugHide.Items.Add(this.testloadsave);
+            this.debugHide.Items.Add(this.worksheetcodenametest);
             this.debugHide.Items.Add(this.todolist);
             this.debugHide.Label = "debugHide";
             this.debugHide.Name = "debugHide";
@@ -538,17 +549,6 @@
             this.rainbowTest.ShowImage = true;
             this.rainbowTest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.rainbowTest_Click);
             // 
-            // todolist
-            // 
-            this.todolist.Label = "todolist";
-            this.todolist.Name = "todolist";
-            this.todolist.ShowImage = true;
-            this.todolist.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.todolist_Click);
-            // 
-            // a1
-            // 
-            this.a1.Color = System.Drawing.SystemColors.Window;
-            // 
             // testsave
             // 
             this.testsave.Label = "testsave";
@@ -563,6 +563,44 @@
             this.testloadsave.ShowImage = true;
             this.testloadsave.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.testloadsave_Click);
             // 
+            // todolist
+            // 
+            this.todolist.Label = "todolist";
+            this.todolist.Name = "todolist";
+            this.todolist.ShowImage = true;
+            this.todolist.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.todolist_Click);
+            // 
+            // a1
+            // 
+            this.a1.Color = System.Drawing.SystemColors.Window;
+            // 
+            // worksheetcodenametest
+            // 
+            this.worksheetcodenametest.Label = "worksheetcodenametest";
+            this.worksheetcodenametest.Name = "worksheetcodenametest";
+            this.worksheetcodenametest.ShowImage = true;
+            this.worksheetcodenametest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.worksheetcodenametest_Click);
+            // 
+            // saveMap
+            // 
+            this.saveMap.Label = "存檔";
+            this.saveMap.Name = "saveMap";
+            // 
+            // loadMap
+            // 
+            this.loadMap.Label = "載入";
+            this.loadMap.Name = "loadMap";
+            // 
+            // exportMap
+            // 
+            this.exportMap.Label = "匯出";
+            this.exportMap.Name = "exportMap";
+            // 
+            // importMap
+            // 
+            this.importMap.Label = "匯入";
+            this.importMap.Name = "importMap";
+            // 
             // Ribbon1
             // 
             this.Name = "Ribbon1";
@@ -575,6 +613,8 @@
             this.dcOperate.PerformLayout();
             this.kpOperate.ResumeLayout(false);
             this.kpOperate.PerformLayout();
+            this.ucOperate.ResumeLayout(false);
+            this.ucOperate.PerformLayout();
             this.mgOperate.ResumeLayout(false);
             this.mgOperate.PerformLayout();
             this.dpOperate.ResumeLayout(false);
@@ -658,6 +698,11 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton rainbowMG;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton testsave;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton testloadsave;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton worksheetcodenametest;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton saveMap;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton loadMap;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton exportMap;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton importMap;
     }
 
     partial class ThisRibbonCollection

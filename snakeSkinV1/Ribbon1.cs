@@ -621,6 +621,7 @@ namespace snakeSkinV1
                 editData_tmp.Tag = d.Key;
                 editData_tmp.ScreenTip = $"來源:[{d.Key.Item1.Worksheet.Name}]{d.Key.Item1.Address};目標:[{d.Key.Item2.Worksheet.Name}]{d.Key.Item2.Address};值:[{d.Value.Worksheet.Name}]{d.Value.Address};";
                 editData.Items.Add(editData_tmp);
+                //todo!important d.Key.Item2.Worksheet.
             }
         }
 
@@ -923,6 +924,14 @@ namespace snakeSkinV1
             Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
             int mustbe48 = excelApp.ActiveWorkbook.CustomDocumentProperties["testP1"].Value;
             MessageBox.Show(mustbe48.ToString());
+        }
+
+        private void worksheetcodenametest_Click(object sender, RibbonControlEventArgs e)
+        {
+            Range x = readUserSelectOne();
+            string y = x.Worksheet.CodeName;
+            MessageBox.Show(x.Value2);
+
         }
     }
 }
