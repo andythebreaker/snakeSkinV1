@@ -529,11 +529,7 @@ namespace snakeSkinV1
         {
             MessageBox.Show(
                 "dc區增加'清除'按鈕\n" +
-                "修改程式非阻擋式'圖表呈現'的說明(只要先開瀏覽器)\n" +
-                "下一個作的:" +
-                "save, main data change to set get; set 是寫入string，get是return dictionary" +
-                "模組化"+
-                "target dont need save button"
+                "修改程式非阻擋式'圖表呈現'的說明(只要先開瀏覽器)\n"
                 );
         }
 
