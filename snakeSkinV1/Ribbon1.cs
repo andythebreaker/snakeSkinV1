@@ -610,28 +610,28 @@ namespace snakeSkinV1
             }
         }
 
-        private void updateWorkSheetShiftSetting(object sender, RibbonControlEventArgs e)
-        {
-            Dictionary<string,int> old = new Dictionary<string, int>();//!important!不能有兩個名稱一樣的活頁簿
-            foreach (RibbonDropDownItem i in shiftSetting.Items) {
-                old[((ShiftSettingSave)i.Tag).workSheetName]= ((ShiftSettingSave)i.Tag).workSheetShiftNumber;
+        private void loadShiftSetting() {
+            Dictionary<string, int> old = new Dictionary<string, int>();//!important!不能有兩個名稱一樣的活頁簿
+            foreach (RibbonDropDownItem i in shiftSetting.Items)
+            {
+                old[((ShiftSettingSave)i.Tag).workSheetName] = ((ShiftSettingSave)i.Tag).workSheetShiftNumber;
             }
 
             Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
             Sheets sh = excelApp.Sheets;
-            List< RibbonDropDownItem > ui2append = new List< RibbonDropDownItem >();
+            List<RibbonDropDownItem> ui2append = new List<RibbonDropDownItem>();
             foreach (Microsoft.Office.Interop.Excel.Worksheet i in sh)
             {
                 //MessageBox.Show(i.Name);
                 RibbonDropDownItem editData_tmp = this.Factory.CreateRibbonDropDownItem();
                 try
                 {
-                    ShiftSettingSave sht = new ShiftSettingSave(i.Name,old[i.Name]);
-                    editData_tmp.Label = sht.getTitle() ;
+                    ShiftSettingSave sht = new ShiftSettingSave(i.Name, old[i.Name]);
+                    editData_tmp.Label = sht.getTitle();
                     editData_tmp.Tag = sht;
                     ui2append.Add(editData_tmp);
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
                     ShiftSettingSave sht = new ShiftSettingSave(i.Name, 0);
                     editData_tmp.Label = sht.getTitle();
@@ -644,6 +644,11 @@ namespace snakeSkinV1
             {
                 shiftSetting.Items.Add(i);
             }
+        }
+
+        private void updateWorkSheetShiftSetting(object sender, RibbonControlEventArgs e)
+        {
+            loadShiftSetting();
         }
 
         private void editDataLoad(object sender, RibbonControlEventArgs e)
@@ -1070,8 +1075,28 @@ namespace snakeSkinV1
             }
         }
 
+        private int shiftSettingQuery(IList<RibbonDropDownItem> listOfItems,string toFind) {
+            foreach (var item in listOfItems)
+            {
+                if (((ShiftSettingSave)item.Tag).workSheetName==toFind)
+                {
+                    return ((ShiftSettingSave)item.Tag).workSheetShiftNumber;
+                }
+            }
+            MessageBox.Show($"Error! Not found! Can't find worksheet : {toFind} in shift setting list. Using shift number = 0.");
+            return 0;
+        }
+
         private void importMap_Click(object sender, RibbonControlEventArgs e)
         {
+            if (ableShift.Checked)
+            { 
+            loadShiftSetting();
+            }
+            if (emptyWhenLoad.Checked)
+            {
+                mainData.Clear();
+            }
             if (loadMirrorText.ShowDialog() == DialogResult.OK)
             {
                 // Get the selected file path
@@ -1084,14 +1109,26 @@ namespace snakeSkinV1
                 foreach (DicSave d in mirror)
                 {
                     Excel.Workbook workbook = excelApp.ActiveWorkbook;
-                    Excel.Worksheet worksheet1 = workbook.Sheets[d.source.worksheet];
-                    Excel.Range range1 = worksheet1.get_Range(d.source.address);
+                 Excel.Worksheet worksheet1 = workbook.Sheets[d.source.worksheet];
                     Excel.Worksheet worksheet2 = workbook.Sheets[d.target.worksheet];
-                    Excel.Range range2 = worksheet2.get_Range(d.target.address);
                     Excel.Worksheet worksheet3 = workbook.Sheets[d.value.worksheet];
+                    if (ableShift.Checked) {
+                        Excel.Range range1 = worksheet1.get_Range(d.source.address);
+                        Excel.Range range2 = worksheet2.get_Range(d.target.address);
+                        Excel.Range range3 = worksheet3.get_Range(d.value.address);
+                        var tmp = Tuple.Create(ShiftRange( range1, shiftSettingQuery(shiftSetting.Items,range1.Worksheet.Name)),
+                           ShiftRange(range2, shiftSettingQuery(shiftSetting.Items, range2.Worksheet.Name)));
+                        mainData[tmp] = ShiftRange(range3, shiftSettingQuery(shiftSetting.Items, range3.Worksheet.Name));
+                    }
+                    else { 
+                    Excel.Range range1 = worksheet1.get_Range(d.source.address);
+                    Excel.Range range2 = worksheet2.get_Range(d.target.address);
                     Excel.Range range3 = worksheet3.get_Range(d.value.address);
                     var tmp = Tuple.Create(range1, range2);
                     mainData[tmp] = range3;
+                    
+                    }
+                    
                 }
 
             }
@@ -1110,50 +1147,19 @@ namespace snakeSkinV1
             else
             {
                 //MessageBox.Show(tmp.Count.ToString()+"~"+ selectedItem.Label);
-                selectedItem.Tag = new ShiftSettingSave(((ShiftSettingSave)selectedItem.Tag).workSheetName,tmp.Count) ;
+                selectedItem.Tag = new ShiftSettingSave(((ShiftSettingSave)selectedItem.Tag).workSheetName,
+                    ((tmp.Count-1)<0)?0: tmp.Count-1) ;
             }
         }
 
-        private void testActivateWindows_Click(object sender, RibbonControlEventArgs e)
+        public static Excel.Range ShiftRange(Excel.Range range, int shiftDown)
         {
-            // Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
-            // MessageBox.Show(excelApp.ActiveWindow.ToString());
+            return range.Cells[1+shiftDown, 1];//~~植樹問題所以應該是1+shiftdown-1~~
+        }
 
-            /*try
-            {
-                // Get the current instance of Excel (if it exists)
-                Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
-
-                // Get the active workbook
-                Excel.Workbook workbook = excelApp.ActiveWorkbook;
-
-                if (workbook != null)
-                {
-                    // Count the number of sheets in the active workbook
-                    int sheetCount = workbook.Sheets.Count;
-
-                    // Display the number of sheets
-                    MessageBox.Show("Number of sheets: " + sheetCount);
-                }
-                else
-                {
-                    MessageBox.Show("No active workbook found.");
-                }
-            }
-            catch (COMException)
-            {
-                MessageBox.Show("Excel is not running.");
-            }
-            finally
-            {
-                // Cleanup
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-            }*/
-
-            /*Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
-            Sheets s = excelApp.Sheets;
-            MessageBox.Show(s.Count.ToString());*/
+            private void testActivateWindows_Click(object sender, RibbonControlEventArgs e)
+        {
+            ShiftRange(readUserSelectOne(),3).Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
         }
     }
 }

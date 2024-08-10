@@ -524,6 +524,7 @@
             // 
             // ableShift
             // 
+            this.ableShift.Checked = true;
             this.ableShift.Label = "ableShift";
             this.ableShift.Name = "ableShift";
             // 

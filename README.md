@@ -10,6 +10,7 @@
 
 1. install or sel. R path
 2. 偏移量的上下左右調整
+3. githubworkflow
 
 ## 防呆未設置
 
