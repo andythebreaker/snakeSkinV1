@@ -123,9 +123,13 @@
             this.arrayColorSetData2 = new System.Windows.Forms.ColorDialog();
             this.saveMirrorText = new System.Windows.Forms.SaveFileDialog();
             this.loadMirrorText = new System.Windows.Forms.OpenFileDialog();
+            this.menu1 = this.Factory.CreateRibbonMenu();
+            this.splitButton1 = this.Factory.CreateRibbonSplitButton();
+            this.button1 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
+            this.juniorOP.SuspendLayout();
             this.mgOperate.SuspendLayout();
             this.dpOperate.SuspendLayout();
             this.ucOperate.SuspendLayout();
@@ -350,6 +354,7 @@
             // 
             // juniorOP
             // 
+            this.juniorOP.Items.Add(this.menu1);
             this.juniorOP.Label = "juniorOP";
             this.juniorOP.Name = "juniorOP";
             // 
@@ -664,6 +669,24 @@
             this.loadMirrorText.RestoreDirectory = true;
             this.loadMirrorText.Title = "正在匯入蛇圖格關聯檔";
             // 
+            // menu1
+            // 
+            this.menu1.Items.Add(this.splitButton1);
+            this.menu1.Label = "menu1";
+            this.menu1.Name = "menu1";
+            // 
+            // splitButton1
+            // 
+            this.splitButton1.Items.Add(this.button1);
+            this.splitButton1.Label = "splitButton1";
+            this.splitButton1.Name = "splitButton1";
+            // 
+            // button1
+            // 
+            this.button1.Label = "button1";
+            this.button1.Name = "button1";
+            this.button1.ShowImage = true;
+            // 
             // Ribbon1
             // 
             this.Name = "Ribbon1";
@@ -676,6 +699,8 @@
             this.dcOperate.PerformLayout();
             this.kpOperate.ResumeLayout(false);
             this.kpOperate.PerformLayout();
+            this.juniorOP.ResumeLayout(false);
+            this.juniorOP.PerformLayout();
             this.mgOperate.ResumeLayout(false);
             this.mgOperate.PerformLayout();
             this.dpOperate.ResumeLayout(false);
@@ -773,6 +798,9 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox ableShift;
         internal Microsoft.Office.Tools.Ribbon.RibbonGallery shiftSetting;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton testActivateWindows;
+        internal Microsoft.Office.Tools.Ribbon.RibbonMenu menu1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonSplitButton splitButton1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button1;
     }
 
     partial class ThisRibbonCollection
