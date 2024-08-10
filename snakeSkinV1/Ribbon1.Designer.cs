@@ -71,7 +71,6 @@
             this.primaryOP = this.Factory.CreateRibbonGroup();
             this.juniorOP = this.Factory.CreateRibbonGroup();
             this.seniorOP = this.Factory.CreateRibbonGroup();
-            this.ucOperate = this.Factory.CreateRibbonGroup();
             this.mgOperate = this.Factory.CreateRibbonGroup();
             this.modeEdit = this.Factory.CreateRibbonDropDown();
             this.editData = this.Factory.CreateRibbonGallery();
@@ -87,6 +86,15 @@
             this.dpOperate = this.Factory.CreateRibbonGroup();
             this.displayData = this.Factory.CreateRibbonButton();
             this.processData = this.Factory.CreateRibbonButton();
+            this.ucOperate = this.Factory.CreateRibbonGroup();
+            this.saveMap = this.Factory.CreateRibbonButton();
+            this.loadMap = this.Factory.CreateRibbonButton();
+            this.exportMap = this.Factory.CreateRibbonButton();
+            this.importMap = this.Factory.CreateRibbonButton();
+            this.setting4save = this.Factory.CreateRibbonMenu();
+            this.emptyWhenLoad = this.Factory.CreateRibbonCheckBox();
+            this.ableShift = this.Factory.CreateRibbonCheckBox();
+            this.shiftSetting = this.Factory.CreateRibbonGallery();
             this.pdOperate = this.Factory.CreateRibbonGroup();
             this.debugHide = this.Factory.CreateRibbonMenu();
             this.addMainData = this.Factory.CreateRibbonButton();
@@ -98,6 +106,8 @@
             this.rainbowTest = this.Factory.CreateRibbonButton();
             this.testsave = this.Factory.CreateRibbonButton();
             this.testloadsave = this.Factory.CreateRibbonButton();
+            this.worksheetcodenametest = this.Factory.CreateRibbonButton();
+            this.testActivateWindows = this.Factory.CreateRibbonButton();
             this.todolist = this.Factory.CreateRibbonButton();
             this.a1 = new System.Windows.Forms.ColorDialog();
             this.a2 = new System.Windows.Forms.ColorDialog();
@@ -111,21 +121,14 @@
             this.arrayColorSetTarget2 = new System.Windows.Forms.ColorDialog();
             this.arrayColorSetData1 = new System.Windows.Forms.ColorDialog();
             this.arrayColorSetData2 = new System.Windows.Forms.ColorDialog();
-            this.worksheetcodenametest = this.Factory.CreateRibbonButton();
-            this.saveMap = this.Factory.CreateRibbonButton();
-            this.loadMap = this.Factory.CreateRibbonButton();
-            this.exportMap = this.Factory.CreateRibbonButton();
-            this.importMap = this.Factory.CreateRibbonButton();
-            this.setting4save = this.Factory.CreateRibbonMenu();
-            this.emptyWhenLoad = this.Factory.CreateRibbonCheckBox();
             this.saveMirrorText = new System.Windows.Forms.SaveFileDialog();
             this.loadMirrorText = new System.Windows.Forms.OpenFileDialog();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
-            this.ucOperate.SuspendLayout();
             this.mgOperate.SuspendLayout();
             this.dpOperate.SuspendLayout();
+            this.ucOperate.SuspendLayout();
             this.pdOperate.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -137,9 +140,9 @@
             this.tab1.Groups.Add(this.primaryOP);
             this.tab1.Groups.Add(this.juniorOP);
             this.tab1.Groups.Add(this.seniorOP);
-            this.tab1.Groups.Add(this.ucOperate);
             this.tab1.Groups.Add(this.mgOperate);
             this.tab1.Groups.Add(this.dpOperate);
+            this.tab1.Groups.Add(this.ucOperate);
             this.tab1.Groups.Add(this.pdOperate);
             this.tab1.Label = "蛇皮圖V1";
             this.tab1.Name = "tab1";
@@ -355,16 +358,6 @@
             this.seniorOP.Label = "seniorOP";
             this.seniorOP.Name = "seniorOP";
             // 
-            // ucOperate
-            // 
-            this.ucOperate.Items.Add(this.saveMap);
-            this.ucOperate.Items.Add(this.loadMap);
-            this.ucOperate.Items.Add(this.exportMap);
-            this.ucOperate.Items.Add(this.importMap);
-            this.ucOperate.Items.Add(this.setting4save);
-            this.ucOperate.Label = "ucOperate";
-            this.ucOperate.Name = "ucOperate";
-            // 
             // mgOperate
             // 
             this.mgOperate.Items.Add(this.modeEdit);
@@ -481,6 +474,66 @@
             this.processData.Name = "processData";
             this.processData.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.processData_Click);
             // 
+            // ucOperate
+            // 
+            this.ucOperate.Items.Add(this.saveMap);
+            this.ucOperate.Items.Add(this.loadMap);
+            this.ucOperate.Items.Add(this.exportMap);
+            this.ucOperate.Items.Add(this.importMap);
+            this.ucOperate.Items.Add(this.setting4save);
+            this.ucOperate.Items.Add(this.shiftSetting);
+            this.ucOperate.Label = "ucOperate";
+            this.ucOperate.Name = "ucOperate";
+            // 
+            // saveMap
+            // 
+            this.saveMap.Label = "存檔";
+            this.saveMap.Name = "saveMap";
+            this.saveMap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.saveMap_Click);
+            // 
+            // loadMap
+            // 
+            this.loadMap.Label = "載入";
+            this.loadMap.Name = "loadMap";
+            this.loadMap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.loadMap_Click);
+            // 
+            // exportMap
+            // 
+            this.exportMap.Label = "匯出";
+            this.exportMap.Name = "exportMap";
+            this.exportMap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.exportMap_Click);
+            // 
+            // importMap
+            // 
+            this.importMap.Label = "匯入";
+            this.importMap.Name = "importMap";
+            this.importMap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.importMap_Click);
+            // 
+            // setting4save
+            // 
+            this.setting4save.Items.Add(this.emptyWhenLoad);
+            this.setting4save.Items.Add(this.ableShift);
+            this.setting4save.Label = "IO設定";
+            this.setting4save.Name = "setting4save";
+            // 
+            // emptyWhenLoad
+            // 
+            this.emptyWhenLoad.Checked = true;
+            this.emptyWhenLoad.Label = "載入時清空主記憶體(未打勾時執行複寫操作)";
+            this.emptyWhenLoad.Name = "emptyWhenLoad";
+            // 
+            // ableShift
+            // 
+            this.ableShift.Label = "ableShift";
+            this.ableShift.Name = "ableShift";
+            // 
+            // shiftSetting
+            // 
+            this.shiftSetting.Label = "shiftSetting";
+            this.shiftSetting.Name = "shiftSetting";
+            this.shiftSetting.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.shiftSetting_Click);
+            this.shiftSetting.ItemsLoading += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.updateWorkSheetShiftSetting);
+            // 
             // pdOperate
             // 
             this.pdOperate.Items.Add(this.debugHide);
@@ -499,6 +552,7 @@
             this.debugHide.Items.Add(this.testsave);
             this.debugHide.Items.Add(this.testloadsave);
             this.debugHide.Items.Add(this.worksheetcodenametest);
+            this.debugHide.Items.Add(this.testActivateWindows);
             this.debugHide.Items.Add(this.todolist);
             this.debugHide.Label = "debugHide";
             this.debugHide.Name = "debugHide";
@@ -568,6 +622,20 @@
             this.testloadsave.ShowImage = true;
             this.testloadsave.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.testloadsave_Click);
             // 
+            // worksheetcodenametest
+            // 
+            this.worksheetcodenametest.Label = "worksheetcodenametest";
+            this.worksheetcodenametest.Name = "worksheetcodenametest";
+            this.worksheetcodenametest.ShowImage = true;
+            this.worksheetcodenametest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.worksheetcodenametest_Click);
+            // 
+            // testActivateWindows
+            // 
+            this.testActivateWindows.Label = "testActivateWindows";
+            this.testActivateWindows.Name = "testActivateWindows";
+            this.testActivateWindows.ShowImage = true;
+            this.testActivateWindows.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.testActivateWindows_Click);
+            // 
             // todolist
             // 
             this.todolist.Label = "todolist";
@@ -578,49 +646,6 @@
             // a1
             // 
             this.a1.Color = System.Drawing.SystemColors.Window;
-            // 
-            // worksheetcodenametest
-            // 
-            this.worksheetcodenametest.Label = "worksheetcodenametest";
-            this.worksheetcodenametest.Name = "worksheetcodenametest";
-            this.worksheetcodenametest.ShowImage = true;
-            this.worksheetcodenametest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.worksheetcodenametest_Click);
-            // 
-            // saveMap
-            // 
-            this.saveMap.Label = "存檔";
-            this.saveMap.Name = "saveMap";
-            this.saveMap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.saveMap_Click);
-            // 
-            // loadMap
-            // 
-            this.loadMap.Label = "載入";
-            this.loadMap.Name = "loadMap";
-            this.loadMap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.loadMap_Click);
-            // 
-            // exportMap
-            // 
-            this.exportMap.Label = "匯出";
-            this.exportMap.Name = "exportMap";
-            this.exportMap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.exportMap_Click);
-            // 
-            // importMap
-            // 
-            this.importMap.Label = "匯入";
-            this.importMap.Name = "importMap";
-            this.importMap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.importMap_Click);
-            // 
-            // setting4save
-            // 
-            this.setting4save.Items.Add(this.emptyWhenLoad);
-            this.setting4save.Label = "存檔設定";
-            this.setting4save.Name = "setting4save";
-            // 
-            // emptyWhenLoad
-            // 
-            this.emptyWhenLoad.Checked = true;
-            this.emptyWhenLoad.Label = "載入時清空主記憶體(未打勾時執行複寫操作)";
-            this.emptyWhenLoad.Name = "emptyWhenLoad";
             // 
             // saveMirrorText
             // 
@@ -650,12 +675,12 @@
             this.dcOperate.PerformLayout();
             this.kpOperate.ResumeLayout(false);
             this.kpOperate.PerformLayout();
-            this.ucOperate.ResumeLayout(false);
-            this.ucOperate.PerformLayout();
             this.mgOperate.ResumeLayout(false);
             this.mgOperate.PerformLayout();
             this.dpOperate.ResumeLayout(false);
             this.dpOperate.PerformLayout();
+            this.ucOperate.ResumeLayout(false);
+            this.ucOperate.PerformLayout();
             this.pdOperate.ResumeLayout(false);
             this.pdOperate.PerformLayout();
             this.ResumeLayout(false);
@@ -744,6 +769,9 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox emptyWhenLoad;
         private System.Windows.Forms.SaveFileDialog saveMirrorText;
         private System.Windows.Forms.OpenFileDialog loadMirrorText;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox ableShift;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGallery shiftSetting;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton testActivateWindows;
     }
 
     partial class ThisRibbonCollection

@@ -610,6 +610,42 @@ namespace snakeSkinV1
             }
         }
 
+        private void updateWorkSheetShiftSetting(object sender, RibbonControlEventArgs e)
+        {
+            Dictionary<string,int> old = new Dictionary<string, int>();//!important!不能有兩個名稱一樣的活頁簿
+            foreach (RibbonDropDownItem i in shiftSetting.Items) {
+                old[((ShiftSettingSave)i.Tag).workSheetName]= ((ShiftSettingSave)i.Tag).workSheetShiftNumber;
+            }
+
+            Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
+            Sheets sh = excelApp.Sheets;
+            List< RibbonDropDownItem > ui2append = new List< RibbonDropDownItem >();
+            foreach (Microsoft.Office.Interop.Excel.Worksheet i in sh)
+            {
+                //MessageBox.Show(i.Name);
+                RibbonDropDownItem editData_tmp = this.Factory.CreateRibbonDropDownItem();
+                try
+                {
+                    ShiftSettingSave sht = new ShiftSettingSave(i.Name,old[i.Name]);
+                    editData_tmp.Label = sht.getTitle() ;
+                    editData_tmp.Tag = sht;
+                    ui2append.Add(editData_tmp);
+                }
+                catch (Exception ex)
+                {
+                    ShiftSettingSave sht = new ShiftSettingSave(i.Name, 0);
+                    editData_tmp.Label = sht.getTitle();
+                    editData_tmp.Tag = sht;
+                    ui2append.Add(editData_tmp);
+                }
+            }
+            shiftSetting.Items.Clear();
+            foreach (var i in ui2append)
+            {
+                shiftSetting.Items.Add(i);
+            }
+        }
+
         private void editDataLoad(object sender, RibbonControlEventArgs e)
         {
             editData.Items.Clear();
@@ -1059,6 +1095,65 @@ namespace snakeSkinV1
                 }
 
             }
+        }
+
+        private void shiftSetting_Click(object sender, RibbonControlEventArgs e)
+        {
+            RibbonGallery gallery = (RibbonGallery)sender;
+            RibbonDropDownItem selectedItem = gallery.SelectedItem;
+            var tmp = readUserSelectColOrRow().Cells ;
+            if (tmp == null)
+            {
+                //MessageBox.Show("action not finish!");
+                return;
+            }
+            else
+            {
+                //MessageBox.Show(tmp.Count.ToString()+"~"+ selectedItem.Label);
+                selectedItem.Tag = new ShiftSettingSave(((ShiftSettingSave)selectedItem.Tag).workSheetName,tmp.Count) ;
+            }
+        }
+
+        private void testActivateWindows_Click(object sender, RibbonControlEventArgs e)
+        {
+            // Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
+            // MessageBox.Show(excelApp.ActiveWindow.ToString());
+
+            /*try
+            {
+                // Get the current instance of Excel (if it exists)
+                Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
+
+                // Get the active workbook
+                Excel.Workbook workbook = excelApp.ActiveWorkbook;
+
+                if (workbook != null)
+                {
+                    // Count the number of sheets in the active workbook
+                    int sheetCount = workbook.Sheets.Count;
+
+                    // Display the number of sheets
+                    MessageBox.Show("Number of sheets: " + sheetCount);
+                }
+                else
+                {
+                    MessageBox.Show("No active workbook found.");
+                }
+            }
+            catch (COMException)
+            {
+                MessageBox.Show("Excel is not running.");
+            }
+            finally
+            {
+                // Cleanup
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }*/
+
+            /*Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
+            Sheets s = excelApp.Sheets;
+            MessageBox.Show(s.Count.ToString());*/
         }
     }
 }
