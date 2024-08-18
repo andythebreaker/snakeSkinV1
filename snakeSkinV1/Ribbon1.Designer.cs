@@ -108,6 +108,8 @@
             this.testloadsave = this.Factory.CreateRibbonButton();
             this.worksheetcodenametest = this.Factory.CreateRibbonButton();
             this.testActivateWindows = this.Factory.CreateRibbonButton();
+            this.addSplitButton = this.Factory.CreateRibbonButton();
+            this.testAddRow = this.Factory.CreateRibbonButton();
             this.todolist = this.Factory.CreateRibbonButton();
             this.a1 = new System.Windows.Forms.ColorDialog();
             this.a2 = new System.Windows.Forms.ColorDialog();
@@ -123,8 +125,7 @@
             this.arrayColorSetData2 = new System.Windows.Forms.ColorDialog();
             this.saveMirrorText = new System.Windows.Forms.SaveFileDialog();
             this.loadMirrorText = new System.Windows.Forms.OpenFileDialog();
-            this.addSplitButton = this.Factory.CreateRibbonButton();
-            this.testAddRow = this.Factory.CreateRibbonButton();
+            this.newWindowsTag = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
@@ -558,6 +559,7 @@
             this.debugHide.Items.Add(this.testActivateWindows);
             this.debugHide.Items.Add(this.addSplitButton);
             this.debugHide.Items.Add(this.testAddRow);
+            this.debugHide.Items.Add(this.newWindowsTag);
             this.debugHide.Items.Add(this.todolist);
             this.debugHide.Label = "debugHide";
             this.debugHide.Name = "debugHide";
@@ -641,6 +643,20 @@
             this.testActivateWindows.ShowImage = true;
             this.testActivateWindows.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.testActivateWindows_Click);
             // 
+            // addSplitButton
+            // 
+            this.addSplitButton.Label = "addSplitButton";
+            this.addSplitButton.Name = "addSplitButton";
+            this.addSplitButton.ShowImage = true;
+            this.addSplitButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.addSplitButton_Click);
+            // 
+            // testAddRow
+            // 
+            this.testAddRow.Label = "testAddRow";
+            this.testAddRow.Name = "testAddRow";
+            this.testAddRow.ShowImage = true;
+            this.testAddRow.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.testAddRow_Click);
+            // 
             // todolist
             // 
             this.todolist.Label = "todolist";
@@ -668,19 +684,12 @@
             this.loadMirrorText.RestoreDirectory = true;
             this.loadMirrorText.Title = "正在匯入蛇圖格關聯檔";
             // 
-            // addSplitButton
+            // newWindowsTag
             // 
-            this.addSplitButton.Label = "addSplitButton";
-            this.addSplitButton.Name = "addSplitButton";
-            this.addSplitButton.ShowImage = true;
-            this.addSplitButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.addSplitButton_Click);
-            // 
-            // testAddRow
-            // 
-            this.testAddRow.Label = "testAddRow";
-            this.testAddRow.Name = "testAddRow";
-            this.testAddRow.ShowImage = true;
-            this.testAddRow.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.testAddRow_Click);
+            this.newWindowsTag.Label = "newWindowsTag";
+            this.newWindowsTag.Name = "newWindowsTag";
+            this.newWindowsTag.ShowImage = true;
+            this.newWindowsTag.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.newWindowsTag_Click);
             // 
             // Ribbon1
             // 
@@ -793,6 +802,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton testActivateWindows;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton addSplitButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton testAddRow;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton newWindowsTag;
     }
 
     partial class ThisRibbonCollection

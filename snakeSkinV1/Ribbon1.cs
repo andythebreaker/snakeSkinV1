@@ -1166,12 +1166,20 @@ namespace snakeSkinV1
 
         private void addSplitButton_Click(object sender, RibbonControlEventArgs e)
         {
+            Task.Run(() =>
+            {
                 maskMain.ShowDialog();
+            });
         }
 
         private void testAddRow_Click(object sender, RibbonControlEventArgs e)
         {
-            maskMain.AddRow("123");
+            maskMain.AddRow(readUserSelectOne());
+        }
+
+        private void newWindowsTag_Click(object sender, RibbonControlEventArgs e)
+        {
+
         }
     }
 }
