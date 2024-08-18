@@ -32,6 +32,8 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <BootstrapperComponentsLocation>HomeSite</BootstrapperComponentsLocation>
     <ResolveComReferenceSilent>true</ResolveComReferenceSilent>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.VSTORuntime.4.0">
@@ -189,6 +191,9 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="BrowserFormT1.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DicSave.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

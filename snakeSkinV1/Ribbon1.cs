@@ -15,13 +15,15 @@ using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 using Newtonsoft.Json;
 using System.Reflection;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Microsoft.Office.Tools;
 
 namespace snakeSkinV1
 {
     public partial class Ribbon1
     {
         private Dictionary<Tuple<Excel.Range, Excel.Range>, Excel.Range> mainData = new Dictionary<Tuple<Excel.Range, Excel.Range>, Excel.Range>();
-
+        private BrowserFormT1 maskMain = new BrowserFormT1();
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
         {
             //https://akb48teamtp.fandom.com/zh-tw/wiki/AKB48_Team_TP%E6%88%90%E5%93%A1%E6%87%89%E6%8F%B4%E8%89%B2%E5%8F%8ACALL%E4%B8%80%E8%A6%BD%E8%A1%A8
@@ -1157,9 +1159,19 @@ namespace snakeSkinV1
             return range.Cells[1+shiftDown, 1];//~~植樹問題所以應該是1+shiftdown-1~~
         }
 
-            private void testActivateWindows_Click(object sender, RibbonControlEventArgs e)
+        private void testActivateWindows_Click(object sender, RibbonControlEventArgs e)
         {
             ShiftRange(readUserSelectOne(),3).Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+        }
+
+        private void addSplitButton_Click(object sender, RibbonControlEventArgs e)
+        {
+                maskMain.ShowDialog();
+        }
+
+        private void testAddRow_Click(object sender, RibbonControlEventArgs e)
+        {
+            maskMain.AddRow("123");
         }
     }
 }
