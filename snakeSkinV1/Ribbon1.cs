@@ -34,7 +34,7 @@ namespace snakeSkinV1
             b2.Color = System.Drawing.ColorTranslator.FromHtml("#008000");
             a1.Color = System.Drawing.ColorTranslator.FromHtml("#c4e1ff");
             a2.Color = System.Drawing.ColorTranslator.FromHtml("#bf4147");
-            arrayColorSetSource1.Color= System.Drawing.ColorTranslator.FromHtml("#33ffff");
+            arrayColorSetSource1.Color = System.Drawing.ColorTranslator.FromHtml("#33ffff");
             arrayColorSetSource2.Color = System.Drawing.ColorTranslator.FromHtml("#ff0000");
             arrayColorSetTarget1.Color = System.Drawing.ColorTranslator.FromHtml("#0000ff");
             arrayColorSetTarget2.Color = System.Drawing.ColorTranslator.FromHtml("#f1dd95");
@@ -325,15 +325,18 @@ namespace snakeSkinV1
 
         private void addOne_Click(object sender, RibbonControlEventArgs e)
         {
-            if (safe3.Checked) {
-                if (removeSelection.Items[0].Tag == null || removeSelection.Items[1].Tag == null || removeSelection.Items[2].Tag == null) {
+            if (safe3.Checked)
+            {
+                if (removeSelection.Items[0].Tag == null || removeSelection.Items[1].Tag == null || removeSelection.Items[2].Tag == null)
+                {
                     MessageBox.Show("未選擇滿3個格子!");
                 }
             }
             //!important! TODO 使用了強制轉型
             Tuple<Excel.Range, Excel.Range> tmp = new Tuple<Excel.Range, Excel.Range>((Excel.Range)removeSelection.Items[0].Tag, (Excel.Range)removeSelection.Items[1].Tag);
             mainData[tmp] = (Excel.Range)removeSelection.Items[2].Tag;
-            if (hotfixAutoReset41.Checked) {
+            if (hotfixAutoReset41.Checked)
+            {
                 removeDC(0); removeDC(1); removeDC(2);
                 sourceSelectMode.Checked = true;
                 targetSelectMode.Checked = false;
@@ -388,58 +391,67 @@ namespace snakeSkinV1
 
             foreach (var kvp in mainData)
             {
+                var ismasked = maskMain.isMasked(kvp);
                 var key = kvp.Key;
                 var value = kvp.Value;
 
-                tmp.Add(key.Item1.Value2);
-                a = a.Union(tmp).ToList();
-                tmp.Add(key.Item2.Value2);
-                a = a.Union(tmp).ToList();
-
-                b.Add(a.FindIndex(var_important_coding_knowhow => var_important_coding_knowhow == key.Item1.Value2));
-                c.Add(a.FindIndex(var_important_coding_knowhow => var_important_coding_knowhow == key.Item2.Value2));
-                try
+                if (!ismasked.item1new)
                 {
-                    d.Add(Convert.ToDouble(value.Value2));
+                    tmp.Add(key.Item1.Value2);
+                    a = a.Union(tmp).ToList();
                 }
-                catch (InvalidCastException var_error)
+                if (!ismasked.item2new)
                 {
-                    MessageBox.Show("[錯誤!] 這是一個錯誤，旨在表明「儲存格(" + value.Worksheet.Name + ")" + value.Address +
-                        "」並不是實數。 \n提醒:這個儲存格必須要是實數(整數或小數)!\n相關資訊:這個出錯的儲存格表述了「"
-                        + key.Item1.Value2 +
-                         "到" +
-                        key.Item2.Value2
-                         + "」的轉換關係；並且他的值是"
-                        + "「" + value.Value2 +
-                        "」。\n狀態:「出圖」動作並未完成請修改excel工作表中的值後再重新「出圖」。\n其他錯誤資訊:" +
-                        var_error.ToString());
-                    return;
+                    tmp.Add(key.Item2.Value2);
+                    a = a.Union(tmp).ToList();
                 }
-                catch (FormatException var_error)
+                if (!ismasked.isMaskedMain)
                 {
-                    MessageBox.Show("[錯誤!] 這是一個錯誤，旨在表明「儲存格(" + value.Worksheet.Name + ")" + value.Address +
-                        "」並不是實數。 \n提醒:這個儲存格必須要是實數(整數或小數)!\n相關資訊:這個出錯的儲存格表述了「"
-                        + key.Item1.Value2 +
-                         "到" +
-                        key.Item2.Value2
-                         + "」的轉換關係；並且他的值是"
-                        + "「" + value.Value2 +
-                        "」。\n狀態:「出圖」動作並未完成請修改excel工作表中的值後再重新「出圖」。\n其他錯誤資訊:" +
-                        var_error.ToString());
-                    return;
-                }
-                catch (OverflowException var_error)
-                {
-                    MessageBox.Show("[錯誤!] 這是一個錯誤，旨在表明「儲存格(" + value.Worksheet.Name + ")" + value.Address +
-                        "」並不是實數。 \n提醒:這個儲存格必須要是實數(整數或小數)!\n相關資訊:這個出錯的儲存格表述了「"
-                        + key.Item1.Value2 +
-                         "到" +
-                        key.Item2.Value2
-                         + "」的轉換關係；並且他的值是"
-                        + "「" + value.Value2 +
-                        "」。\n狀態:「出圖」動作並未完成請修改excel工作表中的值後再重新「出圖」。\n其他錯誤資訊:" +
-                        var_error.ToString());
-                    return;
+                    b.Add(a.FindIndex(var_important_coding_knowhow => var_important_coding_knowhow == key.Item1.Value2));
+                    c.Add(a.FindIndex(var_important_coding_knowhow => var_important_coding_knowhow == key.Item2.Value2));
+                    try
+                    {
+                        d.Add(Convert.ToDouble(value.Value2));
+                    }
+                    catch (InvalidCastException var_error)
+                    {
+                        MessageBox.Show("[錯誤!] 這是一個錯誤，旨在表明「儲存格(" + value.Worksheet.Name + ")" + value.Address +
+                            "」並不是實數。 \n提醒:這個儲存格必須要是實數(整數或小數)!\n相關資訊:這個出錯的儲存格表述了「"
+                            + key.Item1.Value2 +
+                             "到" +
+                            key.Item2.Value2
+                             + "」的轉換關係；並且他的值是"
+                            + "「" + value.Value2 +
+                            "」。\n狀態:「出圖」動作並未完成請修改excel工作表中的值後再重新「出圖」。\n其他錯誤資訊:" +
+                            var_error.ToString());
+                        return;
+                    }
+                    catch (FormatException var_error)
+                    {
+                        MessageBox.Show("[錯誤!] 這是一個錯誤，旨在表明「儲存格(" + value.Worksheet.Name + ")" + value.Address +
+                            "」並不是實數。 \n提醒:這個儲存格必須要是實數(整數或小數)!\n相關資訊:這個出錯的儲存格表述了「"
+                            + key.Item1.Value2 +
+                             "到" +
+                            key.Item2.Value2
+                             + "」的轉換關係；並且他的值是"
+                            + "「" + value.Value2 +
+                            "」。\n狀態:「出圖」動作並未完成請修改excel工作表中的值後再重新「出圖」。\n其他錯誤資訊:" +
+                            var_error.ToString());
+                        return;
+                    }
+                    catch (OverflowException var_error)
+                    {
+                        MessageBox.Show("[錯誤!] 這是一個錯誤，旨在表明「儲存格(" + value.Worksheet.Name + ")" + value.Address +
+                            "」並不是實數。 \n提醒:這個儲存格必須要是實數(整數或小數)!\n相關資訊:這個出錯的儲存格表述了「"
+                            + key.Item1.Value2 +
+                             "到" +
+                            key.Item2.Value2
+                             + "」的轉換關係；並且他的值是"
+                            + "「" + value.Value2 +
+                            "」。\n狀態:「出圖」動作並未完成請修改excel工作表中的值後再重新「出圖」。\n其他錯誤資訊:" +
+                            var_error.ToString());
+                        return;
+                    }
                 }
             }
 
@@ -612,7 +624,8 @@ namespace snakeSkinV1
             }
         }
 
-        private void loadShiftSetting() {
+        private void loadShiftSetting()
+        {
             Dictionary<string, int> old = new Dictionary<string, int>();//!important!不能有兩個名稱一樣的活頁簿
             foreach (RibbonDropDownItem i in shiftSetting.Items)
             {
@@ -742,12 +755,13 @@ namespace snakeSkinV1
         }
         enum typeSourceTargetData
         {
-            source,target,data
+            source, target, data
         }
-        private Tuple<List<double>, List<double>> savePrvColor(Excel.Range r,typeSourceTargetData tSTD) {
+        private Tuple<List<double>, List<double>> savePrvColor(Excel.Range r, typeSourceTargetData tSTD)
+        {
             List<double> a = new List<double>();
             List<double> b = new List<double>();
-            System.Drawing.Color c1,c2;
+            System.Drawing.Color c1, c2;
             switch (tSTD)
             {
                 case typeSourceTargetData.source:
@@ -763,7 +777,7 @@ namespace snakeSkinV1
                     c2 = arrayColorSetData2.Color;
                     break;
                 default:
-                    c1= System.Drawing.ColorTranslator.FromHtml("#000000");
+                    c1 = System.Drawing.ColorTranslator.FromHtml("#000000");
                     c2 = System.Drawing.ColorTranslator.FromHtml("#000000");
                     break;
             }
@@ -780,10 +794,11 @@ namespace snakeSkinV1
         {
             arraySetSource.Tag = readUserSelectColOrRow();
             //if neq null change color
-            if (arraySetSource.Tag != null&&displayColorAfterSelect.Checked) {
-                Tuple<List<double>, List<double>> savePrvColor_obj = savePrvColor((Excel.Range)arraySetSource.Tag,typeSourceTargetData.source);
-                arrayColorSetSource1.Tag= savePrvColor_obj.Item1;
-                arrayColorSetSource2.Tag= savePrvColor_obj.Item2;
+            if (arraySetSource.Tag != null && displayColorAfterSelect.Checked)
+            {
+                Tuple<List<double>, List<double>> savePrvColor_obj = savePrvColor((Excel.Range)arraySetSource.Tag, typeSourceTargetData.source);
+                arrayColorSetSource1.Tag = savePrvColor_obj.Item1;
+                arrayColorSetSource2.Tag = savePrvColor_obj.Item2;
             }
         }
 
@@ -800,7 +815,8 @@ namespace snakeSkinV1
 
         private void arraySetData_Click(object sender, RibbonControlEventArgs e)
         {
-            if (arraySetData.Tag==null) {
+            if (arraySetData.Tag == null)
+            {
                 MessageBox.Show("error! you did not select your data! action not finish!");
                 return;
             }
@@ -814,7 +830,8 @@ namespace snakeSkinV1
                 Excel.Range b_c = previewData.Item2[b];
                 Tuple<Excel.Range, Excel.Range> tmp = new Tuple<Excel.Range, Excel.Range>(a_c, b_c);
                 mainData[tmp] = c;
-                if (arrayColorSetData1.Tag != null) {
+                if (arrayColorSetData1.Tag != null)
+                {
                     c.Interior.Color = ((List<double>)arrayColorSetData1.Tag)[i];
                 }
                 if (arrayColorSetData2.Tag != null)
@@ -822,8 +839,9 @@ namespace snakeSkinV1
                     c.Font.Color = ((List<double>)arrayColorSetData2.Tag)[i];
                 }
             }
-            if (arrayColorSetSource1.Tag != null) {
-                for(int  i = 0; i < previewData.Item1.Count; i++)
+            if (arrayColorSetSource1.Tag != null)
+            {
+                for (int i = 0; i < previewData.Item1.Count; i++)
                 {
                     (previewData.Item1[i]).Interior.Color = ((List<double>)arrayColorSetSource1.Tag)[i];
                 }
@@ -853,8 +871,9 @@ namespace snakeSkinV1
         }
 
         private void previewArray_Click(object sender, RibbonControlEventArgs e)
-        { 
-            if (((Excel.Range)arraySetSource.Tag).Count==0|| ((Excel.Range)arraySetTarget.Tag).Count==0) {
+        {
+            if (((Excel.Range)arraySetSource.Tag).Count == 0 || ((Excel.Range)arraySetTarget.Tag).Count == 0)
+            {
                 MessageBox.Show("error, you did not select array source or array tatget! action not finish!");
                 return;
             }
@@ -942,7 +961,7 @@ namespace snakeSkinV1
                 double color_tmp_4 = d.Key.Item2.Font.Color;
                 double color_tmp_5 = d.Value.Interior.Color;
                 double color_tmp_6 = d.Value.Font.Color;
-                setCellsColor(d.Key, 
+                setCellsColor(d.Key,
                     System.Drawing.ColorTranslator.ToOle(a1.Color)
                     , System.Drawing.ColorTranslator.ToOle(a2.Color)
                     , System.Drawing.ColorTranslator.ToOle(b1.Color)
@@ -957,7 +976,7 @@ namespace snakeSkinV1
         private void testsave_Click(object sender, RibbonControlEventArgs e)
         {
             Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
-            excelApp.ActiveWorkbook.CustomDocumentProperties.Add("testP1",false, Microsoft.Office.Core.MsoDocProperties.msoPropertyTypeNumber,48);
+            excelApp.ActiveWorkbook.CustomDocumentProperties.Add("testP1", false, Microsoft.Office.Core.MsoDocProperties.msoPropertyTypeNumber, 48);
         }
 
         private void testloadsave_Click(object sender, RibbonControlEventArgs e)
@@ -975,11 +994,12 @@ namespace snakeSkinV1
 
         }
 
-       public List<string> SplitString(string str, int maxChunkSize)
+        public List<string> SplitString(string str, int maxChunkSize)
         {
             List<string> result = new List<string>();
-            if (str.Length < maxChunkSize) { 
-            result.Add(str);
+            if (str.Length < maxChunkSize)
+            {
+                result.Add(str);
             }
             else
             {
@@ -1006,7 +1026,7 @@ namespace snakeSkinV1
             foreach (var d in mainData)
             {
                 mirror.Add(new DicSave(
-                d.Key.Item1.Worksheet.Name,d.Key.Item1.Address,d.Key.Item2.Worksheet.Name,d.Key.Item2.Address,d.Value.Worksheet.Name,d.Value.Address
+                d.Key.Item1.Worksheet.Name, d.Key.Item1.Address, d.Key.Item2.Worksheet.Name, d.Key.Item2.Address, d.Value.Worksheet.Name, d.Value.Address
                 ));
             }
             string jsonStr = JsonConvert.SerializeObject(mirror);
@@ -1017,7 +1037,7 @@ namespace snakeSkinV1
             foreach (var (js255, index) in jsonStr255.Select((value, i) => (value, i)))
             {
                 // Use 'js255' and 'index' here
-            excelApp.ActiveWorkbook.CustomDocumentProperties.Add($"mainDataMirror{index}", false, Microsoft.Office.Core.MsoDocProperties.msoPropertyTypeString, js255);
+                excelApp.ActiveWorkbook.CustomDocumentProperties.Add($"mainDataMirror{index}", false, Microsoft.Office.Core.MsoDocProperties.msoPropertyTypeString, js255);
 
             }
             excelApp.ActiveWorkbook.CustomDocumentProperties.Add("mainDataMirrorLength", false, Microsoft.Office.Core.MsoDocProperties.msoPropertyTypeNumber, jsonStr255.Count);
@@ -1035,7 +1055,8 @@ namespace snakeSkinV1
             Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
             string jsonStr = "";//excelApp.ActiveWorkbook.CustomDocumentProperties["mainDataMirror"].Value;
             int mainDataMirrorLength = excelApp.ActiveWorkbook.CustomDocumentProperties["mainDataMirrorLength"].Value;
-            for (int i = 0; i < mainDataMirrorLength; i++) {
+            for (int i = 0; i < mainDataMirrorLength; i++)
+            {
                 string js255 = excelApp.ActiveWorkbook.CustomDocumentProperties[$"mainDataMirror{i}"].Value;
                 jsonStr += js255;
             }
@@ -1049,7 +1070,7 @@ namespace snakeSkinV1
                 Excel.Range range2 = worksheet2.get_Range(d.target.address);
                 Excel.Worksheet worksheet3 = workbook.Sheets[d.value.worksheet];
                 Excel.Range range3 = worksheet3.get_Range(d.value.address);
-                var tmp = Tuple.Create(range1,range2);
+                var tmp = Tuple.Create(range1, range2);
                 mainData[tmp] = range3;
             }
         }
@@ -1077,10 +1098,11 @@ namespace snakeSkinV1
             }
         }
 
-        private int shiftSettingQuery(IList<RibbonDropDownItem> listOfItems,string toFind) {
+        private int shiftSettingQuery(IList<RibbonDropDownItem> listOfItems, string toFind)
+        {
             foreach (var item in listOfItems)
             {
-                if (((ShiftSettingSave)item.Tag).workSheetName==toFind)
+                if (((ShiftSettingSave)item.Tag).workSheetName == toFind)
                 {
                     return ((ShiftSettingSave)item.Tag).workSheetShiftNumber;
                 }
@@ -1092,8 +1114,8 @@ namespace snakeSkinV1
         private void importMap_Click(object sender, RibbonControlEventArgs e)
         {
             if (ableShift.Checked)
-            { 
-            loadShiftSetting();
+            {
+                loadShiftSetting();
             }
             if (emptyWhenLoad.Checked)
             {
@@ -1111,26 +1133,28 @@ namespace snakeSkinV1
                 foreach (DicSave d in mirror)
                 {
                     Excel.Workbook workbook = excelApp.ActiveWorkbook;
-                 Excel.Worksheet worksheet1 = workbook.Sheets[d.source.worksheet];
+                    Excel.Worksheet worksheet1 = workbook.Sheets[d.source.worksheet];
                     Excel.Worksheet worksheet2 = workbook.Sheets[d.target.worksheet];
                     Excel.Worksheet worksheet3 = workbook.Sheets[d.value.worksheet];
-                    if (ableShift.Checked) {
+                    if (ableShift.Checked)
+                    {
                         Excel.Range range1 = worksheet1.get_Range(d.source.address);
                         Excel.Range range2 = worksheet2.get_Range(d.target.address);
                         Excel.Range range3 = worksheet3.get_Range(d.value.address);
-                        var tmp = Tuple.Create(ShiftRange( range1, shiftSettingQuery(shiftSetting.Items,range1.Worksheet.Name)),
+                        var tmp = Tuple.Create(ShiftRange(range1, shiftSettingQuery(shiftSetting.Items, range1.Worksheet.Name)),
                            ShiftRange(range2, shiftSettingQuery(shiftSetting.Items, range2.Worksheet.Name)));
                         mainData[tmp] = ShiftRange(range3, shiftSettingQuery(shiftSetting.Items, range3.Worksheet.Name));
                     }
-                    else { 
-                    Excel.Range range1 = worksheet1.get_Range(d.source.address);
-                    Excel.Range range2 = worksheet2.get_Range(d.target.address);
-                    Excel.Range range3 = worksheet3.get_Range(d.value.address);
-                    var tmp = Tuple.Create(range1, range2);
-                    mainData[tmp] = range3;
-                    
+                    else
+                    {
+                        Excel.Range range1 = worksheet1.get_Range(d.source.address);
+                        Excel.Range range2 = worksheet2.get_Range(d.target.address);
+                        Excel.Range range3 = worksheet3.get_Range(d.value.address);
+                        var tmp = Tuple.Create(range1, range2);
+                        mainData[tmp] = range3;
+
                     }
-                    
+
                 }
 
             }
@@ -1140,7 +1164,7 @@ namespace snakeSkinV1
         {
             RibbonGallery gallery = (RibbonGallery)sender;
             RibbonDropDownItem selectedItem = gallery.SelectedItem;
-            var tmp = readUserSelectColOrRow().Cells ;
+            var tmp = readUserSelectColOrRow().Cells;
             if (tmp == null)
             {
                 //MessageBox.Show("action not finish!");
@@ -1150,18 +1174,18 @@ namespace snakeSkinV1
             {
                 //MessageBox.Show(tmp.Count.ToString()+"~"+ selectedItem.Label);
                 selectedItem.Tag = new ShiftSettingSave(((ShiftSettingSave)selectedItem.Tag).workSheetName,
-                    ((tmp.Count-1)<0)?0: tmp.Count-1) ;
+                    ((tmp.Count - 1) < 0) ? 0 : tmp.Count - 1);
             }
         }
 
         public static Excel.Range ShiftRange(Excel.Range range, int shiftDown)
         {
-            return range.Cells[1+shiftDown, 1];//~~植樹問題所以應該是1+shiftdown-1~~
+            return range.Cells[1 + shiftDown, 1];//~~植樹問題所以應該是1+shiftdown-1~~
         }
 
         private void testActivateWindows_Click(object sender, RibbonControlEventArgs e)
         {
-            ShiftRange(readUserSelectOne(),3).Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+            ShiftRange(readUserSelectOne(), 3).Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
         }
 
         private void addSplitButton_Click(object sender, RibbonControlEventArgs e)

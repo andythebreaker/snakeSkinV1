@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -17,10 +18,25 @@ namespace snakeSkinV1
         private ToolStripMenuItem testTag;
         private DataGridView dataGridView;
 
+        public struct imm
+        {
+            public bool isMaskedMain;
+            public bool item1new;
+            public bool item2new;
+        }
+
+        public struct maskDo {
+            imm inn;
+            public int item1idx;
+            public int item2idx;
+            public double item1val;
+        }
+
+        private List<string> maskDoA;
+
         public BrowserFormT1()
         {
             InitializeComponent();
-
             dataGridView = new DataGridView
             {
                 Dock = DockStyle.Fill,
@@ -45,10 +61,10 @@ namespace snakeSkinV1
             dataGridView.Columns.Add(buttonColumn);
 
             // Fill DataGridView with some data
-          /*  for (int i = 0; i < 5; i++)
-            {
-                dataGridView.Rows.Add($"Row {i + 1}", $"This is text for Row {i + 1}", "abc");
-            }*/
+            /*  for (int i = 0; i < 5; i++)
+              {
+                  dataGridView.Rows.Add($"Row {i + 1}", $"This is text for Row {i + 1}", "abc");
+              }*/
 
             dataGridView.CellClick += DataGridView_CellClick;
 
@@ -67,7 +83,7 @@ namespace snakeSkinV1
         {
             if (e.ColumnIndex == dataGridView.Columns["ButtonColumn"].Index && e.RowIndex >= 0)
             {
-               // MessageBox.Show($"Button clicked in row {dataGridView.Rows[ e.RowIndex].Tag}!");
+                // MessageBox.Show($"Button clicked in row {dataGridView.Rows[ e.RowIndex].Tag}!");
 
                 ((Excel.Range)(dataGridView.Rows[e.RowIndex].Tag)).Interior.Color = System.Drawing.ColorTranslator.ToOle(cB.Color);
                 ((Excel.Range)(dataGridView.Rows[e.RowIndex].Tag)).Font.Color = System.Drawing.ColorTranslator.ToOle(cF.Color);
@@ -88,10 +104,11 @@ namespace snakeSkinV1
 
             foreach (DataGridViewRow r in dataGridView.Rows)
             {
-                if( ((bool)(r.Cells[5].Value)) == true) {
+                if (((bool)(r.Cells[5].Value)) == true)
+                {
                     ((Excel.Range)r.Tag).Interior.Color = r.Cells[4].Value;
                     ((Excel.Range)r.Tag).Font.Color = r.Cells[3].Value;
-                    r.Cells[5].Value=false;
+                    r.Cells[5].Value = false;
                 }
             }
         }
@@ -102,6 +119,37 @@ namespace snakeSkinV1
             string notInit = "notInit";
             dataGridView.Rows.Add(notInit, notInit, notInit, notInit, notInit, false);
             dataGridView.Rows[dataGridView.Rows.Count - 1].Tag = r;
+        }
+
+        public imm isMasked(KeyValuePair< Tuple<Excel.Range, Excel.Range>,Excel.Range> tr3)
+        {
+                    imm immTmp=new imm();
+            foreach (DataGridViewRow r in dataGridView.Rows)
+            {
+                if (
+                //(
+                ((string)r.Cells[1].Value == tr3.Key.Item1.Worksheet.Name)
+                &&
+               ((string)r.Cells[2].Value == tr3.Key.Item1.Address)
+                    ) { 
+                immTmp.item1new = true;
+                    maskDoA.Add(tr3.Key.Item1.Value2);
+                }//||
+                       if  (
+                  ((string)r.Cells[1].Value == tr3.Key.Item2.Worksheet.Name)
+                &&
+              ((string)r.Cells[2].Value == tr3.Key.Item2.Address)
+                    )//)
+                    { immTmp.item2new = true;
+                    maskDoA.Add(tr3.Key.Item2.Value2);
+                }
+                /*{
+                    immTmp.isMaskedMain
+                    return true;
+                }*/
+            }
+            immTmp.isMaskedMain = (immTmp.item1new || immTmp.item2new) ? true : false;
+            return immTmp;
         }
 
         private void InitializeComponent()
@@ -223,7 +271,7 @@ namespace snakeSkinV1
 
         private void debugButton_Click(object sender, EventArgs e)
         {
-           // MessageBox.Show("這個功能是給開發者除錯用的，除非你知道你在幹嘛，不然不要擅自進來這個區域，很危險的XD");
+            // MessageBox.Show("這個功能是給開發者除錯用的，除非你知道你在幹嘛，不然不要擅自進來這個區域，很危險的XD");
         }
 
         private void backC_Click(object sender, EventArgs e)

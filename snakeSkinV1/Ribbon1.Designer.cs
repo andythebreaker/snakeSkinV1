@@ -129,6 +129,7 @@
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
+            this.juniorOP.SuspendLayout();
             this.mgOperate.SuspendLayout();
             this.dpOperate.SuspendLayout();
             this.ucOperate.SuspendLayout();
@@ -353,6 +354,8 @@
             // 
             // juniorOP
             // 
+            this.juniorOP.Items.Add(this.addSplitButton);
+            this.juniorOP.Items.Add(this.testAddRow);
             this.juniorOP.Label = "juniorOP";
             this.juniorOP.Name = "juniorOP";
             // 
@@ -557,8 +560,6 @@
             this.debugHide.Items.Add(this.testloadsave);
             this.debugHide.Items.Add(this.worksheetcodenametest);
             this.debugHide.Items.Add(this.testActivateWindows);
-            this.debugHide.Items.Add(this.addSplitButton);
-            this.debugHide.Items.Add(this.testAddRow);
             this.debugHide.Items.Add(this.newWindowsTag);
             this.debugHide.Items.Add(this.todolist);
             this.debugHide.Label = "debugHide";
@@ -645,14 +646,14 @@
             // 
             // addSplitButton
             // 
-            this.addSplitButton.Label = "addSplitButton";
+            this.addSplitButton.Label = "開啟遮罩視窗";
             this.addSplitButton.Name = "addSplitButton";
             this.addSplitButton.ShowImage = true;
             this.addSplitButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.addSplitButton_Click);
             // 
             // testAddRow
             // 
-            this.testAddRow.Label = "testAddRow";
+            this.testAddRow.Label = "加入遮罩";
             this.testAddRow.Name = "testAddRow";
             this.testAddRow.ShowImage = true;
             this.testAddRow.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.testAddRow_Click);
@@ -703,6 +704,8 @@
             this.dcOperate.PerformLayout();
             this.kpOperate.ResumeLayout(false);
             this.kpOperate.PerformLayout();
+            this.juniorOP.ResumeLayout(false);
+            this.juniorOP.PerformLayout();
             this.mgOperate.ResumeLayout(false);
             this.mgOperate.PerformLayout();
             this.dpOperate.ResumeLayout(false);
