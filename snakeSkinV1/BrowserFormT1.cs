@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -23,20 +24,34 @@ namespace snakeSkinV1
             public bool isMaskedMain;
             public bool item1new;
             public bool item2new;
+            public bool errorCode;
         }
 
         public struct maskDo {
-            imm inn;
+            public imm inn;
             public int item1idx;
             public int item2idx;
-            public double item1val;
+            public double val;
+            public KeyValuePair<Tuple<Excel.Range, Excel.Range>, Excel.Range> keyValuePair;
         }
 
-        private List<string> maskDoA;
+        public struct abcd {
+            public List<String> a;
+            public List<int> b;
+            public List<int> c;
+            public List<double> d;
+        }
+
+        public List<string> maskDoA=new List<string>();
+        public List<maskDo> md=new List<maskDo>();
 
         public BrowserFormT1()
         {
             InitializeComponent();
+
+            maskDoA = new List<string>();
+            md = new List<maskDo>();
+
             dataGridView = new DataGridView
             {
                 Dock = DockStyle.Fill,
@@ -79,6 +94,11 @@ namespace snakeSkinV1
             this.FormClosing += BrowserFormT1_FormClosing;
         }
 
+        public void clearMem() { 
+        maskDoA.Clear();
+            md.Clear();
+        }
+        
         private void DataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == dataGridView.Columns["ButtonColumn"].Index && e.RowIndex >= 0)
@@ -121,9 +141,45 @@ namespace snakeSkinV1
             dataGridView.Rows[dataGridView.Rows.Count - 1].Tag = r;
         }
 
+        public abcd backbrust(List<String> a,
+        List<int> b,
+        List<int> c,
+        List<double> d){
+            List<String> aNew = new List<String>(a);
+            aNew.AddRange(maskDoA);
+            foreach (var i in md)
+            {
+                if (!i.inn.item1new)
+                {
+                    b.Add(a.FindIndex(var_important_coding_knowhow => var_important_coding_knowhow == i.keyValuePair.Key.Item1.Value2));
+                }
+                else { 
+                b.Add(a.Count+i.item1idx-1);
+                }
+                if (!i.inn.item2new)
+                {
+                    c.Add(a.FindIndex(var_important_coding_knowhow => var_important_coding_knowhow == i.keyValuePair.Key.Item2.Value2));
+                }
+                else
+                {
+                    c.Add(a.Count + i.item1idx - 1);
+                }
+                d.Add(i.val);
+            }
+            abcd abcdTmp= new abcd();   
+            abcdTmp.a = aNew;
+            abcdTmp.b = b;
+            abcdTmp.c= c;
+            abcdTmp.d = d;
+            return abcdTmp; 
+        }
+
         public imm isMasked(KeyValuePair< Tuple<Excel.Range, Excel.Range>,Excel.Range> tr3)
         {
-                    imm immTmp=new imm();
+            refreshTable();
+            imm immTmp=new imm();
+            immTmp.errorCode = false;
+            maskDo maskDoTmp=new maskDo();
             foreach (DataGridViewRow r in dataGridView.Rows)
             {
                 if (
@@ -134,6 +190,7 @@ namespace snakeSkinV1
                     ) { 
                 immTmp.item1new = true;
                     maskDoA.Add(tr3.Key.Item1.Value2);
+                    maskDoTmp.item1idx=maskDoA.Count;
                 }//||
                        if  (
                   ((string)r.Cells[1].Value == tr3.Key.Item2.Worksheet.Name)
@@ -142,6 +199,7 @@ namespace snakeSkinV1
                     )//)
                     { immTmp.item2new = true;
                     maskDoA.Add(tr3.Key.Item2.Value2);
+                    maskDoTmp.item2idx = maskDoA.Count;
                 }
                 /*{
                     immTmp.isMaskedMain
@@ -149,6 +207,53 @@ namespace snakeSkinV1
                 }*/
             }
             immTmp.isMaskedMain = (immTmp.item1new || immTmp.item2new) ? true : false;
+            maskDoTmp.inn = immTmp;
+            try
+            {//這一段是複製過來的
+                maskDoTmp.val= Convert.ToDouble(tr3.Value.Value2);
+            }
+            catch (InvalidCastException var_error)
+            {
+                MessageBox.Show("[錯誤!] 這是一個錯誤，旨在表明「儲存格(" + tr3.Value.Worksheet.Name + ")" + tr3.Value.Address +
+                "」並不是實數。 \n提醒:這個儲存格必須要是實數(整數或小數)!\n相關資訊:這個出錯的儲存格表述了「"
+                    + tr3.Key.Item1.Value2 +
+                     "到" +
+                    tr3.Key.Item2.Value2
+                + "」的轉換關係；並且他的值是"
+                    + "「" + tr3.Value.Value2 +
+                    "」。\n狀態:「出圖」動作並未完成請修改excel工作表中的值後再重新「出圖」。\n其他錯誤資訊:" +
+                    var_error.ToString());
+                immTmp.errorCode = true;
+            }
+            catch (FormatException var_error)
+            {
+                MessageBox.Show("[錯誤!] 這是一個錯誤，旨在表明「儲存格(" + tr3.Value.Worksheet.Name + ")" + tr3.Value.Address +
+                "」並不是實數。 \n提醒:這個儲存格必須要是實數(整數或小數)!\n相關資訊:這個出錯的儲存格表述了「"
+                    + tr3.Key.Item1.Value2 +
+                     "到" +
+                    tr3.Key.Item2.Value2
+                     + "」的轉換關係；並且他的值是"
+                    + "「" + tr3.Value.Value2 +
+                    "」。\n狀態:「出圖」動作並未完成請修改excel工作表中的值後再重新「出圖」。\n其他錯誤資訊:" +
+                    var_error.ToString());
+                immTmp.errorCode = true;
+            }
+            catch (OverflowException var_error)
+            {
+                MessageBox.Show("[錯誤!] 這是一個錯誤，旨在表明「儲存格(" + tr3.Value.Worksheet.Name + ")" + tr3.Value.Address +
+                "」並不是實數。 \n提醒:這個儲存格必須要是實數(整數或小數)!\n相關資訊:這個出錯的儲存格表述了「"
+                    + tr3.Key.Item1.Value2 +
+                     "到" +
+                    tr3.Key.Item2.Value2
+                     + "」的轉換關係；並且他的值是"
+                    + "「" + tr3.Value.Value2 +
+                    "」。\n狀態:「出圖」動作並未完成請修改excel工作表中的值後再重新「出圖」。\n其他錯誤資訊:" +
+                    var_error.ToString());
+                immTmp.errorCode = true;
+            }
+            maskDoTmp.keyValuePair = tr3;
+            if(immTmp.isMaskedMain) md.Add(maskDoTmp);
+
             return immTmp;
         }
 
@@ -257,9 +362,8 @@ namespace snakeSkinV1
             excelApp.Range["A1"].Interior.Color = green;
         }
 
-        private void BrowserFormT1_Load(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow r in dataGridView.Rows)
+        private void refreshTable() { 
+         foreach (DataGridViewRow r in dataGridView.Rows)
             {
                 r.Cells[0].Value = ((Excel.Range)r.Tag).Value2;
                 r.Cells[1].Value = ((Excel.Range)r.Tag).Worksheet.Name;
@@ -267,6 +371,11 @@ namespace snakeSkinV1
                 r.Cells[4].Value = ((Excel.Range)r.Tag).Interior.Color;
                 r.Cells[3].Value = ((Excel.Range)r.Tag).Font.Color;
             }
+        }
+
+        private void BrowserFormT1_Load(object sender, EventArgs e)
+        {
+            refreshTable();
         }
 
         private void debugButton_Click(object sender, EventArgs e)

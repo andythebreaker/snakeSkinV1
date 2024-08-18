@@ -383,6 +383,7 @@ namespace snakeSkinV1
 
         private void processData_Click(object sender, RibbonControlEventArgs e)
         {
+            maskMain.clearMem();
             List<String> a = new List<String>();
             List<String> tmp = new List<String>();
             List<int> b = new List<int>();
@@ -394,8 +395,11 @@ namespace snakeSkinV1
                 var ismasked = maskMain.isMasked(kvp);
                 var key = kvp.Key;
                 var value = kvp.Value;
-
-                if (!ismasked.item1new)
+                if (ismasked.errorCode)
+                {
+                    return;
+                }
+                    if (!ismasked.item1new)
                 {
                     tmp.Add(key.Item1.Value2);
                     a = a.Union(tmp).ToList();
@@ -454,6 +458,13 @@ namespace snakeSkinV1
                     }
                 }
             }
+
+            var abcdBackbrust = maskMain.backbrust(a, b, c, d);
+
+            a = abcdBackbrust.a;
+            b = abcdBackbrust.b;
+            c = abcdBackbrust.c;
+            d = abcdBackbrust.d;
 
             string sa = string.Join(",", a.Select(x => Convert.ToBase64String(Encoding.UTF8.GetBytes(x))));
             string sb = string.Join(",", b.Select(x => x.ToString()));
