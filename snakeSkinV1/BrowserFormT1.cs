@@ -162,7 +162,7 @@ namespace snakeSkinV1
                 }
                 else
                 {
-                    c.Add(a.Count + i.item1idx - 1);
+                    c.Add(a.Count + i.item2idx - 1);
                 }
                 d.Add(i.val);
             }
