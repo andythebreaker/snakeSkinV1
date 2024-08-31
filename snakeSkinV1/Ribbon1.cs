@@ -559,6 +559,8 @@ namespace snakeSkinV1
 
         var layout = {{
             title: ""[<3]string__i am a title__[<3]"",
+width: window.innerWidth,
+height: window.innerHeight,
             font: {{
                 size: 10
             }}
