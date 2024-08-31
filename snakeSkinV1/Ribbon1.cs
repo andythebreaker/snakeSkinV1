@@ -344,6 +344,42 @@ namespace snakeSkinV1
             }
         }
 
+        public string IsValidPath(string path)
+        {
+            // Check if the path is null or empty
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                MessageBox.Show("R path is not a Valid path, action unfinished.");
+                return null;
+            }
+
+            // Check if the path contains invalid characters
+            char[] invalidChars = Path.GetInvalidPathChars();
+            foreach (char c in path)
+            {
+                if (Array.Exists(invalidChars, element => element == c))
+                {
+                    MessageBox.Show("R path is not a Valid path, action unfinished.");
+                    return null;
+                }
+            }
+
+            try
+            {
+                // Try to get the full path; this will throw an exception if the path is invalid
+                string fullPath = Path.GetFullPath(path);
+
+                // Additional checks for specific path issues could be done here
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("R path is not a Valid path, action unfinished.");
+                return null;
+            }
+
+            return path;
+        }
+
         private void addRibbonDropdownItemB_Click(object sender, RibbonControlEventArgs e)
         {
             //Process.Start("C:\\Users\\ai\\Documents\\andy\\code\\tmp\\p\\y\\bin\\Debug\\y.exe");
@@ -352,7 +388,7 @@ namespace snakeSkinV1
             {
                 FileName = "Rscript",
                 Arguments = "generate_sankey.R a,b,c 1,2 2,3 3,4",
-                WorkingDirectory = @"C:\Users\ai\Documents\andy\code\snakeskin\masterR",
+                WorkingDirectory = IsValidPath( Rpath.Text),//@"C:\Users\ai\Documents\andy\code\snakeskin\masterR",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,

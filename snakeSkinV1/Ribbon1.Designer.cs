@@ -70,6 +70,8 @@
             this.picColor6 = this.Factory.CreateRibbonButton();
             this.primaryOP = this.Factory.CreateRibbonGroup();
             this.juniorOP = this.Factory.CreateRibbonGroup();
+            this.addSplitButton = this.Factory.CreateRibbonButton();
+            this.testAddRow = this.Factory.CreateRibbonButton();
             this.seniorOP = this.Factory.CreateRibbonGroup();
             this.mgOperate = this.Factory.CreateRibbonGroup();
             this.modeEdit = this.Factory.CreateRibbonDropDown();
@@ -108,8 +110,7 @@
             this.testloadsave = this.Factory.CreateRibbonButton();
             this.worksheetcodenametest = this.Factory.CreateRibbonButton();
             this.testActivateWindows = this.Factory.CreateRibbonButton();
-            this.addSplitButton = this.Factory.CreateRibbonButton();
-            this.testAddRow = this.Factory.CreateRibbonButton();
+            this.newWindowsTag = this.Factory.CreateRibbonButton();
             this.todolist = this.Factory.CreateRibbonButton();
             this.a1 = new System.Windows.Forms.ColorDialog();
             this.a2 = new System.Windows.Forms.ColorDialog();
@@ -125,7 +126,7 @@
             this.arrayColorSetData2 = new System.Windows.Forms.ColorDialog();
             this.saveMirrorText = new System.Windows.Forms.SaveFileDialog();
             this.loadMirrorText = new System.Windows.Forms.OpenFileDialog();
-            this.newWindowsTag = this.Factory.CreateRibbonButton();
+            this.Rpath = this.Factory.CreateRibbonEditBox();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
@@ -359,6 +360,20 @@
             this.juniorOP.Label = "juniorOP";
             this.juniorOP.Name = "juniorOP";
             // 
+            // addSplitButton
+            // 
+            this.addSplitButton.Label = "開啟遮罩視窗";
+            this.addSplitButton.Name = "addSplitButton";
+            this.addSplitButton.ShowImage = true;
+            this.addSplitButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.addSplitButton_Click);
+            // 
+            // testAddRow
+            // 
+            this.testAddRow.Label = "加入遮罩";
+            this.testAddRow.Name = "testAddRow";
+            this.testAddRow.ShowImage = true;
+            this.testAddRow.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.testAddRow_Click);
+            // 
             // seniorOP
             // 
             this.seniorOP.Label = "seniorOP";
@@ -544,6 +559,7 @@
             // pdOperate
             // 
             this.pdOperate.Items.Add(this.debugHide);
+            this.pdOperate.Items.Add(this.Rpath);
             this.pdOperate.Label = "pdOperate";
             this.pdOperate.Name = "pdOperate";
             // 
@@ -644,19 +660,12 @@
             this.testActivateWindows.ShowImage = true;
             this.testActivateWindows.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.testActivateWindows_Click);
             // 
-            // addSplitButton
+            // newWindowsTag
             // 
-            this.addSplitButton.Label = "開啟遮罩視窗";
-            this.addSplitButton.Name = "addSplitButton";
-            this.addSplitButton.ShowImage = true;
-            this.addSplitButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.addSplitButton_Click);
-            // 
-            // testAddRow
-            // 
-            this.testAddRow.Label = "加入遮罩";
-            this.testAddRow.Name = "testAddRow";
-            this.testAddRow.ShowImage = true;
-            this.testAddRow.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.testAddRow_Click);
+            this.newWindowsTag.Label = "newWindowsTag";
+            this.newWindowsTag.Name = "newWindowsTag";
+            this.newWindowsTag.ShowImage = true;
+            this.newWindowsTag.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.newWindowsTag_Click);
             // 
             // todolist
             // 
@@ -685,12 +694,11 @@
             this.loadMirrorText.RestoreDirectory = true;
             this.loadMirrorText.Title = "正在匯入蛇圖格關聯檔";
             // 
-            // newWindowsTag
+            // Rpath
             // 
-            this.newWindowsTag.Label = "newWindowsTag";
-            this.newWindowsTag.Name = "newWindowsTag";
-            this.newWindowsTag.ShowImage = true;
-            this.newWindowsTag.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.newWindowsTag_Click);
+            this.Rpath.Label = "Rpath";
+            this.Rpath.Name = "Rpath";
+            this.Rpath.Text = "C:\\Users\\ai\\Documents\\andy\\code\\snakeskin\\masterR";
             // 
             // Ribbon1
             // 
@@ -806,6 +814,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton addSplitButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton testAddRow;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton newWindowsTag;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox Rpath;
     }
 
     partial class ThisRibbonCollection
