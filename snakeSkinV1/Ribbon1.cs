@@ -390,7 +390,7 @@ namespace snakeSkinV1
             {
                 FileName = "Rscript",
                 Arguments = "generate_sankey.R a,b,c 1,2 2,3 3,4",
-                WorkingDirectory = IsValidPath( Rpath.Text),//@"C:\Users\ai\Documents\andy\code\snakeskin\masterR",
+                WorkingDirectory = IsValidPath(Rpath.Text),//@"C:\Users\ai\Documents\andy\code\snakeskin\masterR",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
@@ -437,7 +437,7 @@ namespace snakeSkinV1
                 {
                     return;
                 }
-                    if (!ismasked.item1new)
+                if (!ismasked.item1new)
                 {
                     tmp.Add(key.Item1.Value2);
                     a = a.Union(tmp).ToList();
@@ -518,7 +518,7 @@ namespace snakeSkinV1
             File.WriteAllText(filePath, content);
 
             string file_extension2 = ".html"; string file_name_with_extention2 = fileName + file_extension2; string filePath2 = Path.Combine(tempPath, file_name_with_extention2);
-            string sa2 = string.Join(",", a.Select(x =>$"\"{x.ToString()}\""));
+            string sa2 = string.Join(",", a.Select(x => $"\"{x.ToString()}\""));
             string colors = string.Join(",", a.Select(x =>
           $"\"{determinColor(x.ToString())}\""
             ));
@@ -619,12 +619,13 @@ namespace snakeSkinV1
 
         }
 
-        private string determinColor(string text) {
+        private string determinColor(string text)
+        {
             Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
             Excel.Workbook workbook = excelApp.ActiveWorkbook;
             Excel.Sheets sheets = workbook.Sheets;
 
-            double hueSegment=360 / sheets.Count;
+            double hueSegment = 360 / sheets.Count;
 
             for (int i = 1; i <= sheets.Count; i++)
             {
@@ -634,10 +635,10 @@ namespace snakeSkinV1
 
                 if (foundRange != null)
                 {
-       return autoNodeColorSetting.Checked? HslToHex(hueSegment *i, 0.9, 0.5): System.Drawing.ColorTranslator.ToHtml(System.Drawing.ColorTranslator.FromOle(foundRange.Font.Color));
+                    return autoNodeColorSetting.Checked ? HslToHex(hueSegment * i, 0.9, 0.5) : System.Drawing.ColorTranslator.ToHtml(System.Drawing.ColorTranslator.FromOle(foundRange.Font.Color));
                 }
             }
-            return HslToHex(hueSegment*0, 0.9, 0.5);
+            return HslToHex(hueSegment * 0, 0.9, 0.5);
         }
 
         private void listTest_Click(object sender, RibbonControlEventArgs e)
@@ -680,7 +681,7 @@ namespace snakeSkinV1
         private void todolist_Click(object sender, RibbonControlEventArgs e)
         {
             MessageBox.Show(
-                "dc區增加'清除'按鈕\n" 
+                "dc區增加'清除'按鈕\n"
                 );
         }
 
@@ -1016,36 +1017,36 @@ namespace snakeSkinV1
             }
             try
             {
-Excel.Range d = readUserSelectOne().Resize[((Excel.Range)arraySetSource.Tag).Count, ((Excel.Range)arraySetTarget.Tag).Count];
-            Tuple<List<double>, List<double>> savePrvColor_obj = savePrvColor(d, typeSourceTargetData.data);
-            arrayColorSetData1.Tag = savePrvColor_obj.Item1;
-            arrayColorSetData2.Tag = savePrvColor_obj.Item2;
-            //d.Interior.Color = System.Drawing.ColorTranslator.ToOle(a1.Color);
-            List<Excel.Range> s = new List<Excel.Range>();
-            List<Excel.Range> t = new List<Excel.Range>();
-            List<Excel.Range> d_list = new List<Excel.Range>();
-            foreach (Range c in ((Excel.Range)arraySetSource.Tag).Cells)
-            {
-                s.Add(c);
-            }
-            foreach (Range c in ((Excel.Range)arraySetTarget.Tag).Cells)
-            {
-                t.Add(c);
-            }
-            foreach (Range c in d.Cells)
-            {
-                d_list.Add(c);
-            }
-            Tuple<List<Excel.Range>, List<Excel.Range>, List<Excel.Range>> tmp = new Tuple<List<Excel.Range>, List<Excel.Range>, List<Excel.Range>>(
-            s, t, d_list
-                );
-            arraySetData.Tag = tmp;
+                Excel.Range d = readUserSelectOne().Resize[((Excel.Range)arraySetSource.Tag).Count, ((Excel.Range)arraySetTarget.Tag).Count];
+                Tuple<List<double>, List<double>> savePrvColor_obj = savePrvColor(d, typeSourceTargetData.data);
+                arrayColorSetData1.Tag = savePrvColor_obj.Item1;
+                arrayColorSetData2.Tag = savePrvColor_obj.Item2;
+                //d.Interior.Color = System.Drawing.ColorTranslator.ToOle(a1.Color);
+                List<Excel.Range> s = new List<Excel.Range>();
+                List<Excel.Range> t = new List<Excel.Range>();
+                List<Excel.Range> d_list = new List<Excel.Range>();
+                foreach (Range c in ((Excel.Range)arraySetSource.Tag).Cells)
+                {
+                    s.Add(c);
+                }
+                foreach (Range c in ((Excel.Range)arraySetTarget.Tag).Cells)
+                {
+                    t.Add(c);
+                }
+                foreach (Range c in d.Cells)
+                {
+                    d_list.Add(c);
+                }
+                Tuple<List<Excel.Range>, List<Excel.Range>, List<Excel.Range>> tmp = new Tuple<List<Excel.Range>, List<Excel.Range>, List<Excel.Range>>(
+                s, t, d_list
+                    );
+                arraySetData.Tag = tmp;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
-            
+
         }
 
         private void picColor1_Click(object sender, RibbonControlEventArgs e)
@@ -1387,15 +1388,15 @@ Excel.Range d = readUserSelectOne().Resize[((Excel.Range)arraySetSource.Tag).Cou
 
         private void newWindowsTag_Click(object sender, RibbonControlEventArgs e)
         {
-                double hue = 240;    // Example: Hue (0 - 360)
-                double saturation = 1;   // Example: Saturation (0 - 1)
-                double lightness = 0.5;  // Example: Lightness (0 - 1)
+            double hue = 240;    // Example: Hue (0 - 360)
+            double saturation = 1;   // Example: Saturation (0 - 1)
+            double lightness = 0.5;  // Example: Lightness (0 - 1)
 
-                string hexColor = HslToHex(hue, saturation, lightness);
-               MessageBox.Show($"The HEX color is: {hexColor}");
-    }
+            string hexColor = HslToHex(hue, saturation, lightness);
+            MessageBox.Show($"The HEX color is: {hexColor}");
+        }
 
-    private void useOldR_Click(object sender, RibbonControlEventArgs e)
+        private void useOldR_Click(object sender, RibbonControlEventArgs e)
         {
 
         }
@@ -1469,7 +1470,7 @@ Excel.Range d = readUserSelectOne().Resize[((Excel.Range)arraySetSource.Tag).Cou
 
                     if (foundRange != null)
                     {
-                        MessageBox.Show("Text 'person1' found in worksheet index: " + i+"\n"+"Cell address: " + foundRange.Address);
+                        MessageBox.Show("Text 'person1' found in worksheet index: " + i + "\n" + "Cell address: " + foundRange.Address);
                         return;
                     }
                 }
