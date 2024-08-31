@@ -517,36 +517,102 @@ namespace snakeSkinV1
             string content = $"{sa}\n{sb}\n{sc}\n{sd}\n";
             File.WriteAllText(filePath, content);
 
-            ProcessStartInfo startInfo = new ProcessStartInfo
+            string file_extension2 = ".html"; string file_name_with_extention2 = fileName + file_extension2; string filePath2 = Path.Combine(tempPath, file_name_with_extention2);
+            string sa2 = string.Join(",", a.Select(x =>$"\"{x.ToString()}\""));
+            string colors = string.Join(",", a.Select(x => "\"blue\""));
+            string content2 = $@"
+<head>
+    <title>bear</title>
+</head>
+
+<body>
+    <div id=""gd""></div>
+
+    <script type=""module"">
+        import ""https://unpkg.com/virtual-webgl@1.0.6/src/virtual-webgl.js""
+        import ""https://cdn.jsdelivr.net/gh/andythebreaker/snakeskin@V2.0.1/plotly-2.33.0_move_box.js""//""./plotly-2.33.0_move_box.js""
+        import ""https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js""
+        var data = {{
+            type: ""sankey"",
+            orientation: ""h"",
+            node: {{
+                pad: 15,
+                thickness: 30,
+                line: {{
+                    color: ""black"",
+                    width: 0.5
+                }},
+                label: [{sa2}],
+                color: [{colors}]
+            }},
+
+            link: {{
+                source: [{sb}],
+                target: [{sc}],
+                value: [{sd}]
+            }}
+        }}
+
+        var data = [data]
+
+        var layout = {{
+            title: ""[<3]string__i am a title__[<3]"",
+            font: {{
+                size: 10
+            }}
+        }}
+
+        Plotly.react('gd', data, layout)
+
+    </script>
+</body>";
+            File.WriteAllText(filePath2, content2);
+
+            if (useOldR.Checked)
             {
-                FileName = "Rscript",
-                Arguments = $"generate_sankey_via_file.R {filePath}",
-                WorkingDirectory = IsValidPath(Rpath.Text),//@"C:\Users\ai\Documents\andy\code\snakeskin\masterR",
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = "Rscript",
+                    Arguments = $"generate_sankey_via_file.R {filePath}",
+                    WorkingDirectory = IsValidPath(Rpath.Text),//@"C:\Users\ai\Documents\andy\code\snakeskin\masterR",
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
 
-            // Start the process
-            using (Process process = Process.Start(startInfo))
+                // Start the process
+                using (Process process = Process.Start(startInfo))
+                {
+                    // Capture and display the output
+                    string output = process.StandardOutput.ReadToEnd();
+                    string error = process.StandardError.ReadToEnd();
+                    process.WaitForExit();
+
+                    // Display the output
+                    if (!string.IsNullOrEmpty(output))
+                    {
+                        File.WriteAllText(Path.Combine(tempPath, fileName + "output" + file_extension), output);
+                    }
+
+                    // Display the error
+                    if (!string.IsNullOrEmpty(error))
+                    {
+                        File.WriteAllText(Path.Combine(tempPath, fileName + "error" + file_extension), error);
+                    }
+                }
+            }
+            else
             {
-                // Capture and display the output
-                string output = process.StandardOutput.ReadToEnd();
-                string error = process.StandardError.ReadToEnd();
-                process.WaitForExit();
+                string url = $"file:///{filePath2}";
 
-                // Display the output
-                if (!string.IsNullOrEmpty(output))
+                ProcessStartInfo startInfo = new ProcessStartInfo
                 {
-                    File.WriteAllText(Path.Combine(tempPath, fileName + "output" + file_extension), output);
-                }
+                    FileName = url,
+                    UseShellExecute = true // Use the shell to execute, allowing the system to open the URL in the default browser
+                };
 
-                // Display the error
-                if (!string.IsNullOrEmpty(error))
-                {
-                    File.WriteAllText(Path.Combine(tempPath, fileName + "error" + file_extension), error);
-                }
+                Process.Start(startInfo);
             }
 
         }
@@ -926,7 +992,9 @@ namespace snakeSkinV1
                 MessageBox.Show("error, you did not select array source or array tatget! action not finish!");
                 return;
             }
-            Excel.Range d = readUserSelectOne().Resize[((Excel.Range)arraySetSource.Tag).Count, ((Excel.Range)arraySetTarget.Tag).Count];
+            try
+            {
+Excel.Range d = readUserSelectOne().Resize[((Excel.Range)arraySetSource.Tag).Count, ((Excel.Range)arraySetTarget.Tag).Count];
             Tuple<List<double>, List<double>> savePrvColor_obj = savePrvColor(d, typeSourceTargetData.data);
             arrayColorSetData1.Tag = savePrvColor_obj.Item1;
             arrayColorSetData2.Tag = savePrvColor_obj.Item2;
@@ -950,6 +1018,12 @@ namespace snakeSkinV1
             s, t, d_list
                 );
             arraySetData.Tag = tmp;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
         }
 
         private void picColor1_Click(object sender, RibbonControlEventArgs e)
@@ -1002,7 +1076,7 @@ namespace snakeSkinV1
 
         private async void rainbowMG_Click(object sender, RibbonControlEventArgs e)
         {
-            string filePath = @"C:\Users\ai\Music\akbS63.wav";
+            string filePath = IsValidPath(musicPath.Text);// @"C:\Users\ai\Music\akbS63.wav";
             using (var audioFile = new AudioFileReader(filePath))
             {
                 var waveOut = new WaveOutEvent();
@@ -1290,6 +1364,11 @@ namespace snakeSkinV1
         }
 
         private void newWindowsTag_Click(object sender, RibbonControlEventArgs e)
+        {
+
+        }
+
+        private void useOldR_Click(object sender, RibbonControlEventArgs e)
         {
 
         }

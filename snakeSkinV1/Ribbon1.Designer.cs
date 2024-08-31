@@ -127,6 +127,8 @@
             this.saveMirrorText = new System.Windows.Forms.SaveFileDialog();
             this.loadMirrorText = new System.Windows.Forms.OpenFileDialog();
             this.Rpath = this.Factory.CreateRibbonEditBox();
+            this.musicPath = this.Factory.CreateRibbonEditBox();
+            this.useOldR = this.Factory.CreateRibbonToggleButton();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
@@ -560,6 +562,8 @@
             // 
             this.pdOperate.Items.Add(this.debugHide);
             this.pdOperate.Items.Add(this.Rpath);
+            this.pdOperate.Items.Add(this.musicPath);
+            this.pdOperate.Items.Add(this.useOldR);
             this.pdOperate.Label = "pdOperate";
             this.pdOperate.Name = "pdOperate";
             // 
@@ -700,6 +704,18 @@
             this.Rpath.Name = "Rpath";
             this.Rpath.Text = "C:\\Users\\ai\\Documents\\andy\\code\\snakeskin\\masterR";
             // 
+            // musicPath
+            // 
+            this.musicPath.Label = "musicPath";
+            this.musicPath.Name = "musicPath";
+            this.musicPath.Text = "C:\\Users\\ai\\Music\\akbS63.wav";
+            // 
+            // useOldR
+            // 
+            this.useOldR.Label = "使用舊版渲染R程式";
+            this.useOldR.Name = "useOldR";
+            this.useOldR.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.useOldR_Click);
+            // 
             // Ribbon1
             // 
             this.Name = "Ribbon1";
@@ -815,6 +831,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton testAddRow;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton newWindowsTag;
         internal Microsoft.Office.Tools.Ribbon.RibbonEditBox Rpath;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox musicPath;
+        internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton useOldR;
     }
 
     partial class ThisRibbonCollection
