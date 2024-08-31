@@ -17,6 +17,8 @@ using Newtonsoft.Json;
 using System.Reflection;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Microsoft.Office.Tools;
+using System.Media;
+using NAudio.Wave;
 
 namespace snakeSkinV1
 {
@@ -519,7 +521,7 @@ namespace snakeSkinV1
             {
                 FileName = "Rscript",
                 Arguments = $"generate_sankey_via_file.R {filePath}",
-                WorkingDirectory = @"C:\Users\ai\Documents\andy\code\snakeskin\masterR",
+                WorkingDirectory = IsValidPath(Rpath.Text),//@"C:\Users\ai\Documents\andy\code\snakeskin\masterR",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
@@ -1000,23 +1002,62 @@ namespace snakeSkinV1
 
         private async void rainbowMG_Click(object sender, RibbonControlEventArgs e)
         {
-            foreach (var d in mainData)
+            string filePath = @"C:\Users\ai\Music\akbS63.wav";
+            using (var audioFile = new AudioFileReader(filePath))
             {
-                double color_tmp_1 = d.Key.Item1.Interior.Color;
-                double color_tmp_2 = d.Key.Item1.Font.Color;
-                double color_tmp_3 = d.Key.Item2.Interior.Color;
-                double color_tmp_4 = d.Key.Item2.Font.Color;
-                double color_tmp_5 = d.Value.Interior.Color;
-                double color_tmp_6 = d.Value.Font.Color;
-                setCellsColor(d.Key,
-                    System.Drawing.ColorTranslator.ToOle(a1.Color)
-                    , System.Drawing.ColorTranslator.ToOle(a2.Color)
-                    , System.Drawing.ColorTranslator.ToOle(b1.Color)
-                    , System.Drawing.ColorTranslator.ToOle(b2.Color)
-                    , System.Drawing.ColorTranslator.ToOle(c1.Color)
-                    , System.Drawing.ColorTranslator.ToOle(c2.Color));
-                await Task.Delay(500); // Non-blocking delay
-                setCellsColor(d.Key, color_tmp_1, color_tmp_2, color_tmp_3, color_tmp_4, color_tmp_5, color_tmp_6);
+                var waveOut = new WaveOutEvent();
+                bool continueLooping = true;
+
+                // Calculate the positions for looping
+                double loopStart = audioFile.TotalTime.TotalSeconds / 3;
+                double loopEnd = 2 * audioFile.TotalTime.TotalSeconds / 3;
+
+                audioFile.CurrentTime = TimeSpan.FromSeconds(loopStart);
+                waveOut.Init(audioFile);
+                waveOut.Play();
+
+                // Loop the section from 1/3 to 2/3 point
+                Task loopTask = Task.Run(() =>
+                {
+                    while (continueLooping)
+                    {
+                        if (audioFile.CurrentTime.TotalSeconds >= loopEnd)
+                        {
+                            audioFile.CurrentTime = TimeSpan.FromSeconds(loopStart);
+                        }
+                        Thread.Sleep(10); // Check every 10ms
+                    }
+                });
+
+                try
+                {
+                    //這個foreach中的才是主邏輯，其他東西都是音樂部分
+                    foreach (var d in mainData)
+                    {
+                        double color_tmp_1 = d.Key.Item1.Interior.Color;
+                        double color_tmp_2 = d.Key.Item1.Font.Color;
+                        double color_tmp_3 = d.Key.Item2.Interior.Color;
+                        double color_tmp_4 = d.Key.Item2.Font.Color;
+                        double color_tmp_5 = d.Value.Interior.Color;
+                        double color_tmp_6 = d.Value.Font.Color;
+                        setCellsColor(d.Key,
+                            System.Drawing.ColorTranslator.ToOle(a1.Color)
+                            , System.Drawing.ColorTranslator.ToOle(a2.Color)
+                            , System.Drawing.ColorTranslator.ToOle(b1.Color)
+                            , System.Drawing.ColorTranslator.ToOle(b2.Color)
+                            , System.Drawing.ColorTranslator.ToOle(c1.Color)
+                            , System.Drawing.ColorTranslator.ToOle(c2.Color));
+                        await Task.Delay(500); // Non-blocking delay
+                        setCellsColor(d.Key, color_tmp_1, color_tmp_2, color_tmp_3, color_tmp_4, color_tmp_5, color_tmp_6);
+                    }
+                }
+                finally
+                {
+                    // Stop looping and wait for the loop task to complete
+                    continueLooping = false;
+                    await loopTask;
+                    waveOut.Stop();
+                }
             }
         }
 
