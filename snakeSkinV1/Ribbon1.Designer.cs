@@ -129,6 +129,9 @@
             this.Rpath = this.Factory.CreateRibbonEditBox();
             this.musicPath = this.Factory.CreateRibbonEditBox();
             this.useOldR = this.Factory.CreateRibbonToggleButton();
+            this.defaultSnakeColorTest = this.Factory.CreateRibbonButton();
+            this.plotTitle = this.Factory.CreateRibbonEditBox();
+            this.autoNodeColorSetting = this.Factory.CreateRibbonToggleButton();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
@@ -482,6 +485,8 @@
             // 
             this.dpOperate.Items.Add(this.displayData);
             this.dpOperate.Items.Add(this.processData);
+            this.dpOperate.Items.Add(this.plotTitle);
+            this.dpOperate.Items.Add(this.autoNodeColorSetting);
             this.dpOperate.Label = "dpOperate";
             this.dpOperate.Name = "dpOperate";
             // 
@@ -581,6 +586,7 @@
             this.debugHide.Items.Add(this.worksheetcodenametest);
             this.debugHide.Items.Add(this.testActivateWindows);
             this.debugHide.Items.Add(this.newWindowsTag);
+            this.debugHide.Items.Add(this.defaultSnakeColorTest);
             this.debugHide.Items.Add(this.todolist);
             this.debugHide.Label = "debugHide";
             this.debugHide.Name = "debugHide";
@@ -716,6 +722,24 @@
             this.useOldR.Name = "useOldR";
             this.useOldR.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.useOldR_Click);
             // 
+            // defaultSnakeColorTest
+            // 
+            this.defaultSnakeColorTest.Label = "defaultSnakeColorTest";
+            this.defaultSnakeColorTest.Name = "defaultSnakeColorTest";
+            this.defaultSnakeColorTest.ShowImage = true;
+            this.defaultSnakeColorTest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.defaultSnakeColorTest_Click);
+            // 
+            // plotTitle
+            // 
+            this.plotTitle.Label = "圖主名稱";
+            this.plotTitle.Name = "plotTitle";
+            // 
+            // autoNodeColorSetting
+            // 
+            this.autoNodeColorSetting.Checked = true;
+            this.autoNodeColorSetting.Label = "自動生成節點顏色";
+            this.autoNodeColorSetting.Name = "autoNodeColorSetting";
+            // 
             // Ribbon1
             // 
             this.Name = "Ribbon1";
@@ -833,6 +857,9 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonEditBox Rpath;
         internal Microsoft.Office.Tools.Ribbon.RibbonEditBox musicPath;
         internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton useOldR;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton defaultSnakeColorTest;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox plotTitle;
+        internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton autoNodeColorSetting;
     }
 
     partial class ThisRibbonCollection

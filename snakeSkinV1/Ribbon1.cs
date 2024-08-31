@@ -519,7 +519,9 @@ namespace snakeSkinV1
 
             string file_extension2 = ".html"; string file_name_with_extention2 = fileName + file_extension2; string filePath2 = Path.Combine(tempPath, file_name_with_extention2);
             string sa2 = string.Join(",", a.Select(x =>$"\"{x.ToString()}\""));
-            string colors = string.Join(",", a.Select(x => "\"blue\""));
+            string colors = string.Join(",", a.Select(x =>
+          $"\"{determinColor(x.ToString())}\""
+            ));
             string content2 = $@"
 <head>
     <title>bear</title>
@@ -617,6 +619,27 @@ namespace snakeSkinV1
 
         }
 
+        private string determinColor(string text) {
+            Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
+            Excel.Workbook workbook = excelApp.ActiveWorkbook;
+            Excel.Sheets sheets = workbook.Sheets;
+
+            double hueSegment=360 / sheets.Count;
+
+            for (int i = 1; i <= sheets.Count; i++)
+            {
+                Excel.Worksheet sheet = (Excel.Worksheet)sheets[i];
+                Excel.Range usedRange = sheet.UsedRange;
+                Excel.Range foundRange = usedRange.Find(text);
+
+                if (foundRange != null)
+                {
+       return autoNodeColorSetting.Checked? HslToHex(hueSegment *i, 0.9, 0.5): System.Drawing.ColorTranslator.ToHtml(System.Drawing.ColorTranslator.FromOle(foundRange.Font.Color));
+                }
+            }
+            return HslToHex(hueSegment*0, 0.9, 0.5);
+        }
+
         private void listTest_Click(object sender, RibbonControlEventArgs e)
         {
             // Get the path of the temporary directory
@@ -657,8 +680,7 @@ namespace snakeSkinV1
         private void todolist_Click(object sender, RibbonControlEventArgs e)
         {
             MessageBox.Show(
-                "dc區增加'清除'按鈕\n" +
-                "修改程式非阻擋式'圖表呈現'的說明(只要先開瀏覽器)\n"
+                "dc區增加'清除'按鈕\n" 
                 );
         }
 
@@ -1365,11 +1387,104 @@ Excel.Range d = readUserSelectOne().Resize[((Excel.Range)arraySetSource.Tag).Cou
 
         private void newWindowsTag_Click(object sender, RibbonControlEventArgs e)
         {
+                double hue = 240;    // Example: Hue (0 - 360)
+                double saturation = 1;   // Example: Saturation (0 - 1)
+                double lightness = 0.5;  // Example: Lightness (0 - 1)
+
+                string hexColor = HslToHex(hue, saturation, lightness);
+               MessageBox.Show($"The HEX color is: {hexColor}");
+    }
+
+    private void useOldR_Click(object sender, RibbonControlEventArgs e)
+        {
 
         }
+        public static string HslToHex(double h, double s, double l)
+        {//這段程式碼我不知道是甚麼，因為是機器生成的，但反正不重要吧
+            // Convert HSL to RGB
+            double c = (1 - Math.Abs(2 * l - 1)) * s;
+            double x = c * (1 - Math.Abs((h / 60) % 2 - 1));
+            double m = l - c / 2;
+            double rPrime, gPrime, bPrime;
 
-        private void useOldR_Click(object sender, RibbonControlEventArgs e)
+            if (0 <= h && h < 60)
+            {
+                rPrime = c;
+                gPrime = x;
+                bPrime = 0;
+            }
+            else if (60 <= h && h < 120)
+            {
+                rPrime = x;
+                gPrime = c;
+                bPrime = 0;
+            }
+            else if (120 <= h && h < 180)
+            {
+                rPrime = 0;
+                gPrime = c;
+                bPrime = x;
+            }
+            else if (180 <= h && h < 240)
+            {
+                rPrime = 0;
+                gPrime = x;
+                bPrime = c;
+            }
+            else if (240 <= h && h < 300)
+            {
+                rPrime = x;
+                gPrime = 0;
+                bPrime = c;
+            }
+            else
+            {
+                rPrime = c;
+                gPrime = 0;
+                bPrime = x;
+            }
+
+            // Convert to RGB values
+            int r = (int)((rPrime + m) * 255);
+            int g = (int)((gPrime + m) * 255);
+            int b = (int)((bPrime + m) * 255);
+
+            // Convert RGB to HEX
+            return $"#{r:X2}{g:X2}{b:X2}";
+        }
+
+        private void defaultSnakeColorTest_Click(object sender, RibbonControlEventArgs e)
         {
+            try
+            {
+                Excel.Application excelApp = (Excel.Application)Marshal.GetActiveObject("Excel.Application");
+                Excel.Workbook workbook = excelApp.ActiveWorkbook;
+                Excel.Sheets sheets = workbook.Sheets;
+
+                for (int i = 1; i <= sheets.Count; i++)
+                {
+                    Excel.Worksheet sheet = (Excel.Worksheet)sheets[i];
+                    Excel.Range usedRange = sheet.UsedRange;
+                    Excel.Range foundRange = usedRange.Find("person1");
+
+                    if (foundRange != null)
+                    {
+                        MessageBox.Show("Text 'person1' found in worksheet index: " + i+"\n"+"Cell address: " + foundRange.Address);
+                        return;
+                    }
+                }
+
+                MessageBox.Show("Text 'person1' not found in any worksheet.");
+            }
+            catch (COMException ex)
+            {
+                MessageBox.Show("Excel application is not running. Please start Excel and open a workbook.");
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+            }
 
         }
     }
