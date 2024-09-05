@@ -1552,6 +1552,15 @@ height: window.innerHeight,
         }
         private void assembHTML_Click(object sender, RibbonControlEventArgs e)
         {
+
+            Dictionary<string, string> ageMap = new Dictionary<string, string>();
+            ageMap["title"] = "這是一個示範的取代結尾";
+            ageMap["sa2"] = "這是一個示範的取代結尾";
+            ageMap["colors"] = "這是一個示範的取代結尾";
+            ageMap["sb"] = "這是一個示範的取代結尾";
+            ageMap["sc"] = "這是一個示範的取代結尾";
+            ageMap["sd"] = "這是一個示範的取代結尾";
+
             //var assembly = Assembly.GetExecutingAssembly();
             //string list_all_assembly = "list_all_assembly: ";
             //foreach (var resource in assembly.GetManifestResourceNames())
@@ -1614,7 +1623,27 @@ height: window.innerHeight,
                         // matchss +=(result3 + " found at index "+ m.Index+".\n");
 
                         string lastReplace = $@"\${{\s*{result3}\s*}}";
-                        string subRE = $@"這是一個示範的取代{result3}結尾";
+                        string subRE = "";// ageMap[result3];
+
+                        try
+                        {
+                            // Attempt to get the value from the dictionary
+                           subRE = ageMap[result3];
+                            // Use the value as needed
+                        }
+                        catch (KeyNotFoundException ex)
+                        {
+                            // Handle the case where the key does not exist in the dictionary
+                           MessageBox.Show("[內部錯誤，請聯絡開發人員 (動作未完成)] The key was not found in the dictionary: " + ex.Message);
+                            return;
+                        }
+                        catch (Exception ex)
+                        {
+                            // Handle any other exceptions that might occur
+                            MessageBox.Show("[內部錯誤，請聯絡開發人員 (動作未完成)] An error occurred: " + ex.Message);
+                            return;
+                        }
+
                         RegexOptions OP_last = RegexOptions.Multiline;
 
                         Regex RE_last = new Regex(lastReplace, OP_last);
