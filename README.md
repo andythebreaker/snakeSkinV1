@@ -1,5 +1,7 @@
 # snakeSkinV1
 
+安裝資訊[影片](https://photos.app.goo.gl/Sr8DT4UGYsCEJniW8)
+
 ## TODO
 
 1. 重複名稱許可
