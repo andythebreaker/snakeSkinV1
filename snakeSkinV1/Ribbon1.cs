@@ -20,6 +20,7 @@ using Microsoft.Office.Tools;
 using System.Media;
 using NAudio.Wave;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
+using System.Text.RegularExpressions;
 
 namespace snakeSkinV1
 {
@@ -1549,7 +1550,6 @@ height: window.innerHeight,
             }
 
         }
-
         private void assembHTML_Click(object sender, RibbonControlEventArgs e)
         {
             //var assembly = Assembly.GetExecutingAssembly();
@@ -1579,7 +1579,52 @@ height: window.innerHeight,
                 {
                     // 讀取 HTML 檔案內容為字串
                     string htmlContent = reader.ReadToEnd();
-                    MessageBox.Show(htmlContent); // 輸出 HTML 內容
+                    string htmlNew=htmlContent;
+
+                    string pattern = @"\${.+}";
+
+                    RegexOptions options = RegexOptions.Multiline;
+
+                    //string matchss = "";
+                    string jsSmartString_p = @"`(.+)\${(.+)}(.+)`";
+                    string jsSmartString_sub = @"#@~~@#$1#%~~%#$2#!~~!#$3#@~~@#";
+                    RegexOptions jsSmartString_op = RegexOptions.Multiline;
+
+                    Regex jsSmartString_re = new Regex(jsSmartString_p, jsSmartString_op);
+                    htmlContent = jsSmartString_re.Replace(htmlContent, jsSmartString_sub);
+
+
+                    foreach (Match m in Regex.Matches(htmlContent, pattern, options))
+                    {
+                        string pattern2 = @"\${\s*";
+                        string substitution = @"";
+                        RegexOptions options2 = RegexOptions.Multiline;
+
+                        Regex regex = new Regex(pattern2, options2);
+                        string result = regex.Replace(m.Value, substitution);
+
+                        string pattern3 = @"\s*}";
+                        string substitution3 = @"";
+                        
+                        RegexOptions options3 = RegexOptions.Multiline;
+
+                        Regex regex3 = new Regex(pattern3, options3);
+                        string result3 = regex3.Replace(result, substitution3);
+
+                        // matchss +=(result3 + " found at index "+ m.Index+".\n");
+
+                        string lastReplace = $@"\${{\s*{result3}\s*}}";
+                        string subRE = $@"這是一個示範的取代{result3}結尾";
+                        RegexOptions OP_last = RegexOptions.Multiline;
+
+                        Regex RE_last = new Regex(lastReplace, OP_last);
+                        htmlNew = RE_last.Replace(htmlNew, subRE);
+                    }
+
+                    //MessageBox.Show(htmlNew); // 輸出 HTML 內容
+                    ScrollableMessageBox.Show(
+                        htmlNew.Replace("#@~~@#", "`").Replace("#%~~%#", "${").Replace("#!~~!#", "}"),
+                        "Scrollable MessageBox");
                 }
             }
         }
