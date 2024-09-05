@@ -507,7 +507,7 @@
             // 
             this.plotTitle.Label = "圖主名稱";
             this.plotTitle.Name = "plotTitle";
-            this.plotTitle.Text = null;
+            this.plotTitle.Text = "請在excel擴充功能「主圖名稱」中輸入標題";
             // 
             // autoNodeColorSetting
             // 

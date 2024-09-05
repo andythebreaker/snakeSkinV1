@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <!--
-    
+
 這段話是給開發人員的
     錢號 大括號起始 變數 大括號結束
     會執行js變數取代
@@ -55,6 +55,7 @@
                 bottom: -8px;
             }
     </style>
+    <script src="https://kit.fontawesome.com/87a9f370fb.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="gd"></div>
@@ -63,12 +64,60 @@
     <button class="float-btn" onclick="sayHello()">
         <div class="hamburger-icon"></div>
     </button>
+    <footer style="display:none;">
+        <div id="rodb">{"ro":[]}</div>
+    </footer>
 
     <!-- 浮動按鈕相關 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         //這個部分是main_ro.js
         function sayHello() {
-            alert("Hello World!");
+            Swal.fire({
+                title: "要旋轉的節點名稱",
+                icon: "info",
+                html: `
+            <input type="text" id="input4ro" name="name" placeholder="Enter your name">
+      `,
+                showCloseButton: true,
+                showCancelButton: true,
+                showDenyButton: true,
+                focusConfirm: false,
+                confirmButtonText: '<i class="fa-solid fa-check"></i>',
+                confirmButtonAriaLabel: "Thumbs up, great!",
+                denyButtonText: '<i class="fa-solid fa-eye"></i>',
+                cancelButtonText: '<i class="fa-solid fa-xmark"></i>',
+                cancelButtonAriaLabel: "Thumbs down"
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    var inputstuff = String(document.getElementById('input4ro').value);
+                    var ary = JSON.parse(document.getElementById('rodb').innerText);
+                    ary['ro'].push(inputstuff)
+                    document.getElementById('rodb').innerText = JSON.stringify(ary);
+
+                } else if (result.isDenied) {
+                    Swal.fire({
+                        title: "檢視要旋轉的節點名稱",
+                        icon: "info",
+                        footer: 'you can click on the node name to remove it from rotate list',
+                        confirmButtonText: '<i class="fa-solid fa-rotate"></i>',
+                        confirmButtonAriaLabel: "旋轉",
+                        html:
+                            (JSON.parse(document.getElementById('rodb').innerText)["ro"]).map((item, index, arr) => '<button onclick="alert(`這個刪除的更能還沒被實踐!`);" id=' + String(index) + '>' + item + '</button>').join('')
+                    }).then((inner_result) => {
+                        if (inner_result.isConfirmed) {
+                            var ary_ro = JSON.parse(document.getElementById('rodb').innerText)["ro"];
+                            ary_ro.forEach(function (element, index, array) {
+                                findAndFilterSVGNodes(element);
+                            });
+                        }
+                    });
+                }
+                else {
+                    Swal.fire("您離開了，沒有做任何改變", "", "info");
+                }
+            });
         }
         function findAndFilterSVGNodes(var_str_to_ro_target_name) {
             // Find all <g> elements with class 'sankey-node'
@@ -110,7 +159,9 @@
 
     <script type="module">
         import "https://unpkg.com/virtual-webgl@1.0.6/src/virtual-webgl.js"
-        import "https://cdn.jsdelivr.net/gh/andythebreaker/snakeskin@V2.0.1/plotly-2.33.0_move_box.js"//"./plotly-2.33.0_move_box.js"
+        import "http://127.0.0.1:48489/plotly-2.33.0_move_box.js"
+        //"https://cdn.jsdelivr.net/gh/andythebreaker/snakeskin@V2.0.1/plotly-2.33.0_move_box.js"
+        //"./plotly-2.33.0_move_box.js"
         import "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"
         var data = {
             type: "sankey",
@@ -138,9 +189,9 @@
         var data = [data]
 
         var layout = {
-            title: "[< 3]string__i am a title__[< 3]",
+            title: "${title}",
             width: window.innerWidth,
-            height: window.innerHeight,
+            height: window.innerHeight*1.3,
             font: {
 
                 size: 10

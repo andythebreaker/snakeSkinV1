@@ -218,7 +218,7 @@ namespace snakeSkinV1
         {
             //foreach (Excel.Range cell in r.Cells)
             //{
-            if (r.Rows.Count == 1 && r.Columns.Count == 1)
+            if (r!=null&&r.Rows.Count == 1 && r.Columns.Count == 1)
             {
                 // This cell represents a single cell
                 return true;
@@ -524,112 +524,17 @@ namespace snakeSkinV1
             string colors = string.Join(",", a.Select(x =>
           $"\"{determinColor(x.ToString())}\""
             ));
-            string content2 = $@"
-<!DOCTYPE html>
-<html lang=""zh-tw"">
 
-<head>
-    <title>bear</title>
+            Dictionary<string, string> htmlVar = new Dictionary<string, string>();
+            htmlVar["title"] = plotTitle.Text;
+            htmlVar["sa2"] = sa2;
+            htmlVar["colors"] = colors;
+            htmlVar["sb"] = sb;
+            htmlVar["sc"] = sc;
+            htmlVar["sd"] = sd;
 
-<meta charset=""UTF-8"">
-<meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
-<style>
-        /* Button styling */
-        .float-btn {{position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #ffc0cb;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }}
+            string content2 = genHtml(htmlVar);
 
-        /* Hamburger icon styling */
-        .hamburger-icon {{width: 30px;
-            height: 3px;
-            background-color: #fff;
-            position: relative;
-        }}
-
-        .hamburger-icon::before, .hamburger-icon::after {{content: '';
-            position: absolute;
-            width: 30px;
-            height: 3px;
-            background-color: #fff;
-            left: 0;
-        }}
-
-        .hamburger-icon::before {{top: -8px;
-        }}
-
-        .hamburger-icon::after {{bottom: -8px;
-        }}
-    </style>
-
-
-</head>
-
-<body>
-    <div id=""gd""></div>
-
-<!-- Floating Button -->
-    <button class=""float-btn"" onclick=""sayHello()"">
-        <div class=""hamburger-icon""></div>
-    </button>
-
-<script>
-        function sayHello() {{
-            alert(""Hello World!"");
-        }}
-    </script>
-
-
-    <script type=""module"">
-        import ""https://unpkg.com/virtual-webgl@1.0.6/src/virtual-webgl.js""
-        import ""https://cdn.jsdelivr.net/gh/andythebreaker/snakeskin@V2.0.1/plotly-2.33.0_move_box.js""//""./plotly-2.33.0_move_box.js""
-        import ""https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js""
-        var data = {{
-            type: ""sankey"",
-            orientation: ""h"",
-            node: {{
-                pad: 15,
-                thickness: 30,
-                line: {{
-                    color: ""black"",
-                    width: 0.5
-                }},
-                label: [{sa2}],
-                color: [{colors}]
-            }},
-
-            link: {{
-                source: [{sb}],
-                target: [{sc}],
-                value: [{sd}]
-            }}
-        }}
-
-        var data = [data]
-
-        var layout = {{
-            title: ""[<3]string__i am a title__[<3]"",
-width: window.innerWidth,
-height: window.innerHeight,
-            font: {{
-                size: 10
-            }}
-        }}
-
-        Plotly.react('gd', data, layout)
-
-    </script>
-</body>";
             File.WriteAllText(filePath2, content2);
 
             if (useOldR.Checked)
@@ -1552,7 +1457,6 @@ height: window.innerHeight,
         }
         private void assembHTML_Click(object sender, RibbonControlEventArgs e)
         {
-
             Dictionary<string, string> ageMap = new Dictionary<string, string>();
             ageMap["title"] = "這是一個示範的取代結尾";
             ageMap["sa2"] = "這是一個示範的取代結尾";
@@ -1560,6 +1464,18 @@ height: window.innerHeight,
             ageMap["sb"] = "這是一個示範的取代結尾";
             ageMap["sc"] = "這是一個示範的取代結尾";
             ageMap["sd"] = "這是一個示範的取代結尾";
+            //MessageBox.Show(htmlNew); // 輸出 HTML 內容
+            ScrollableMessageBox.Show( genHtml(ageMap), "Scrollable MessageBox");
+        }
+        private string genHtml(Dictionary<string, string> dicVar)
+        {
+            Dictionary<string, string> ageMap = dicVar;// new Dictionary<string, string>();
+            /*ageMap["title"] = "這是一個示範的取代結尾";
+            ageMap["sa2"] = "這是一個示範的取代結尾";
+            ageMap["colors"] = "這是一個示範的取代結尾";
+            ageMap["sb"] = "這是一個示範的取代結尾";
+            ageMap["sc"] = "這是一個示範的取代結尾";
+            ageMap["sd"] = "這是一個示範的取代結尾";*/
 
             //var assembly = Assembly.GetExecutingAssembly();
             //string list_all_assembly = "list_all_assembly: ";
@@ -1580,15 +1496,15 @@ height: window.innerHeight,
             {
                 if (stream == null)
                 {
-                    MessageBox.Show("[內部錯誤，請聯絡開發人員] 無法找到嵌入的資源！");
-                    return;
+                    MessageBox.Show("[內部錯誤，請聯絡開發人員 (動作未完成)] 無法找到嵌入的資源！");
+                    return null;
                 }
 
                 using (StreamReader reader = new StreamReader(stream))
                 {
                     // 讀取 HTML 檔案內容為字串
                     string htmlContent = reader.ReadToEnd();
-                    string htmlNew=htmlContent;
+                    string htmlNew = htmlContent;
 
                     string pattern = @"\${.+}";
 
@@ -1614,7 +1530,7 @@ height: window.innerHeight,
 
                         string pattern3 = @"\s*}";
                         string substitution3 = @"";
-                        
+
                         RegexOptions options3 = RegexOptions.Multiline;
 
                         Regex regex3 = new Regex(pattern3, options3);
@@ -1628,20 +1544,20 @@ height: window.innerHeight,
                         try
                         {
                             // Attempt to get the value from the dictionary
-                           subRE = ageMap[result3];
+                            subRE = ageMap[result3];
                             // Use the value as needed
                         }
                         catch (KeyNotFoundException ex)
                         {
                             // Handle the case where the key does not exist in the dictionary
-                           MessageBox.Show("[內部錯誤，請聯絡開發人員 (動作未完成)] The key was not found in the dictionary: " + ex.Message);
-                            return;
+                            MessageBox.Show("[內部錯誤，請聯絡開發人員 (動作未完成)] The key was not found in the dictionary: " + ex.Message);
+                            return null;
                         }
                         catch (Exception ex)
                         {
                             // Handle any other exceptions that might occur
                             MessageBox.Show("[內部錯誤，請聯絡開發人員 (動作未完成)] An error occurred: " + ex.Message);
-                            return;
+                            return null;
                         }
 
                         RegexOptions OP_last = RegexOptions.Multiline;
@@ -1651,9 +1567,9 @@ height: window.innerHeight,
                     }
 
                     //MessageBox.Show(htmlNew); // 輸出 HTML 內容
-                    ScrollableMessageBox.Show(
-                        htmlNew.Replace("#@~~@#", "`").Replace("#%~~%#", "${").Replace("#!~~!#", "}"),
-                        "Scrollable MessageBox");
+                    // ScrollableMessageBox.Show(
+                    return htmlNew.Replace("#@~~@#", "`").Replace("#%~~%#", "${").Replace("#!~~!#", "}");//,
+                                                                                                         //   "Scrollable MessageBox");
                 }
             }
         }
