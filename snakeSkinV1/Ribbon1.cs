@@ -1549,5 +1549,39 @@ height: window.innerHeight,
             }
 
         }
+
+        private void assembHTML_Click(object sender, RibbonControlEventArgs e)
+        {
+            //var assembly = Assembly.GetExecutingAssembly();
+            //string list_all_assembly = "list_all_assembly: ";
+            //foreach (var resource in assembly.GetManifestResourceNames())
+            //{
+            //    list_all_assembly+=resource;
+            //}
+            //MessageBox.Show(list_all_assembly);
+
+            // 獲取當前執行的 Assembly
+            var assembly = Assembly.GetExecutingAssembly();
+
+            // 指定嵌入資源的名稱 (命名空間 + 檔案名稱)，要根據你的實際命名空間和檔案名稱進行修改
+            var resourceName = "snakeSkinV1.main.html"; // YourNamespace 是你的專案命名空間
+
+            // 讀取嵌入的資源
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            {
+                if (stream == null)
+                {
+                    MessageBox.Show("[內部錯誤，請聯絡開發人員] 無法找到嵌入的資源！");
+                    return;
+                }
+
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    // 讀取 HTML 檔案內容為字串
+                    string htmlContent = reader.ReadToEnd();
+                    MessageBox.Show(htmlContent); // 輸出 HTML 內容
+                }
+            }
+        }
     }
 }

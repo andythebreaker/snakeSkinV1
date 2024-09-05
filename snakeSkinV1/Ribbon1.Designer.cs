@@ -88,6 +88,8 @@
             this.dpOperate = this.Factory.CreateRibbonGroup();
             this.displayData = this.Factory.CreateRibbonButton();
             this.processData = this.Factory.CreateRibbonButton();
+            this.plotTitle = this.Factory.CreateRibbonEditBox();
+            this.autoNodeColorSetting = this.Factory.CreateRibbonToggleButton();
             this.ucOperate = this.Factory.CreateRibbonGroup();
             this.saveMap = this.Factory.CreateRibbonButton();
             this.loadMap = this.Factory.CreateRibbonButton();
@@ -111,7 +113,11 @@
             this.worksheetcodenametest = this.Factory.CreateRibbonButton();
             this.testActivateWindows = this.Factory.CreateRibbonButton();
             this.newWindowsTag = this.Factory.CreateRibbonButton();
+            this.defaultSnakeColorTest = this.Factory.CreateRibbonButton();
             this.todolist = this.Factory.CreateRibbonButton();
+            this.Rpath = this.Factory.CreateRibbonEditBox();
+            this.musicPath = this.Factory.CreateRibbonEditBox();
+            this.useOldR = this.Factory.CreateRibbonToggleButton();
             this.a1 = new System.Windows.Forms.ColorDialog();
             this.a2 = new System.Windows.Forms.ColorDialog();
             this.b1 = new System.Windows.Forms.ColorDialog();
@@ -126,12 +132,7 @@
             this.arrayColorSetData2 = new System.Windows.Forms.ColorDialog();
             this.saveMirrorText = new System.Windows.Forms.SaveFileDialog();
             this.loadMirrorText = new System.Windows.Forms.OpenFileDialog();
-            this.Rpath = this.Factory.CreateRibbonEditBox();
-            this.musicPath = this.Factory.CreateRibbonEditBox();
-            this.useOldR = this.Factory.CreateRibbonToggleButton();
-            this.defaultSnakeColorTest = this.Factory.CreateRibbonButton();
-            this.plotTitle = this.Factory.CreateRibbonEditBox();
-            this.autoNodeColorSetting = this.Factory.CreateRibbonToggleButton();
+            this.assembHTML = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
@@ -502,6 +503,18 @@
             this.processData.Name = "processData";
             this.processData.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.processData_Click);
             // 
+            // plotTitle
+            // 
+            this.plotTitle.Label = "圖主名稱";
+            this.plotTitle.Name = "plotTitle";
+            this.plotTitle.Text = null;
+            // 
+            // autoNodeColorSetting
+            // 
+            this.autoNodeColorSetting.Checked = true;
+            this.autoNodeColorSetting.Label = "自動生成節點顏色";
+            this.autoNodeColorSetting.Name = "autoNodeColorSetting";
+            // 
             // ucOperate
             // 
             this.ucOperate.Items.Add(this.saveMap);
@@ -586,6 +599,7 @@
             this.debugHide.Items.Add(this.worksheetcodenametest);
             this.debugHide.Items.Add(this.testActivateWindows);
             this.debugHide.Items.Add(this.newWindowsTag);
+            this.debugHide.Items.Add(this.assembHTML);
             this.debugHide.Items.Add(this.defaultSnakeColorTest);
             this.debugHide.Items.Add(this.todolist);
             this.debugHide.Label = "debugHide";
@@ -677,12 +691,37 @@
             this.newWindowsTag.ShowImage = true;
             this.newWindowsTag.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.newWindowsTag_Click);
             // 
+            // defaultSnakeColorTest
+            // 
+            this.defaultSnakeColorTest.Label = "defaultSnakeColorTest";
+            this.defaultSnakeColorTest.Name = "defaultSnakeColorTest";
+            this.defaultSnakeColorTest.ShowImage = true;
+            this.defaultSnakeColorTest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.defaultSnakeColorTest_Click);
+            // 
             // todolist
             // 
             this.todolist.Label = "todolist";
             this.todolist.Name = "todolist";
             this.todolist.ShowImage = true;
             this.todolist.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.todolist_Click);
+            // 
+            // Rpath
+            // 
+            this.Rpath.Label = "Rpath";
+            this.Rpath.Name = "Rpath";
+            this.Rpath.Text = "C:\\Users\\ai\\Documents\\andy\\code\\snakeskin\\masterR";
+            // 
+            // musicPath
+            // 
+            this.musicPath.Label = "musicPath";
+            this.musicPath.Name = "musicPath";
+            this.musicPath.Text = "C:\\Users\\ai\\Music\\akbS63.wav";
+            // 
+            // useOldR
+            // 
+            this.useOldR.Label = "使用舊版渲染R程式";
+            this.useOldR.Name = "useOldR";
+            this.useOldR.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.useOldR_Click);
             // 
             // a1
             // 
@@ -704,41 +743,12 @@
             this.loadMirrorText.RestoreDirectory = true;
             this.loadMirrorText.Title = "正在匯入蛇圖格關聯檔";
             // 
-            // Rpath
+            // assembHTML
             // 
-            this.Rpath.Label = "Rpath";
-            this.Rpath.Name = "Rpath";
-            this.Rpath.Text = "C:\\Users\\ai\\Documents\\andy\\code\\snakeskin\\masterR";
-            // 
-            // musicPath
-            // 
-            this.musicPath.Label = "musicPath";
-            this.musicPath.Name = "musicPath";
-            this.musicPath.Text = "C:\\Users\\ai\\Music\\akbS63.wav";
-            // 
-            // useOldR
-            // 
-            this.useOldR.Label = "使用舊版渲染R程式";
-            this.useOldR.Name = "useOldR";
-            this.useOldR.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.useOldR_Click);
-            // 
-            // defaultSnakeColorTest
-            // 
-            this.defaultSnakeColorTest.Label = "defaultSnakeColorTest";
-            this.defaultSnakeColorTest.Name = "defaultSnakeColorTest";
-            this.defaultSnakeColorTest.ShowImage = true;
-            this.defaultSnakeColorTest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.defaultSnakeColorTest_Click);
-            // 
-            // plotTitle
-            // 
-            this.plotTitle.Label = "圖主名稱";
-            this.plotTitle.Name = "plotTitle";
-            // 
-            // autoNodeColorSetting
-            // 
-            this.autoNodeColorSetting.Checked = true;
-            this.autoNodeColorSetting.Label = "自動生成節點顏色";
-            this.autoNodeColorSetting.Name = "autoNodeColorSetting";
+            this.assembHTML.Label = "assemblyHTML";
+            this.assembHTML.Name = "assembHTML";
+            this.assembHTML.ShowImage = true;
+            this.assembHTML.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.assembHTML_Click);
             // 
             // Ribbon1
             // 
@@ -860,6 +870,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton defaultSnakeColorTest;
         internal Microsoft.Office.Tools.Ribbon.RibbonEditBox plotTitle;
         internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton autoNodeColorSetting;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton assembHTML;
     }
 
     partial class ThisRibbonCollection

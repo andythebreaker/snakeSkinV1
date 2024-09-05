@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+
+<html lang="zh-tw" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>${title}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Button styling */
+        .float-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ffc0cb;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        /* Hamburger icon styling */
+        .hamburger-icon {
+            width: 30px;
+            height: 3px;
+            background-color: #fff;
+            position: relative;
+        }
+
+            .hamburger-icon::before, .hamburger-icon::after {
+                content: '';
+                position: absolute;
+                width: 30px;
+                height: 3px;
+                background-color: #fff;
+                left: 0;
+            }
+
+            .hamburger-icon::before {
+                top: -8px;
+            }
+
+            .hamburger-icon::after {
+                bottom: -8px;
+            }
+    </style>
+</head>
+<body>
+    <div id="gd"></div>
+
+    <!-- Floating Button -->
+    <button class="float-btn" onclick="sayHello()">
+        <div class="hamburger-icon"></div>
+    </button>
+
+    <!-- 浮動按鈕相關 -->
+    <script>
+        //這個部分是main_ro.js
+        function sayHello() {
+            alert("Hello World!");
+        }
+        function findAndFilterSVGNodes(var_str_to_ro_target_name) {
+            // Find all <g> elements with class 'sankey-node'
+            const nodes = document.querySelectorAll('g.sankey-node');
+
+            // Filter out nodes that include "林于馨" in their innerHTML
+            const filteredNodes = Array.from(nodes).filter(node => node.innerHTML.includes(var_str_to_ro_target_name));
+
+            // Array to store object representations of <rect> elements
+            let rects = [];
+
+            // Iterate over filtered nodes and find <rect> elements inside
+            filteredNodes.forEach(node => {
+                const rectElements = node.querySelectorAll('rect');
+                rectElements.forEach(rect => {
+                    // Get width and height of <rect>
+                    const width = rect.getAttribute('width');
+                    const height = rect.getAttribute('height');
+                    // Get x and y position of <rect> relative to the SVG or parent container
+                    const x = rect.getAttribute('x');
+                    const y = rect.getAttribute('y');
+
+                    // Apply rotation transform of 90 degrees around the center of the <rect>
+                    //const centerX = parseFloat(x) + parseFloat(width) / 2;
+                    //const centerY = parseFloat(y) + parseFloat(height) / 2;
+                    rect.setAttribute('transform', `rotate(-90, 0,0),translate(0,-${height})`);
+
+                    // Store information in an object
+                    rects.push({ width, height, x, y });
+                });
+            });
+
+            // Return array of objects containing width, height, x, y, and transform of <rect> elements
+            return rects;
+        }
+        //usage:
+        //findAndFilterSVGNodes()
+    </script>
+
+    <script type="module">
+        import "https://unpkg.com/virtual-webgl@1.0.6/src/virtual-webgl.js"
+        import "https://cdn.jsdelivr.net/gh/andythebreaker/snakeskin@V2.0.1/plotly-2.33.0_move_box.js"//"./plotly-2.33.0_move_box.js"
+        import "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"
+        var data = {
+            type: "sankey",
+            orientation: "h",
+            node: {
+                pad: 15,
+                thickness: 30,
+                line: {
+                    color: "black",
+                    width: 0.5
+                },
+                label: [${ sa2 }],
+                color: [${ colors }]
+            },
+
+            link:
+            {
+                source: [${ sb }],
+                target: [${ sc }],
+                value: [${ sd }]
+            }
+        }
+
+
+        var data = [data]
+
+        var layout = {
+            title: "[< 3]string__i am a title__[< 3]",
+            width: window.innerWidth,
+            height: window.innerHeight,
+            font: {
+
+                size: 10
+            }
+
+        }
+
+        Plotly.react('gd', data, layout)
+    </script>
+</body>
+</html>
