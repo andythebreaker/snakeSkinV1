@@ -19,6 +19,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Microsoft.Office.Tools;
 using System.Media;
 using NAudio.Wave;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace snakeSkinV1
 {
@@ -523,12 +524,70 @@ namespace snakeSkinV1
           $"\"{determinColor(x.ToString())}\""
             ));
             string content2 = $@"
+<!DOCTYPE html>
+<html lang=""zh-tw"">
+
 <head>
     <title>bear</title>
+
+<meta charset=""UTF-8"">
+<meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+<style>
+        /* Button styling */
+        .float-btn {{position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ffc0cb;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }}
+
+        /* Hamburger icon styling */
+        .hamburger-icon {{width: 30px;
+            height: 3px;
+            background-color: #fff;
+            position: relative;
+        }}
+
+        .hamburger-icon::before, .hamburger-icon::after {{content: '';
+            position: absolute;
+            width: 30px;
+            height: 3px;
+            background-color: #fff;
+            left: 0;
+        }}
+
+        .hamburger-icon::before {{top: -8px;
+        }}
+
+        .hamburger-icon::after {{bottom: -8px;
+        }}
+    </style>
+
+
 </head>
 
 <body>
     <div id=""gd""></div>
+
+<!-- Floating Button -->
+    <button class=""float-btn"" onclick=""sayHello()"">
+        <div class=""hamburger-icon""></div>
+    </button>
+
+<script>
+        function sayHello() {{
+            alert(""Hello World!"");
+        }}
+    </script>
+
 
     <script type=""module"">
         import ""https://unpkg.com/virtual-webgl@1.0.6/src/virtual-webgl.js""
