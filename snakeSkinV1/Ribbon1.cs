@@ -46,6 +46,37 @@ namespace snakeSkinV1
             arrayColorSetData1.Color = System.Drawing.ColorTranslator.FromHtml("#7fc3ff");
             saveMirrorText.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             loadMirrorText.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            /*
+Feel Good by MusicbyAden | https://soundcloud.com/musicbyaden
+Music promoted by https://www.chosic.com/free-music/all/
+Creative Commons CC BY-SA 3.0
+https://creativecommons.org/licenses/by-sa/3.0/
+ */
+
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "snakeSkinV1.Feel-Good(chosic.com).mp3";
+            // Get the temp directory path
+            string tempPath = Path.GetTempPath();
+
+            // Path to save the file in the temp directory
+            string tempFilePath = Path.Combine(tempPath, "Feel-Good(chosic.com).mp3");
+
+            // Open the resource stream
+            using (Stream resourceStream = assembly.GetManifestResourceStream(resourceName))
+            {
+                if (resourceStream == null)
+                {
+                    Console.WriteLine("Resource not found!");
+                    return;
+                }
+
+                // Write the resource stream to the temp file
+                using (FileStream fileStream = new FileStream(tempFilePath, FileMode.Create, FileAccess.Write))
+                {
+                    resourceStream.CopyTo(fileStream);
+                }
+            }
+            musicPath.Text = tempFilePath;
         }
 
         private void displayData_Click(object sender, RibbonControlEventArgs e)
@@ -532,6 +563,7 @@ namespace snakeSkinV1
             htmlVar["sb"] = sb;
             htmlVar["sc"] = sc;
             htmlVar["sd"] = sd;
+            htmlVar["rodb"] = JsonConvert.SerializeObject(maskMain.getMask()); // Convert the list to a JSON string using Newtonsoft.Json
 
             string content2 = genHtml(htmlVar);
 
@@ -648,7 +680,8 @@ namespace snakeSkinV1
         private void todolist_Click(object sender, RibbonControlEventArgs e)
         {
             MessageBox.Show(
-                "dc區增加'清除'按鈕\n"
+                "dc區增加'清除'按鈕\n" +
+                "現在輸出入的遮罩跟旋轉方向的功能，是直接作在一起，如果有需要再分開"
                 );
         }
 
@@ -1572,6 +1605,11 @@ namespace snakeSkinV1
                                                                                                          //   "Scrollable MessageBox");
                 }
             }
+        }
+
+        private void testgetcol0_Click(object sender, RibbonControlEventArgs e)
+        {
+            maskMain.getMask();
         }
     }
 }

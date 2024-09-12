@@ -61,15 +61,40 @@
     <div id="gd"></div>
 
     <!-- Floating Button -->
-    <button class="float-btn" onclick="sayHello()">
+    <button class="float-btn" onclick="displayLinkList4rotateUsingSemanticUI()">
         <div class="hamburger-icon"></div>
     </button>
     <footer style="display:none;">
-        <div id="rodb">{"ro":[]}</div>
+        <div id="rodb">${rodb}</div>
         <table id="linkList4rotate">
         </table>
     </footer>
+        
+    <!-- 引入 jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 引入 Semantic UI CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!-- 引入 Semantic UI JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>    
 
+    <script>
+        // 從指定的URL獲取JavaScript文件
+        fetch('http://127.0.0.1:48489/js/index.js')
+            .then(response => response.text())
+            .then(jsCode => {
+                // 創建一個新的script元素
+                const scriptElement = document.createElement('script');
+                // 將獲取的JavaScript代碼設置為script元素的內容
+                scriptElement.textContent = jsCode;
+                // 將script元素添加到文檔的body中
+                document.body.appendChild(scriptElement);
+            })
+            .catch(error => {
+                console.error('無法載入JavaScript文件:', error);
+            });
+    </script>
+
+    
     <!-- 浮動按鈕相關 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--script>

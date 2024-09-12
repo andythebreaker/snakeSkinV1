@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 namespace snakeSkinV1
@@ -131,6 +132,23 @@ namespace snakeSkinV1
                     r.Cells[5].Value = false;
                 }
             }
+        }
+
+        //get col 0 
+        public List<string> getMask()
+        {
+            List<string> valuesList = new List<string>();
+
+            // Iterate through each row in the DataGridView
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                // Assuming you want to get the value from the first cell (index 0) in each row
+                if (row.Cells[0].Value != null)
+                {
+                    valuesList.Add(row.Cells[0].Value.ToString());
+                }
+            }
+            return valuesList;
         }
 
         // Method to add a new row

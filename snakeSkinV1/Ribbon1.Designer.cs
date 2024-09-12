@@ -133,6 +133,8 @@
             this.arrayColorSetData2 = new System.Windows.Forms.ColorDialog();
             this.saveMirrorText = new System.Windows.Forms.SaveFileDialog();
             this.loadMirrorText = new System.Windows.Forms.OpenFileDialog();
+            this.syncMask2IO = this.Factory.CreateRibbonCheckBox();
+            this.testgetcol0 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
@@ -363,6 +365,7 @@
             // 
             this.juniorOP.Items.Add(this.addSplitButton);
             this.juniorOP.Items.Add(this.testAddRow);
+            this.juniorOP.Items.Add(this.syncMask2IO);
             this.juniorOP.Label = "juniorOP";
             this.juniorOP.Name = "juniorOP";
             // 
@@ -600,6 +603,7 @@
             this.debugHide.Items.Add(this.testActivateWindows);
             this.debugHide.Items.Add(this.newWindowsTag);
             this.debugHide.Items.Add(this.assembHTML);
+            this.debugHide.Items.Add(this.testgetcol0);
             this.debugHide.Items.Add(this.defaultSnakeColorTest);
             this.debugHide.Items.Add(this.todolist);
             this.debugHide.Label = "debugHide";
@@ -750,6 +754,19 @@
             this.loadMirrorText.RestoreDirectory = true;
             this.loadMirrorText.Title = "正在匯入蛇圖格關聯檔";
             // 
+            // syncMask2IO
+            // 
+            this.syncMask2IO.Checked = true;
+            this.syncMask2IO.Label = "自動同步到輸出入";
+            this.syncMask2IO.Name = "syncMask2IO";
+            // 
+            // testgetcol0
+            // 
+            this.testgetcol0.Label = "testcol0";
+            this.testgetcol0.Name = "testgetcol0";
+            this.testgetcol0.ShowImage = true;
+            this.testgetcol0.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.testgetcol0_Click);
+            // 
             // Ribbon1
             // 
             this.Name = "Ribbon1";
@@ -871,6 +888,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonEditBox plotTitle;
         internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton autoNodeColorSetting;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton assembHTML;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox syncMask2IO;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton testgetcol0;
     }
 
     partial class ThisRibbonCollection

@@ -176,6 +176,7 @@
     <Reference Include="WakaTime, Version=8.1.11.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WakaTime.8.1.11\lib\net45\WakaTime.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Office.Tools.v4.0.Framework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -311,6 +312,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="main.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Feel-Good%28chosic.com%29.mp3" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
