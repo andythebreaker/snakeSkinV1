@@ -113,6 +113,7 @@
             this.worksheetcodenametest = this.Factory.CreateRibbonButton();
             this.testActivateWindows = this.Factory.CreateRibbonButton();
             this.newWindowsTag = this.Factory.CreateRibbonButton();
+            this.assembHTML = this.Factory.CreateRibbonButton();
             this.defaultSnakeColorTest = this.Factory.CreateRibbonButton();
             this.todolist = this.Factory.CreateRibbonButton();
             this.Rpath = this.Factory.CreateRibbonEditBox();
@@ -132,7 +133,6 @@
             this.arrayColorSetData2 = new System.Windows.Forms.ColorDialog();
             this.saveMirrorText = new System.Windows.Forms.SaveFileDialog();
             this.loadMirrorText = new System.Windows.Forms.OpenFileDialog();
-            this.assembHTML = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
@@ -691,6 +691,13 @@
             this.newWindowsTag.ShowImage = true;
             this.newWindowsTag.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.newWindowsTag_Click);
             // 
+            // assembHTML
+            // 
+            this.assembHTML.Label = "assemblyHTML";
+            this.assembHTML.Name = "assembHTML";
+            this.assembHTML.ShowImage = true;
+            this.assembHTML.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.assembHTML_Click);
+            // 
             // defaultSnakeColorTest
             // 
             this.defaultSnakeColorTest.Label = "defaultSnakeColorTest";
@@ -742,13 +749,6 @@
             this.loadMirrorText.Filter = "\"JSON files (*.json)|*.json|All files (*.*)|*.*\"";
             this.loadMirrorText.RestoreDirectory = true;
             this.loadMirrorText.Title = "正在匯入蛇圖格關聯檔";
-            // 
-            // assembHTML
-            // 
-            this.assembHTML.Label = "assemblyHTML";
-            this.assembHTML.Name = "assembHTML";
-            this.assembHTML.ShowImage = true;
-            this.assembHTML.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.assembHTML_Click);
             // 
             // Ribbon1
             // 
