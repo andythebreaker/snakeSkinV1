@@ -72,6 +72,7 @@
             this.juniorOP = this.Factory.CreateRibbonGroup();
             this.addSplitButton = this.Factory.CreateRibbonButton();
             this.testAddRow = this.Factory.CreateRibbonButton();
+            this.syncMask2IO = this.Factory.CreateRibbonCheckBox();
             this.seniorOP = this.Factory.CreateRibbonGroup();
             this.mgOperate = this.Factory.CreateRibbonGroup();
             this.modeEdit = this.Factory.CreateRibbonDropDown();
@@ -114,6 +115,7 @@
             this.testActivateWindows = this.Factory.CreateRibbonButton();
             this.newWindowsTag = this.Factory.CreateRibbonButton();
             this.assembHTML = this.Factory.CreateRibbonButton();
+            this.testgetcol0 = this.Factory.CreateRibbonButton();
             this.defaultSnakeColorTest = this.Factory.CreateRibbonButton();
             this.todolist = this.Factory.CreateRibbonButton();
             this.Rpath = this.Factory.CreateRibbonEditBox();
@@ -133,8 +135,6 @@
             this.arrayColorSetData2 = new System.Windows.Forms.ColorDialog();
             this.saveMirrorText = new System.Windows.Forms.SaveFileDialog();
             this.loadMirrorText = new System.Windows.Forms.OpenFileDialog();
-            this.syncMask2IO = this.Factory.CreateRibbonCheckBox();
-            this.testgetcol0 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.dcOperate.SuspendLayout();
             this.kpOperate.SuspendLayout();
@@ -382,6 +382,13 @@
             this.testAddRow.Name = "testAddRow";
             this.testAddRow.ShowImage = true;
             this.testAddRow.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.testAddRow_Click);
+            // 
+            // syncMask2IO
+            // 
+            this.syncMask2IO.Checked = true;
+            this.syncMask2IO.Label = "自動同步到輸出入";
+            this.syncMask2IO.Name = "syncMask2IO";
+            this.syncMask2IO.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.syncMask2IO_Click);
             // 
             // seniorOP
             // 
@@ -702,6 +709,13 @@
             this.assembHTML.ShowImage = true;
             this.assembHTML.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.assembHTML_Click);
             // 
+            // testgetcol0
+            // 
+            this.testgetcol0.Label = "testcol0";
+            this.testgetcol0.Name = "testgetcol0";
+            this.testgetcol0.ShowImage = true;
+            this.testgetcol0.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.testgetcol0_Click);
+            // 
             // defaultSnakeColorTest
             // 
             this.defaultSnakeColorTest.Label = "defaultSnakeColorTest";
@@ -753,19 +767,6 @@
             this.loadMirrorText.Filter = "\"JSON files (*.json)|*.json|All files (*.*)|*.*\"";
             this.loadMirrorText.RestoreDirectory = true;
             this.loadMirrorText.Title = "正在匯入蛇圖格關聯檔";
-            // 
-            // syncMask2IO
-            // 
-            this.syncMask2IO.Checked = true;
-            this.syncMask2IO.Label = "自動同步到輸出入";
-            this.syncMask2IO.Name = "syncMask2IO";
-            // 
-            // testgetcol0
-            // 
-            this.testgetcol0.Label = "testcol0";
-            this.testgetcol0.Name = "testgetcol0";
-            this.testgetcol0.ShowImage = true;
-            this.testgetcol0.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.testgetcol0_Click);
             // 
             // Ribbon1
             // 

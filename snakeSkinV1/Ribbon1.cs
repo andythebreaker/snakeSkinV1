@@ -1611,5 +1611,10 @@ https://creativecommons.org/licenses/by-sa/3.0/
         {
             maskMain.getMask();
         }
+
+        private void syncMask2IO_Click(object sender, RibbonControlEventArgs e)
+        {
+
+        }
     }
 }

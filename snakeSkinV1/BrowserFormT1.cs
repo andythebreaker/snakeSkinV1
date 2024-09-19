@@ -135,7 +135,7 @@ namespace snakeSkinV1
         }
 
         //get col 0 
-        public List<string> getMask()
+        public List<string> getMask()//這是給輸出入使用的
         {
             List<string> valuesList = new List<string>();
 
