@@ -21,6 +21,7 @@ using System.Media;
 using NAudio.Wave;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using System.Text.RegularExpressions;
+using System.Net.Http;
 
 namespace snakeSkinV1
 {
@@ -680,8 +681,7 @@ https://creativecommons.org/licenses/by-sa/3.0/
         private void todolist_Click(object sender, RibbonControlEventArgs e)
         {
             MessageBox.Show(
-                "dc區增加'清除'按鈕\n" +
-                "現在輸出入的遮罩跟旋轉方向的功能，是直接作在一起，如果有需要再分開"
+                "dc區增加'清除'按鈕\n" 
                 );
         }
 
@@ -1599,12 +1599,19 @@ https://creativecommons.org/licenses/by-sa/3.0/
                         htmlNew = RE_last.Replace(htmlNew, subRE);
                     }
 
-                    //MessageBox.Show(htmlNew); // 輸出 HTML 內容
-                    // ScrollableMessageBox.Show(
-                    return htmlNew.Replace("#@~~@#", "`").Replace("#%~~%#", "${").Replace("#!~~!#", "}");//,
-                                                                                                         //   "Scrollable MessageBox");
+
+                    string the_local_ver_html = htmlNew.Replace("#@~~@#", "`").Replace("#%~~%#", "${").Replace("#!~~!#", "}");
+
+                    return replace127.Checked ? ReplaceUrl127(the_local_ver_html): the_local_ver_html;
                 }
             }
+        }
+
+        private string ReplaceUrl127(string input)
+        {
+            string oldUrl = "http://127.0.0.1:48489";
+            string newUrl = "https://cdn.jsdelivr.net/gh/andythebreaker/snakeskin@V" + jsver.Text;
+            return input.Replace(oldUrl, newUrl);
         }
 
         private void testgetcol0_Click(object sender, RibbonControlEventArgs e)
@@ -1613,6 +1620,44 @@ https://creativecommons.org/licenses/by-sa/3.0/
         }
 
         private void syncMask2IO_Click(object sender, RibbonControlEventArgs e)
+        {
+
+        }
+
+        private void http404test_Click(object sender, RibbonControlEventArgs e)
+        {
+            // Use an HTTP client to fetch the URL
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    // Send the GET request
+                    HttpResponseMessage response = client.GetAsync("http://127.0.0.1:48489").Result;
+
+                    // Check if the status code is 404
+                    if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    {
+                        MessageBox.Show("404 Not Found");
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Status Code: {(int)response.StatusCode}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle any exceptions that might occur (e.g., server not reachable)
+                    MessageBox.Show($"Error: {ex.Message}");
+                }
+            }
+        }
+
+        private void jsver_TextChanged(object sender, RibbonControlEventArgs e)
+        {
+
+        }
+
+        private void replace127_Click(object sender, RibbonControlEventArgs e)
         {
 
         }

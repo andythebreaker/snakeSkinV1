@@ -117,10 +117,13 @@
             this.assembHTML = this.Factory.CreateRibbonButton();
             this.testgetcol0 = this.Factory.CreateRibbonButton();
             this.defaultSnakeColorTest = this.Factory.CreateRibbonButton();
+            this.http404test = this.Factory.CreateRibbonButton();
             this.todolist = this.Factory.CreateRibbonButton();
             this.Rpath = this.Factory.CreateRibbonEditBox();
             this.musicPath = this.Factory.CreateRibbonEditBox();
             this.useOldR = this.Factory.CreateRibbonToggleButton();
+            this.replace127 = this.Factory.CreateRibbonCheckBox();
+            this.jsver = this.Factory.CreateRibbonEditBox();
             this.a1 = new System.Windows.Forms.ColorDialog();
             this.a2 = new System.Windows.Forms.ColorDialog();
             this.b1 = new System.Windows.Forms.ColorDialog();
@@ -592,6 +595,8 @@
             this.pdOperate.Items.Add(this.Rpath);
             this.pdOperate.Items.Add(this.musicPath);
             this.pdOperate.Items.Add(this.useOldR);
+            this.pdOperate.Items.Add(this.replace127);
+            this.pdOperate.Items.Add(this.jsver);
             this.pdOperate.Label = "pdOperate";
             this.pdOperate.Name = "pdOperate";
             // 
@@ -612,6 +617,7 @@
             this.debugHide.Items.Add(this.assembHTML);
             this.debugHide.Items.Add(this.testgetcol0);
             this.debugHide.Items.Add(this.defaultSnakeColorTest);
+            this.debugHide.Items.Add(this.http404test);
             this.debugHide.Items.Add(this.todolist);
             this.debugHide.Label = "debugHide";
             this.debugHide.Name = "debugHide";
@@ -723,6 +729,13 @@
             this.defaultSnakeColorTest.ShowImage = true;
             this.defaultSnakeColorTest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.defaultSnakeColorTest_Click);
             // 
+            // http404test
+            // 
+            this.http404test.Label = "http404test";
+            this.http404test.Name = "http404test";
+            this.http404test.ShowImage = true;
+            this.http404test.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.http404test_Click);
+            // 
             // todolist
             // 
             this.todolist.Label = "todolist";
@@ -747,6 +760,20 @@
             this.useOldR.Label = "使用舊版渲染R程式";
             this.useOldR.Name = "useOldR";
             this.useOldR.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.useOldR_Click);
+            // 
+            // replace127
+            // 
+            this.replace127.Checked = true;
+            this.replace127.Label = "replace127";
+            this.replace127.Name = "replace127";
+            this.replace127.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.replace127_Click);
+            // 
+            // jsver
+            // 
+            this.jsver.Label = "ver";
+            this.jsver.Name = "jsver";
+            this.jsver.Text = "2.1.1";
+            this.jsver.TextChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.jsver_TextChanged);
             // 
             // a1
             // 
@@ -891,6 +918,9 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton assembHTML;
         internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox syncMask2IO;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton testgetcol0;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton http404test;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox replace127;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox jsver;
     }
 
     partial class ThisRibbonCollection
