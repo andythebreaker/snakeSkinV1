@@ -563,7 +563,7 @@ https://creativecommons.org/licenses/by-sa/3.0/
             htmlVar["sb"] = sb;
             htmlVar["sc"] = sc;
             htmlVar["sd"] = sd;
-            htmlVar["rodb"] = JsonConvert.SerializeObject(maskMain.getMask()); // Convert the list to a JSON string using Newtonsoft.Json
+            htmlVar["rodb"] = "{\"i\":[\"進口\"],\"o\":[\"出口\"]}";//JsonConvert.SerializeObject(maskMain.getMask());
 
             string content2 = genHtml(htmlVar);
 
